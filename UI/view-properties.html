@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel = "Stylesheet" href = "assets/css/view-properties.css" />
+<link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
+<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+<script src = "assets/js/navigation.js"></script>  
+</head>
+<body>
+        <div class="topnav">
+                <a class="active" href="index.html">PropertyPro</a>
+                <a href="#contact"><span style="font-size:18x;cursor:pointer" onclick="openNav()">&#9776; Your Menu</span></a>
+                <div class="login-container">
+                    <a button type="submit" href = "signUp.html">Logout</a>
+                </div>
+              </div>
+
+              <div id="mySidenav" class="sidenav">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                    <a href="user-dashboard.html">Dashboard</a>
+                    <hr>
+                    <a href="view-properties.html">View all your properties</a>
+                    <hr>
+                    <a href="post-property.html">Post a property</a>
+                    <hr>
+                    <a href="#">Saved houses</a>
+                    <hr>
+                    <a href="#">My messages/Requests</a>
+                    <hr>
+                    <a href="#">Contact PropertyPro NG</a>
+                    </div>
+                    
+
+
+<!-- MAIN (Center website) -->
+<div class="main">
+<!-- Portfolio Gallery Grid -->
+<div class="row">
+        <p class = "first-text">These are all your posted properties</p>
+  <div class="column">
+    <div class="content">
+      <a href = "prop1.html"><img src="pictures/house1.jpg" alt="Mountains" style="width:100%"></a>
+      <h3>4 bedroom duplex</h3>
+      <p>Located on the shores of Olman, free away from Nigerian problems. This could be the perfect fit for you!</p>
+      <p><b>For rent</b></p>
+      <p><i class="fas fa-tag"></i> N600,000 per year</p>
+      <p><i class="fas fa-bed"></i> 4 </p>
+      <p><i class="fas fa-restroom"></i> 3</p>
+      <p><a href="post-property.html"><i class='far fa-edit'></i></a>&nbsp;&nbsp;&nbsp;<i class='fas fa-trash-alt'>&nbsp;&nbsp;&nbsp;<i class="far fa-check-circle"></i></i></p>
+    </div>
+  </div>
+  <div class="column">
+    <div class="content">
+        <a href = "prop1.html"><img src="pictures/house2.jpg" alt="Lights" style="width:100%"></a>
+      <h3>2 bedroom flat</h3>
+      <p>This flat is the best you can ever find, because magically, you wouldn't need one!</p>
+      <p><b>For rent</b></p>
+      <p><i class="fas fa-tag"></i> N300,000 monthly</p>
+      <p><i class="fas fa-bed"></i> 2 </p>
+      <p><i class="fas fa-restroom"></i> 2</p>
+      <p><i class="fas fa-swimming-pool"></i> 1</p>
+      <p><i class='far fa-edit'></i>&nbsp;&nbsp;&nbsp;<i class='fas fa-trash-alt'>&nbsp;&nbsp;&nbsp;<i class="far fa-check-circle"></i></i></p>
+    </div>
+  </div>
+  <div class="column">
+    <div class="content">
+        <a href = "prop1.html"> <img src="pictures/house3.jpg" alt="Nature" style="width:100%"></a>
+      <h3>Office space</h3>
+      <p>Get 1000 clients daily by getting this office space, start the wonderful road to your fruitful career now.</p>
+      <p><b>For sale</b></p>
+      <p><b>six floors || 14 spaces, 200 sqm each</b></p>
+      <p><i class="fas fa-tag"></i> N750,000 monthly</p>
+      <p><i class="fas fa-restroom"></i> 6 </p>
+      <p><i class='far fa-edit'></i>&nbsp;&nbsp;&nbsp;<i class='fas fa-trash-alt'>&nbsp;&nbsp;&nbsp;<i class="far fa-check-circle"></i></i></p>
+    </div>
+  </div>
+  <div class="column">
+    <div class="content">
+        <a href = "prop1.html"><img src="pictures/house4.jpg" alt="Mountains" style="width:100%"></a>
+      <h3>Office space</h3>
+      <p>Get 5000 clients daily by getting this office space, start the wonderful road to your fruitful career now.</p>
+      <p><b>For sale</b></p>
+      <p><b>seven floors || 10 spaces, 150 sqm each</b></p>
+      <p><i class="fas fa-tag"></i> N700,000 monthly</p>
+      <p><i class="fas fa-restroom"></i> 8 </p>
+      <p><i class='far fa-edit'></i>&nbsp;&nbsp;&nbsp;<i class='fas fa-trash-alt'>&nbsp;&nbsp;&nbsp;<i class="far fa-check-circle"></i></i></p>
+    </div>
+  </div>
+<!-- END GRID -->
+</div>
+
+        
+<!-- END MAIN -->
+</div>
+
+<script>
+    function myFunction() {
+      alert("Hello! I am an alert box!");
+    }
+    </script>
+</body>
+</html>
