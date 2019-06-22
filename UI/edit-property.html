@@ -33,7 +33,7 @@
 
 
 <form id="regForm" >
-    <p class = "post">Post a Property</p>
+    <p class = "post">Edit a Property</p>
   <!-- One "tab" for each step in the form: -->
   <div class="tab"> Location details:
     <p>Choose state:<select>
@@ -216,7 +216,7 @@ function showTab(n) {
     document.getElementById("prevBtn").style.display = "inline";
   }
   if (n == (x.length - 1)) {
-    document.getElementById("nextBtn").innerHTML = "Submit";
+    document.getElementById("nextBtn").innerHTML = "Update";
   } else {
     document.getElementById("nextBtn").innerHTML = "Next";
   }
