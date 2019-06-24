@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel = "Stylesheet" href = "assets/css/view-properties.css" />
+<link rel = "Stylesheet" href = "assets/css/search-properties.css" />
 <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
 <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
 <script src = "assets/js/navigation.js"></script>  
@@ -18,25 +18,101 @@
 
               <div id="mySidenav" class="sidenav">
                     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                    <a href="user-dashboard.html">Dashboard</a>
-                    <hr>
-                    <a href="view-properties.html">View all your properties</a>
-                    <hr>
-                    <a href="post-property.html">Post a property</a>
-                    <hr>
                     <a href="#">Saved houses</a>
                     <hr>
-                    <a href="#">My messages/Requests</a>
+                    <a href="#">Contact an agent</a>
                     <hr>
                     <a href="#">Contact PropertyPro NG</a>
                     </div>
                     
 
 
+<!--Filter-search-properties-->
+<div align= "center">
+    <p><font color= "white">Filter all the stuffs you want!</font></p>
+				<form>
+						<select class= "home-search">
+								<option class="drop-down">All categories</option>
+								<option class = "drop-down">Buy</option>
+								<option class = "drop-down">Rent</option>
+								<option class = "drop-down">Short-Let</option>
+							   </select>
+							   <select class= "home-search" >
+									<option class = "drop-down">All states</option>
+									<option class= "drop-down">	Abia</option>
+									<option class= "drop-down"> Adamawa	</option>
+									<option class= "drop-down">Akwa Ibom </option>
+									<option class= "drop-down">Anambra	</option>
+									<option class= "drop-down">Bauchi</option>
+									<option class= "drop-down">Bayelsa</option>
+									<option class= "drop-down">Benue	</option>
+									<option class= "drop-down">Borno	</option>
+									<option class= "drop-down">Cross River	</option>
+									<option class= "drop-down">Delta</option>
+									<option class= "drop-down">Ebonyi	</option>
+									<option class= "drop-down">Edo	</option>
+									<option class= "drop-down">Ekiti</option>
+									<option class= "drop-down">Enugu</option>
+									<option class= "drop-down">Gombe	</option>
+									<option class= "drop-down">Imo	</option>
+									<option class= "drop-down">Jigawa	</option>
+									<option class= "drop-down">Kaduna	</option>
+									<option class= "drop-down">Kano	</option>
+									<option class= "drop-down">Katsina	</option>
+									<option class= "drop-down">Kebbi	</option>
+									<option class= "drop-down">Kogi	</option>
+									<option class= "drop-down">Kwara	</option>
+									<option class= "drop-down">Lagos	</option>
+									<option class= "drop-down">Nasarawa	</option>
+									<option class= "drop-down">Niger	</option>
+									<option class= "drop-down">Ogun	</option>
+									<option class= "drop-down">Ondo	</option>
+									<option class= "drop-down">Osun	</option>
+									<option class= "drop-down">Oyo</option>
+									<option class= "drop-down">Plateau	</option>
+									<option class= "drop-down">Rivers	</option>
+									<option class= "drop-down">Sokoto	</option>
+									<option class= "drop-down">Taraba	</option>
+									<option class= "drop-down">Yobe	</option>
+									<option class= "drop-down">Zamfara	</option>
+									<option class= "drop-down">FCT</option>
+								   </select>
+								   <select class= "home-search" >
+										<option class= "drop-down">All types</option>
+										<option class = "drop-down">Flat</option>
+										<option class = "drop-down">Mini-Flat</option>
+										<option class = "drop-down">Office spaces</option>
+										<option class = "drop-down">Duplex</option>
+										<option class = "drop-down">Shop(s)</option>
+										<option class = "drop-down">Self-contain</option>
+									   </select>
+									   <select class= "home-search" >
+											<option class = "drop-down">All Bedrooms</option>
+											<option class = "drop-down">2 bedrooms</option>
+											<option class = "drop-down">3 bedrooms</option>
+											<option class = "drop-down">4 bedrooms</option>
+											<option class = "drop-down">5 bedrooms</option>
+											<option class = "drop-down">6+ bedrooms</option>
+                                           </select>
+                                           <select class= "home-search" >
+                                                <option class = "drop-down">All Bathrooms</option>
+                                                <option class = "drop-down">2 </option>
+                                                <option class = "drop-down">3 </option>
+                                                <option class = "drop-down">4 </option>
+                                                <option class = "drop-down">5 </option>
+                                                <option class = "drop-down">6+ </option>
+                                               </select>
+
+				  <input class= "home-search1"  type="text" id="lname" name="lastname" placeholder="Location">
+				</form>
+				<a href = "search-properties.html" button class="button2">Search</a>
+			</div>		
+      
+
+
 <!--1st GRID -->
 <div class="main">
 <div class="row">
-        <p class = "first-text">These are all your posted properties</p>
   <div class="column">
     <div class="content">
       <a href = "prop1.html"><img src="./assets/images/house1.jpg" alt="Mountains" style="width:100%"></a>
@@ -48,7 +124,7 @@
       <p><i class="fas fa-tag"></i> N60,000,000</p>
       <p><i class="fas fa-bed"></i> 4 </p>
       <p><i class="fas fa-restroom"></i> 3</p>
-      <p><a href="edit-property.html"><i class='far fa-edit'></i></a>&nbsp;&nbsp;&nbsp;<i class='fas fa-trash-alt'>&nbsp;&nbsp;&nbsp;<i class="far fa-check-circle"></i></i></p>
+      <i class="fas fa-heart"></i>&nbsp;&nbsp;<i class="fas fa-thumbs-up"></i>
     </div>
   </div>
   <div class="column">
@@ -63,7 +139,7 @@
       <p><i class="fas fa-bed"></i> 2 </p>
       <p><i class="fas fa-restroom"></i> 2</p>
       <p><i class="fas fa-swimming-pool"></i> 1</p>
-      <p><a href="edit-property.html"><i class='far fa-edit'></i></a>&nbsp;&nbsp;&nbsp;<i class='fas fa-trash-alt'>&nbsp;&nbsp;&nbsp;<i class="far fa-check-circle"></i></i></p>
+      <i class="fas fa-heart"></i>&nbsp;&nbsp;<i class="fas fa-thumbs-up"></i>
     </div>
   </div>
   <div class="column">
@@ -77,7 +153,7 @@
       <p><i class="fas fa-square"></i> 2591 sqft</p>
       <p><i class="fas fa-tag"></i> N75,000,000</p>
       <p><i class="fas fa-restroom"></i> 6 </p>
-      <p><a href="edit-property.html"><i class='far fa-edit'></i></a>&nbsp;&nbsp;&nbsp;<i class='fas fa-trash-alt'>&nbsp;&nbsp;&nbsp;<i class="far fa-check-circle"></i></i></p>
+      <i class="fas fa-heart"></i>&nbsp;&nbsp;<i class="fas fa-thumbs-up"></i>
     </div>
   </div>
   <div class="column">
@@ -91,7 +167,7 @@
       <p><i class="fas fa-square"></i> 2591 sqft</p>
       <p><i class="fas fa-tag"></i> N700,000 monthly</p>
       <p><i class="fas fa-restroom"></i> 8 </p>
-      <p><a href="edit-property.html"><i class='far fa-edit'></i></a>&nbsp;&nbsp;&nbsp;<i class='fas fa-trash-alt'>&nbsp;&nbsp;&nbsp;<i class="far fa-check-circle"></i></i></p>
+      <i class="fas fa-heart"></i>&nbsp;&nbsp;<i class="fas fa-thumbs-up"></i>
     </div>
   </div>
 </div>
@@ -111,7 +187,7 @@
         <p><i class="fas fa-tag"></i> N60,000,000</p>
         <p><i class="fas fa-bed"></i> 4 </p>
         <p><i class="fas fa-restroom"></i> 3</p>
-        <p><a href="edit-property.html"><i class='far fa-edit'></i></a>&nbsp;&nbsp;&nbsp;<i class='fas fa-trash-alt'>&nbsp;&nbsp;&nbsp;<i class="far fa-check-circle"></i></i></p>
+        <i class="fas fa-heart"></i>&nbsp;&nbsp;<i class="fas fa-thumbs-up"></i>
       </div>
     </div>
     <div class="column">
@@ -126,7 +202,7 @@
         <p><i class="fas fa-bed"></i> 2 </p>
         <p><i class="fas fa-restroom"></i> 2</p>
         <p><i class="fas fa-swimming-pool"></i> 1</p>
-        <p><a href="edit-property.html"><i class='far fa-edit'></i></a>&nbsp;&nbsp;&nbsp;<i class='fas fa-trash-alt'>&nbsp;&nbsp;&nbsp;<i class="far fa-check-circle"></i></i></p>
+        <i class="fas fa-heart"></i>&nbsp;&nbsp;<i class="fas fa-thumbs-up"></i>
       </div>
     </div>
     <div class="column">
@@ -140,7 +216,7 @@
           <p><i class="fas fa-tag"></i> N60,000,000</p>
           <p><i class="fas fa-bed"></i> 4 </p>
           <p><i class="fas fa-restroom"></i> 3</p>
-          <p><a href="edit-property.html"><i class='far fa-edit'></i></a>&nbsp;&nbsp;&nbsp;<i class='fas fa-trash-alt'>&nbsp;&nbsp;&nbsp;<i class="far fa-check-circle"></i></i></p>
+          <i class="fas fa-heart"></i>&nbsp;&nbsp;<i class="fas fa-thumbs-up"></i>
         </div>
     </div>
     <div class="column">
@@ -155,7 +231,7 @@
           <p><i class="fas fa-bed"></i> 2 </p>
           <p><i class="fas fa-restroom"></i> 2</p>
           <p><i class="fas fa-swimming-pool"></i> 1</p>
-          <p><a href="edit-property.html"><i class='far fa-edit'></i></a>&nbsp;&nbsp;&nbsp;<i class='fas fa-trash-alt'>&nbsp;&nbsp;&nbsp;<i class="far fa-check-circle"></i></i></p>
+          <i class="fas fa-heart"></i>&nbsp;&nbsp;<i class="fas fa-thumbs-up"></i>
         </div>
     </div>
   </div>

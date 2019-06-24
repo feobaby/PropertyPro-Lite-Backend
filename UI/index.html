@@ -3,10 +3,11 @@
     <head>
             <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>
-PropertyPro
+PropertyPro-Lite
         </title>
         <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
-        <link rel = "Stylesheet" href = "assets/css/index.css" />
+				<link rel = "Stylesheet" href = "assets/css/index.css" />
+				<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
         <script src = "assets/js/navigation.js"></script>   
     </head>
     <body>
@@ -16,17 +17,13 @@ PropertyPro
 	<div id="mySidebar" class="sidebar">
 		<a href="javascript:void(0)" class="closebtn" onclick="closeNav1()">×</a>
 			<div class="overlay-content">			
-				<p class = "menu-heading">PropertyPro-Lite</p></a>
-						 <a href="#"> <p class = "menu">01. About us </p></a>
-						<hr class="line">
-						<a href="#"> <p class = "menu">02. Services</p></a>
-						<hr>			
-						<a href="signUp.html"> <p class = "menu">03. Register </p></a>
-						<hr>
-						 <a href="signUp.html"> <p class = "menu" >04. Sign up</p></a>
+				<p class = "menu-heading">PropertyPro-Lite</p></a>			
+						<a href="signUp.html"> <p class = "menu">01. Register </p></a>
 					<hr >	
-					<a href="#"> <p class = "menu" >05. FAQ</p></a>
-					<hr >			
+					<a href="#"> <p class = "menu" >02. FAQ</p></a>
+					<hr >	
+					<a href="#"> <p class = "menu" >03. The Team</p></a>
+					<hr >		
 			</div>				
 		</div>								
 			  <div id="main">
@@ -37,7 +34,7 @@ PropertyPro
 				
 <!--HomePage Log in -->
 		
-		<div class = "div">
+		<div class = "login-form">
 				<form >
 			<p class="slogan">Already have an account?</p>
 			<p class = "login">Log in.</p>		
@@ -45,84 +42,143 @@ PropertyPro
        <input type="text" id="email" name="email">
        <label class = "labels">Password:</label>
        <input type="Password" id="pwd" name="pwd">
-<button class="button">Login</button>
+			 <a href = "user-dashboard.html" button class="button" href= "user-dashboard.html">Login</a>
 	</form>
 		</div>
 
-		<!--Homepage writeUp-->>
+		<!--Homepage writeUp-->
 <div align= "center">
-		<h2>Welcome to PropertyPro-Lite</h2>	
+		<h2 class = "welcome-property-pro-lite">Welcome to PropertyPro-Lite</h2>	
 	<p class= "abode">Time to get/find your next abode?</p>		  
-				<p class="login-little-text">Click on the hamburger menu/bar <br>icon to open the sidebar and push this content to the right.</p>
+				<p class="login-little-text">Search for any property you want, <br>as real estate agents, we understand your needs.</p>
 				<form>
-						<select>
-								<option>All categories</option>
+						<select class= "home-search">
+								<option class="drop-down">All categories</option>
+								<option class = "drop-down">Buy</option>
+								<option class = "drop-down">Rent</option>
+								<option class = "drop-down">Short-Let</option>
 							   </select>
 							   <select class= "home-search" >
-									<option>All states</option>
+									<option class = "drop-down">All states</option>
+									<option class= "drop-down">	Abia</option>
+									<option class= "drop-down"> Adamawa	</option>
+									<option class= "drop-down">Akwa Ibom </option>
+									<option class= "drop-down">Anambra	</option>
+									<option class= "drop-down">Bauchi</option>
+									<option class= "drop-down">Bayelsa</option>
+									<option class= "drop-down">Benue	</option>
+									<option class= "drop-down">Borno	</option>
+									<option class= "drop-down">Cross River	</option>
+									<option class= "drop-down">Delta</option>
+									<option class= "drop-down">Ebonyi	</option>
+									<option class= "drop-down">Edo	</option>
+									<option class= "drop-down">Ekiti</option>
+									<option class= "drop-down">Enugu</option>
+									<option class= "drop-down">Gombe	</option>
+									<option class= "drop-down">Imo	</option>
+									<option class= "drop-down">Jigawa	</option>
+									<option class= "drop-down">Kaduna	</option>
+									<option class= "drop-down">Kano	</option>
+									<option class= "drop-down">Katsina	</option>
+									<option class= "drop-down">Kebbi	</option>
+									<option class= "drop-down">Kogi	</option>
+									<option class= "drop-down">Kwara	</option>
+									<option class= "drop-down">Lagos	</option>
+									<option class= "drop-down">Nasarawa	</option>
+									<option class= "drop-down">Niger	</option>
+									<option class= "drop-down">Ogun	</option>
+									<option class= "drop-down">Ondo	</option>
+									<option class= "drop-down">Osun	</option>
+									<option class= "drop-down">Oyo</option>
+									<option class= "drop-down">Plateau	</option>
+									<option class= "drop-down">Rivers	</option>
+									<option class= "drop-down">Sokoto	</option>
+									<option class= "drop-down">Taraba	</option>
+									<option class= "drop-down">Yobe	</option>
+									<option class= "drop-down">Zamfara	</option>
+									<option class= "drop-down">FCT</option>
 								   </select>
 								   <select class= "home-search" >
-										<option>All types</option>
+										<option class= "drop-down">All types</option>
+										<option class = "drop-down">Flat</option>
+										<option class = "drop-down">Mini-Flat</option>
+										<option class = "drop-down">Office spaces</option>
+										<option class = "drop-down">Duplex</option>
+										<option class = "drop-down">Shop(s)</option>
+										<option class = "drop-down">Self-contain</option>
 									   </select>
 									   <select class= "home-search" >
-											<option>Bedroom</option>
+											<option class = "drop-down">All Bedrooms</option>
+											<option class = "drop-down">2 bedrooms</option>
+											<option class = "drop-down">3 bedrooms</option>
+											<option class = "drop-down">4 bedrooms</option>
+											<option class = "drop-down">5 bedrooms</option>
+											<option class = "drop-down">6+ bedrooms</option>
 										   </select>
 
-				  <input class= "home-search"  type="text" id="lname" name="lastname" placeholder="Location">
-				  </select>
-				  
+				  <input class= "home-search1"  type="text" id="lname" name="lastname" placeholder="Location">
 				</form>
-				<button class="button2">Search</button>
-			</div>			
+				<a href = "search-properties.html" button class="button2">Search</a>
+			</div>		
+<div align = "center">
+			<a href = "search-properties.html" button class="btn get-started">Get Started</a>
+			</div>
 <br><br>
 
 	  <!--- the boxes-->
 	  <div class = "box" align= "center">
-		<p class="about"> &#10019; ABOUT</p>
+		<a href= "#aboutus" style="text-decoration:none;"><p class="about"> &#10019; ABOUT</p></a>
 		<p class="about2">who we are</p>
 						</div>
 						<div class = "box">
-							<p class="about">&#10019; SERVICES</p>
+								<a href= "#services" style="text-decoration:none;">	<p class="about">&#10019; SERVICES</p></a>
 							<p class="about2">what we do</p>
 											</div>
 											<div class = "box">
-												<p class="about">&#10019; CONTACT</p>
+													<a href= "#contactus" style="text-decoration:none;">	<p class="about">&#10019; CONTACT</p></a>
 												<p class="about2">get in touch</p>
 																</div>
 															</div>
 <div>
+	<section id = "aboutus">
 	<p class = "about4">Who we are:</p>
 	<p class ="about6"><b>We are a group of real estate agents <br>ready to make your acquisitions easy.</b></p>
 			<p class = "about5">Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Donec rutrum congue leo eget malesuada. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.</p>
-			</div>
+		</section>	
+		</div>
 			<br>
-			<div  class= "Services">												
+			<div  class= "Services">	
+					<section id = "services">									
 			<p class = "about4">What we do:</p>
 			<p class ="about6"><b>We have everything you need to launch <br>and grow a successful digital business.</b></p>
 					<p class = "about5">Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Donec rutrum congue leo eget malesuada. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.</p>
-</div>
+				</section>		
+				</div>
 
 
 
 <div class="row">
 		<div class="column">
 		  <div class="card">
-			<h3 class= "about4">Secured properties</h3>
-			<p class= "text1">Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Donec </p>
+			<h3 class= "about4">First Step:</h3>
+			<p class= "text1">As an agent, you can post new property adverts as much as you like! <br>
+				As a user, start searching for your dream properties.</p>
 		  </div>
 		</div>
 	  
 		<div class="column">
 		  <div class="card">
-				<h3 class= "about4">Secured properties</h3>
-				<p class= "text1">Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Donec </p>
+				<h3 class= "about4">Second step:</h3>
+				<p class= "text1">As an agent, start contacting/meeting clients who have massive interests in your properties. <br>
+					As a user, contact trustworthy and reliable agents.</p>
 		  </div>
 		</div>
 		
 		<div class="column">
 		  <div class="card">
-				<h3 class= "about4">Secured properties</h3>
-				<p class= "text1">Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Donec </p>
+				<h3 class= "about4">Third step:</h3>
+				<p class= "text1">As an agent, start pushing your name to the public as a realtor<br>
+				As a user, unravel better and negotiable packages which you can't get in any other place.</p>
 		  </div>
 		</div>
 	  </div>
@@ -135,30 +191,30 @@ PropertyPro
 			<div class="column2">
 			  <div class="card">
 				  <img src= "./assets/images/house1.jpg" >
-				<h3 class= "about7">N650,000 || RENT || Yearly</h3>
-				<p class= "text1">Five bedroom flat with five bathrooms and a swimming pool.</p>
+				<h5>5 bedroom flat</h5>
+				<p class="text2">This flat is the best you can ever find, because magically, you wouldn't need one!</p>
 			  </div>
 			</div>
 		  
 			<div class="column2">
 			  <div class="card">
 					<img src= "./assets/images/house2.jpg" >
-					<h3 class= "about7">N50,000 || RENT || Monthly</h3>
-					<p class= "text1">Two bedroom flat with two bathrooms and a swimming pool.</p>
+					<h5>2 bedroom flat</h5>
+					<p class= "text2">This flat is the best you can ever find, because magically, you wouldn't need one!</p>
 			  </div>
 			</div>
 			<div class="column2">
 					<div class="card">
-							<img src= "./assets/images/house3.jpg" >
-							<h3 class= "about7">N50,000,000 || BUY </h3>
-							<p class= "text1">Three bedroom flat with two bathrooms and a swimming pool.</p>
+							<img src= "./assets/images/main-office1.jpg" >
+							<h5>Office Building </h5>
+							<p class= "text2">Get 1000 clients daily by getting this office space, start the wonderful road to your fruitful career now.</p>
 					</div>
 				  </div>
 				  <div class="column2">
 						<div class="card">
-								<img src= "./assets/images/house4.jpg" >
-								<h3 class= "about7">N10,000,000 || BUY </h3>
-								<p class= "text1">Five bedroom duplex with four bathrooms.</p>
+								<img src= "./assets/images/main-office2.jpg" >
+								<h5>Office Building </h5>
+								<p class= "text2">Get 5000 clients daily by getting this office space, start the wonderful road to your fruitful career now.</p>
 						</div>
 					  </div>
 				  </div>
@@ -172,34 +228,62 @@ PropertyPro
 		<div class="column1">
 		  <div class="card">
 			  <img src= "./assets/images/bg1.jpg" >
-			<h3 class= "about7">Tolu Somori || CEO Fender & Fender</h3>
-			<p class= "text1">Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Donec
-					Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Donec
-					Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Donec </p>
+			<h3 class= "about7">Tolu Somori<br>CEO Fender & Fender</h3>
+			<p class= "text1">I absolutely love the fact that I can pick from a large range of choices. Brilliant! </p>
 		  </div>
 		</div>
 	  
 		<div class="column1">
 		  <div class="card">
 				<img src= "./assets/images/bg2.jpg" >
-				<h3 class= "about7">Ade Osunade || CEO Taxistop</h3>
-				<p class= "text1">Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Donec 
-						Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Donec
-						Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Donec
+				<h3 class= "about7">Ade Osunade<br>CEO Taxistop</h3>
+				<p class= "text1">I finally found a house in Nigeria that is free away from its problems only on this website.
 				</p>
 		  </div>
 		</div>
 		<div class="column1">
 				<div class="card">
 						<img src= "./assets/images/bg3.jpg" >
-					  <h3 class= "about7">Ray-cheal Abiola || CEO Run's Cross</h3>
-					  <p class= "text1">Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Donec 
-							  Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Donec
-							  Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Donec
-					  </p>
+						<h3 class= "about7">Ray-cheal Abiola<br>CD,Run's Cross</h3>
+					  <p class= "text1">I found a perfect office space to run my design business.</p>
 				</div>
-			  </div>
+				</div>
+				<div class="column1">
+					<div class="card">
+							<img src= "./assets/images/bg4.png" >
+							<h3 class= "about7">Chukwuemeka Orji<br>Accountant,Prism Bank</h3>
+							<p class= "text1"> I found a perfect spot for a small-scale business in a short time.
+							</p>
+					</div>
+					</div>
+					<div class="column1">
+						<div class="card">
+								<img src= "./assets/images/bg5.jpg" >
+								<h3 class= "about7">Judith Krane<br>Human Rights Activist</h3>
+								<p class= "text1"> I could get a large space to assemble people for protests, campaigns and core meetings,
+									the agents too were also very professional.
+								</p>
+						</div>
+						</div>
 	  <div>
+<div class = "row3">
+		<div class="column3">
+				<div class="card1">
+					<section id= "contactus">
+<p class = "contactus">Do you want to contact us?</p>
+<p class = "contactus1"><i class="fas fa-envelope-square"></i> hello@PropertyProLite.com</p>
+<p class = "contactus2">Where to find us?</p>
+<p class = "contactus3"><i class="fas fa-map-marker-alt"></i> Roof top, Alman Road, Nigeria</p>
+<br>
+<p class = "contactus1">Reach out to us on our social platforms</p>
+<p  class = "contactus1"><i class="fab fa-facebook"></i><i class="fab fa-twitter-square"></i><i class="fab fa-instagram"></i><i class="fab fa-linkedin"></i></p>
+<br>
+<p class = "contactus1">All Rights Reserved. 2019<sup>&copy;</sup></p>	
+</section>		
+</div>
+				</div>
+</div>
+
 
 </body>					
 
