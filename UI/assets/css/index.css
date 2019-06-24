@@ -6,7 +6,7 @@ body {
     /* padding: 2px; */
   
   }
-  
+
   .abode {
     font-size: 2.5em;
     color: #fff;
@@ -21,7 +21,17 @@ body {
     color: black;
     background-color: white;
   }
-  
+
+  .home-search1[type=text] {
+    width: 10%;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: white;
+    background-color: transparent;
+  }
+
   .login-little-text {
     color: white;
     font-size: 1em;
@@ -52,6 +62,7 @@ body {
     font-family: 'Quicksand';
     margin-left: 2%;
     margin-top: 0%;
+    text-indent:-0.2em;
   }
   .about4 {
     font-size: 1.7em;
@@ -66,6 +77,7 @@ body {
     text-align-last: left;
     font-family: 'Quicksand';
     color: black;
+    text-indent:-0.2em;
   }
   
   .about7 {
@@ -83,15 +95,14 @@ body {
   }
   /*services*/
   .text1 {
-    font-size: 1.1em;
-    text-align: left;
-    text-align-last: left;
+    font-size: 0.95em;
+    text-align: center;
     font-family: 'Quicksand';
-    color: black
+    color: black;
+    text-indent: -0.1em;
   }
   
-  .div {
-      
+  .login-form {     
     width: 30%;
     padding: 25px;
     margin: 25px;
@@ -101,7 +112,7 @@ body {
     float: right;
   }
   .slogan {
-    color: rgb(201, 192, 192);
+  color: rgb(201, 192, 192);
   font-size: 1.0em;
   }
   
@@ -116,7 +127,7 @@ body {
   }
   .column1 {
     float: left;
-    width: 33%;
+    width: 20%;
     padding: 0 10px;
   }
   .column2 {
@@ -156,7 +167,7 @@ body {
   /* Style the counter cards */
   .card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-    padding: 16px;
+    padding: 10px;
     text-align: center;
     background-color: #f1f1f1;
   }
@@ -245,7 +256,7 @@ body {
    /* background-color: linear-gradient(rgb(32, 32, 30), rgb(71, 71, 67)); */
   }
   
-  h2 {
+  .welcome-property-pro-lite {
     position: relative;
     font-family: sans-serif;
     text-transform: uppercase;
@@ -346,9 +357,35 @@ body {
   font-size: 1.5em;
   
   }
+
   
+select{
+  width: 10%;
+  padding: 5px;
+  margin: 5px 0 14px 0;
+  display: inline-block;
+  border: 1px dotted white;
+  background: transparent;
+  color: white;
+  font-size: 1em;
+} 
+
+.home-search[type=text]{
+  width: 10%;
+  padding: 5px;
+  margin: 5px 0 14px 0;
+  display: inline-block;
+  border: 1px dotted white;
+  background: transparent;
+  color: white;
+  font-size: 1em;
+}
+.drop-down {
+  color: #000
+}
+
   /*page-login-form*/
-  input[type=text], input[type=password] {
+input[type=text], input[type=password] {
       width: 100%;
       padding: 5px;
       margin: 5px 0 14px 0;
@@ -366,7 +403,7 @@ body {
     }
   
     .button {
-      background:  #f1ecec;
+      background:   rgb(136, 36, 66);
       border: none;
       color: white;
       padding: 10px 32px;
@@ -374,16 +411,15 @@ body {
       text-decoration: none;
       display: inline-block;
       font-size: 16px;
-      margin: 4px 2px;
       cursor: pointer;
-      width: 80%;
-      color: black;
-      margin-left: 9%
+      width: 50%;
+      color: white;
+      margin-right: 8%
     }
   
   .button1 {
       background:  rgb(136, 36, 66);
-        border: 1px dotted white;
+      border: 1px dotted white;
       color: white;
       padding: 10px 32px;
       text-align: center;
@@ -411,22 +447,100 @@ body {
       color: white;
       margin-left: 3%
     }
-  
-    .button3 {
-      background:  rgb(136, 36, 66);
-      border: none;
-      color: white;
-      padding: 10px 32px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
+    
+    .btn {
+      border: 2px solid black;
+      background-color: transparent;
+      color: black;
+      padding: 14px 28px;
       font-size: 16px;
-      margin: 4px 2px;
       cursor: pointer;
-      width: 7%;
-      color: white;
-      margin-left: 3%
     }
+    
+    .get-started {
+      border-color: rgb(136, 36, 66);
+      color: white;
+      text-decoration: none;
+    }
+
+    @media screen and (min-width: 1366px) {
+     .get-started {
+      display: none;
+      }
+    }
+
+
+
+  .contactus {
+      color: white;
+      font-size: 1.9em;
+  }
+  .contactus1 {
+      font-size: 0.8em;
+      color: white;
+      margin-right: 8%
+  }
+  .contactus2 {
+    font-size: 1.5em;
+    color: white;
+    text-align: left
+  }
+  .contactus3 {
+    font-size: 1.0em;
+    color: white;
+    text-align: left
+  }
+  
+  @media screen and (max-width: 600px) {
+   .contactus {
+  font-size: 1.0em;
+   }
+   .contactus1 {
+    font-size: 0.6em;
+    margin-top: 5%
+   }
+   .contactus2 {
+    font-size: 1.0em;
+   }
+   .contactus3{
+    font-size: 0.6em;
+   }
+  }
+  
+   .column3 {
+      float: left;
+      width: 100%;
+    }
+    /* Remove extra left and right margins, due to padding */
+    .row1 {margin: 0 -5px;}
+    
+    /* Clear floats after the columns */
+    .row1:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    
+    /* Responsive columns */
+    @media screen and (max-width: 600px) {
+      .column3 {
+        width: 100%;
+        display: block;
+        margin-bottom: 20px;
+      }
+    }
+    
+    /* Style the counter cards */
+    .card1 {
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+      padding: 10px;
+      text-align: center;
+      background-color: #111
+    }
+
+
+
+
   /*All media queries*/
   
   /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
@@ -443,6 +557,18 @@ body {
     .box {
       display: none
     }
+    .home-search{
+      display: none;
+    }
+    input.home-search1{
+      display: none;
+    }
+    .button2 {
+      display: none;
+    }
+    .login-form{
+      display: none
+    }
   }
   @media screen and (max-height: 1366px) {
    #grad { height: 80vh;}
@@ -454,6 +580,7 @@ body {
   @media only screen and (max-width: 1024px) {
     .abode {
       font-size: 3.5em;
+      text-indent: -0.1em
     }
     .login-little-text {
       display: none
@@ -465,15 +592,22 @@ body {
       font-size: 1.0em
     }
     .about6 {
-      font-size: 1.3em
+      font-size: 1.3em;
+      text-align: left;
+      text-indent:-0.2em;
     }
     .about5 {
-      font-size: 1.2em
+      font-size: 1.0em;
+      text-align: left;
+      text-indent:-0.2em;
     }
     .slogan {
       font-size: 1.2em;
       text-align: justify;
       margin-left: 0.5%;
+  }
+  .welcome-property-pro-lite{
+    font-size: 1.0em
   }
   }
   
