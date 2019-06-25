@@ -110,7 +110,7 @@ body {
     width: 30%;
     padding: 25px;
     margin: 25px;
-    height: 35%;
+    height: 40%;
     border-radius: 2%;
     border: 1px dotted white;
     float: right;
@@ -122,6 +122,9 @@ body {
   }
 
  /*homepage colmn cards*/
+ * {
+  box-sizing: border-box;
+}
   .column {
     float: left;
     width: 33%;
@@ -440,71 +443,6 @@ input[type=text], input[type=password] {
     }
 
 
-/*Footer information*/
-  .contactus {
-      color: white;
-      font-size: 1.9em;
-  }
-  .contactus1 {
-      font-size: 0.8em;
-      color: white;
-      margin-right: 8%
-  }
-  .contactus2 {
-    font-size: 1.5em;
-    color: white;
-    text-align: left
-  }
-  .contactus3 {
-    font-size: 1.0em;
-    color: white;
-    text-align: left
-  }
-  
-  @media screen and (max-width: 600px) {
-   .contactus {
-  font-size: 1.0em;
-   }
-   .contactus1 {
-    font-size: 0.6em;
-    margin-top: 5%
-   }
-   .contactus2 {
-    font-size: 1.0em;
-   }
-   .contactus3{
-    font-size: 0.6em;
-   }
-  }
-  
-   .column3 {
-      float: left;
-      width: 100%;
-    }
-    .row1 {margin: 0 -5px;}
-    
-    .row1:after {
-      content: "";
-      display: table;
-      clear: both;
-    }
-    
-    @media screen and (max-width: 600px) {
-      .column3 {
-        width: 100%;
-        display: block;
-        margin-bottom: 20px;
-      }
-    }
-    .card1 {
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-      padding: 10px;
-      text-align: center;
-      background-color: #111
-    }
-
-
-
 
   /*All media queries*/
   
@@ -580,3 +518,16 @@ input[type=text], input[type=password] {
   }
   }
   
+  .footer {
+    clear: both;
+    position: relative;
+    height: 40px;
+    margin-top: -200px;
+    left: 0;
+    bottom:0;
+    margin: 0;
+    width: 100%;
+    background-color: rgb(136, 36, 66);
+    color: white;
+    text-align: center;
+ }
