@@ -1,0 +1,44 @@
+{
+  "name": "propertypro-lite",
+  "version": "1.0.0",
+  "description": "Property Pro Lite is a platform where people can create and/or search properties for sale or rent.",
+  "main": "index.js",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "body-parser": "^1.19.0",
+    "dictionary-en-us": "^2.1.1",
+    "express": "^4.17.1",
+    "remark-frontmatter": "^1.3.2",
+    "remark-preset-lint-consistent": "^2.0.3",
+    "remark-preset-lint-markdown-style-guide": "^2.1.3",
+    "remark-preset-lint-recommended": "^3.0.3",
+    "remark-retext": "^3.1.3",
+    "retext-english": "^3.0.3",
+    "retext-repeated-words": "^2.0.0",
+    "retext-sentence-spacing": "^3.0.0",
+    "retext-spell": "^3.0.0",
+    "retext-syntax-urls": "^1.0.2",
+    "retext-usage": "^0.5.0",
+    "unified": "^8.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.18.0"
+  },
+  "scripts": {
+    "start": "babel-node ./server/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/funmi5/PropertyPro-Lite.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/funmi5/PropertyPro-Lite/issues"
+  },
+  "homepage": "https://github.com/funmi5/PropertyPro-Lite#readme"
+}
