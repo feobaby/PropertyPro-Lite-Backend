@@ -1,7 +1,11 @@
+import Helper from './Helper';
+import fields from '../Models/usersTable';
+
 const regularExpression = /\S+@\S+\.\S+/;
 const regularExpression1 = /^[a-zA-Z]*$/;
 const regularExpression2 = /^[0-9]{11}$/;
 const regularExpression3 = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8}$/;
+
 class ValidateUsers {
   static signUp(req, res, next) {
     if (!req.body.email || !req.body.firstName || !req.body.lastName
@@ -36,6 +40,32 @@ class ValidateUsers {
           status: '400',
           error: 'Your password must be only 8 characters and must include at least an upper case letter, lower case letter, and a number.',
         });
+    }
+    return next();
+  }
+
+
+  static signIn(req, res, next) {
+    if (!req.body.email || !req.body.password) {
+      return res.status(400)
+        .json({
+          status: '400',
+          error: 'Please, supply all the information required!',
+        });
+    }
+    const user = fields.find(finduseremail => (finduseremail.email === req.body.email));
+    if (!user) {
+      return res.status(401).json({
+        status: '401',
+        error: 'Wrong email!',
+      });
+    }
+    const { password } = req.body;
+    if (!Helper.comparePassword(user.password, password)) {
+      return res.status(401).json({
+        status: '401',
+        error: 'Wrong password!',
+      });
     }
     return next();
   }
