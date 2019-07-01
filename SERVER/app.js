@@ -1,5 +1,9 @@
 import express from 'express';
 import router from './Routes/index';
+
+const dotenv = require('dotenv');
+
+dotenv.config();
 // eslint-disable-next-line linebreak-style
 const bodyParser = require('body-parser');
 
