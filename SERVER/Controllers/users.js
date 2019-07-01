@@ -22,20 +22,8 @@ class Usercontroller {
   }
 
   static signIn(req, res) {
-    const user = fields.find(finduseremail => (finduseremail.email === req.body.email));
-    if (!user) {
-      return res.status(401).json({
-        status: '401',
-        error: 'Wrong email!',
-      });
-    }
-    if (!Helper.comparePassword(user.password, req.body.password)) {
-      return res.status(401).json({
-        status: '401',
-        error: 'Wrong password!',
-      });
-    }
-    const token = Helper.generateToken(user.id);
+    const user = fields.find(findemail => (findemail.email === req.body.email));
+    const token = Helper.generateToken({ user });
     return res.status(200).json({
       status: '200',
       token,
