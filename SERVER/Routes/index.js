@@ -1,14 +1,16 @@
 import express from 'express';
 
-import users from '../Controllers/users';
-
-// import Auth from '../Middleware/Authenticate';
+import Usercontroller from '../Controllers/users';
+import Propertycontroller from '../Controllers/properties';
+import Auth from '../Middleware/Authenticate';
 import ValidateUsers from '../Middleware/validateUsers';
+import ValidateProperties from '../Middleware/validateProperties';
 
 const router = express.Router();
 
 // user to create an account
-router.post('/api/v1/auth/signUp', ValidateUsers.signUp, users.signUp);
-router.post('/api/v1/auth/signin', ValidateUsers.signIn, users.signIn);
+router.post('/api/v1/auth/signUp', ValidateUsers.signUp, Usercontroller.signUp);
+router.post('/api/v1/auth/signin', ValidateUsers.signIn, Usercontroller.signIn);
+router.post('/api/v1/auth/postproperty', Auth.verifyToken, ValidateProperties.postproperty, Propertycontroller.postProperty);
 
 export default router;
