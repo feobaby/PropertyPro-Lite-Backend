@@ -32,6 +32,35 @@ class Propertycontroller {
         }],
       });
   }
+
+  static updateProperty(req, res) {
+    const id = parseInt(req.params.id, 10);
+    let recordFound;
+    let itemIndex;
+    fields.Property.find((record, index) => {
+      if (record.id === id) {
+        recordFound = record;
+        itemIndex = index;
+      }
+    });
+    const updateProperty = {
+      id: recordFound.id,
+      price: req.body.price || recordFound.price,
+      status: req.body.status || recordFound.status,
+      duration: req.body.duration || recordFound.duration,
+      imageUrl: req.body.imageUrl || recordFound.imageUrl,
+    };
+    const token = Helper.generateToken(updateProperty.id);
+    fields.Property.splice(itemIndex, 1, updateProperty);
+    return res.status(200)
+      .json({
+        status: '200',
+        data: [{
+          token,
+          updateProperty,
+        }],
+      });
+  }
 }
 
 export default Propertycontroller;

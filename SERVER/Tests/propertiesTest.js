@@ -1,4 +1,3 @@
-import moment from 'moment';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import request from 'supertest';
@@ -9,7 +8,7 @@ const { expect } = chai;
 chai.use(chaiHttp);
 const token = process.env.JWT_TOKEN;
 
-const invalidtoken = 'eyJhbGciOiJIUzI1iIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOnsidXNlciI6eyJpZCI6MSwiZW1haWwiOiJmdW5taWpvc2VwaEBob3RtYWlsLmNvbSIsImZpcnN0TmFtZSI6IkZ1bm1pIiwibGFzdE5hbWUiOiJPbGFpeWEiLCJwYXNzd29yZCI6IiQyYiQwOCRhcEVtRUZrNHp0ZEVyL0NKL0lPNnNlc3VZYS5GelR4QWZQRS9IVzd3WURXd3UzSWIvQ1dOYSIsInBob25lTnVtYmVyIjoiMDgwNjU2ODc4ODciLCJpc0FkbWluIjoiTk8ifX0sImlhdCI6MTU2MjAwODExMywiZXhwIjoxNTYyNjEyOTEzfQ.jY2DncBB7jS1bo9jMzOZeoXWEmI5eZC1hh12QkTVDY4';
+const invalidtoken = 'yJhbGciOiJIUzI1iIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOnsidXNlciI6eyJpZCI6MSwiZW1haWwiOiJmdW5taWpvc2VwaEBob3RtYWlsLmNvbSIsImZpcnN0TmFtZSI6IkZ1bm1pIiwibGFzdE5hbWUiOiJPbGFpeWEiLCJwYXNzd29yZCI6IiQyYiQwOCRhcEVtRUZrNHp0ZEVyL0NKL0lPNnNlc3VZYS5GelR4QWZQRS9IVzd3WURXd3UzSWIvQ1dOYSIsInBob25lTnVtYmVyIjoiMDgwNjU2ODc4ODciLCJpc0FkbWluIjoiTk8ifX0sImlhdCI6MTU2MjAwODExMywiZXhwIjoxNTYyNjEyOTEzfQ.jY2DncBB7jS1bo9jMzOZeoXWEmI5eZC1hh12QkTVDY4';
 
 // eslint-disable-next-line no-undef
 describe('POST /api/v1/auth/postproperty ', () => {
@@ -26,7 +25,7 @@ describe('POST /api/v1/auth/postproperty ', () => {
       state: 'Ogun',
       city: 'Abeokuta',
       address: 'No.4, Iron man street.',
-      createdOn: 'Nove',
+      createdOn: '2019-07-03T19:23:42.215Z',
       imageUrl: 'https://res.cloudinary.com/dlifhuus1/image/upload/v1562011203/propertypro-lite/house3_skq8ou.jpg',
     };
     request(app)
@@ -55,7 +54,6 @@ describe('POST /api/v1/auth/postproperty ', () => {
       state: 'Ogun',
       city: '',
       address: 'No.4, Iron man street.',
-      createdOn: moment(new Date()),
       imageUrl: 'https://res.cloudinary.com/dlifhuus1/image/upload/v1562011203/propertypro-lite/house3_skq8ou.jpg',
     };
     request(app)
@@ -84,7 +82,6 @@ describe('POST /api/v1/auth/postproperty ', () => {
       state: 'Ogun',
       city: 'Abeokuta',
       address: 'No.4, Iron man street.',
-      createdOn: moment(new Date()),
       imageUrl: 'https://res.cloudinary.com/dlifhuus1/image/upload/v1562011203/propertypro-lite/house3_skq8ou.jpg',
     };
     request(app)
@@ -113,7 +110,6 @@ describe('POST /api/v1/auth/postproperty ', () => {
       state: 'Ogun',
       city: 'Abeokuta',
       address: 'No.4, Iron man street.',
-      createdOn: moment(new Date()),
       imageUrl: 'https://res.cloudinary.com/dlifhuus1/image/upload/v1562011203/propertypro-lite/house3_skq8ou.jpg',
     };
     request(app)
@@ -127,6 +123,90 @@ describe('POST /api/v1/auth/postproperty ', () => {
         expect(res.body).to.include.key('message');
         expect(res.body.name).to.be.equal('JsonWebTokenError');
         expect(res.body.message).to.be.equal('invalid token');
+        done();
+      });
+  });
+});
+
+describe('PATCH /api/v1/auth/updateproperty/:id ', () => {
+  it('should update a property', (done) => {
+    const updatepropertydetails = {
+      price: 'N2,000,000',
+      status: 'Sold',
+      duration: 'Nil',
+      imageUrl: 'https://res.cloudinary.com/dlifhuus1/image/upload/v1562011203/propertypro-lite/house3_skq8ou.jpg',
+    };
+    request(app)
+      .patch('/api/v1/auth/updateproperty/1')
+      .set('Authorization', token)
+      .send(updatepropertydetails)
+      .end((err, res) => {
+        expect(res.status).to.be.equal(200);
+        expect(res).to.have.status('200');
+        expect(res.body).to.include.key('data');
+        expect(res.body).to.include.key('status');
+        expect(res.body.data[0]).to.include.key('token');
+        expect(res.body.data[0]).to.include.key('updateProperty');
+        done();
+      });
+  });
+
+  it('should return an error if token is not provided', (done) => {
+    const updatepropertydetails = {
+      price: 'N2,000,000',
+      status: 'Sold',
+      duration: 'Nil',
+      image_url: 'https://res.cloudinary.com/dlifhuus1/image/upload/v1562011203/propertypro-lite/house3_skq8ou.jpg',
+    };
+    request(app)
+      .patch('/api/v1/auth/updateproperty/1')
+      .send(updatepropertydetails)
+      .end((err, res) => {
+        expect(res.status).to.be.equal(400);
+        expect(res).to.have.status('400');
+        expect(res.body).to.include.key('status');
+        expect(res.body).to.include.key('error');
+        expect(res.body.error).to.be.equal('Token is not provided');
+        done();
+      });
+  });
+  it('should return an error if a user does not supply all fields', (done) => {
+    const updatepropertydetails = {
+      price: '',
+      status: '',
+      duration: '',
+      image_url: '',
+    };
+    request(app)
+      .patch('/api/v1/auth/updateproperty/2')
+      .set('Authorization', token)
+      .send(updatepropertydetails)
+      .end((err, res) => {
+        expect(res.status).to.be.equal(400);
+        expect(res).to.have.status('400');
+        expect(res.body).to.include.key('status');
+        expect(res.body).to.include.key('error');
+        expect(res.body.error).to.be.equal('Please, supply all required fields');
+        done();
+      });
+  });
+  it('should return an error if property is not found', (done) => {
+    const updatepropertydetails = {
+      price: 'N2,000,000',
+      status: 'Sold',
+      duration: 'Nil',
+      image_url: 'https://res.cloudinary.com/dlifhuus1/image/upload/v1562011203/propertypro-lite/house3_skq8ou.jpg',
+    };
+    request(app)
+      .patch('/api/v1/auth/updateproperty/9')
+      .set('Authorization', token)
+      .send(updatepropertydetails)
+      .end((err, res) => {
+        expect(res.status).to.be.equal(404);
+        expect(res).to.have.status('404');
+        expect(res.body).to.include.key('status');
+        expect(res.body).to.include.key('error');
+        expect(res.body.error).to.be.equal('Please, this property can not be found');
         done();
       });
   });

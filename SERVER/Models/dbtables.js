@@ -33,7 +33,7 @@ const fields = {
       state: 'Oyo',
       city: 'Ibadan',
       address: 'No.5, Are Road',
-      created_on: '2019-07-02T05:28:31.223Z',
+      createdOn: '2019-07-02T05:28:31.223Z',
       image_url: 'https://res.cloudinary.com/dlifhuus1/image/upload/v1562011203/propertypro-lite/house3_skq8ou.jpg',
     },
     {
