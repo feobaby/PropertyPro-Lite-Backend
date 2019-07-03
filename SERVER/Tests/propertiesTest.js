@@ -211,3 +211,75 @@ describe('PATCH /api/v1/auth/updateproperty/:id ', () => {
       });
   });
 });
+
+describe('PATCH /api/v1/auth/markproperty/:id ', () => {
+  it('should mark a property as sold', (done) => {
+    const markproperty = {
+      status: 'Sold',
+    };
+    request(app)
+      .patch('/api/v1/auth/markproperty/2')
+      .set('Authorization', token)
+      .send(markproperty)
+      .end((err, res) => {
+        expect(res.status).to.be.equal(200);
+        expect(res).to.have.status('200');
+        expect(res.body).to.include.key('data');
+        expect(res.body).to.include.key('status');
+        expect(res.body.data[0]).to.include.key('token');
+        expect(res.body.data[0]).to.include.key('markProperty');
+        done();
+      });
+  });
+
+  it('should return an error if token is not provided', (done) => {
+    const markproperty = {
+      status: 'Sold',
+    };
+    request(app)
+      .patch('/api/v1/auth/markproperty/2')
+      .send(markproperty)
+      .end((err, res) => {
+        expect(res.status).to.be.equal(400);
+        expect(res).to.have.status('400');
+        expect(res.body).to.include.key('status');
+        expect(res.body).to.include.key('error');
+        expect(res.body.error).to.be.equal('Token is not provided');
+        done();
+      });
+  });
+  it('should return an error if a user does not supply the status field', (done) => {
+    const markproperty = {
+      status: '',
+    };
+    request(app)
+      .patch('/api/v1/auth/markproperty/2')
+      .set('Authorization', token)
+      .send(markproperty)
+      .end((err, res) => {
+        expect(res.status).to.be.equal(400);
+        expect(res).to.have.status('400');
+        expect(res.body).to.include.key('status');
+        expect(res.body).to.include.key('error');
+        expect(res.body.error).to.be.equal('Please, supply the status');
+        done();
+      });
+  });
+  it('should return an error if property is not found', (done) => {
+    const markproperty = {
+      status: '',
+    };
+    request(app)
+      .patch('/api/v1/auth/markproperty/9')
+      .set('Authorization', token)
+      .send(markproperty)
+      .end((err, res) => {
+        expect(res.status).to.be.equal(404);
+        expect(res).to.have.status('404');
+        expect(res.body).to.include.key('status');
+        expect(res.body).to.include.key('error');
+        expect(res.body.error).to.be.equal('Please, this property can not be found');
+        done();
+      });
+  });
+});

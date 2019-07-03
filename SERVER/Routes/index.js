@@ -13,5 +13,6 @@ router.post('/api/v1/auth/signUp', ValidateUsers.signUp, Usercontroller.signUp);
 router.post('/api/v1/auth/signin', ValidateUsers.signIn, Usercontroller.signIn);
 router.post('/api/v1/auth/postproperty', Auth.verifyToken, ValidateProperties.postproperty, Propertycontroller.postProperty);
 router.patch('/api/v1/auth/updateproperty/:id', Auth.verifyToken, ValidateProperties.updateproperty, Propertycontroller.updateProperty);
+router.patch('/api/v1/auth/markproperty/:id', Auth.verifyToken, ValidateProperties.markPropertySold, Propertycontroller.markPropertySold);
 
 export default router;

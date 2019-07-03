@@ -61,6 +61,22 @@ class Propertycontroller {
         }],
       });
   }
+
+  static markPropertySold(req, res) {
+    let markProperty = fields.Property.find(findid => findid.id === Number(req.params.id));
+    markProperty = {
+      status: req.body.status || recordFound.status,
+    };
+    const token = Helper.generateToken(markProperty.id);
+    return res.status(200)
+      .json({
+        status: '200',
+        data: [{
+          token,
+          markProperty,
+        }],
+      });
+  }
 }
 
 export default Propertycontroller;

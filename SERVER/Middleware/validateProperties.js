@@ -32,5 +32,24 @@ class ValidateProperties {
     }
     return next();
   }
+
+  static markPropertySold(req, res, next) {
+    const markproperty = fields.Property.find(findid => findid.id === Number(req.params.id));
+    if (!markproperty) {
+      res.status(404)
+        .json({
+          status: '404',
+          error: 'Please, this property can not be found',
+        });
+    }
+    if (!req.body.status) {
+      return res.status(400)
+        .json({
+          status: '400',
+          error: 'Please, supply the status',
+        });
+    }
+    return next();
+  }
 }
 export default ValidateProperties;
