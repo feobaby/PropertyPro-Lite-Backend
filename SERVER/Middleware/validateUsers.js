@@ -1,10 +1,11 @@
 import Helper from './Helper';
-import fields from '../Models/usersTable';
+import fields from '../Models/dbtables';
 
 const regularExpression = /\S+@\S+\.\S+/;
 const regularExpression1 = /^[a-zA-Z]*$/;
 const regularExpression2 = /^[0-9]{11}$/;
 const regularExpression3 = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8}$/;
+
 
 class ValidateUsers {
   static signUp(req, res, next) {
@@ -40,6 +41,11 @@ class ValidateUsers {
           status: '400',
           error: 'Your password must be only 8 characters and must include at least an upper case letter, lower case letter, and a number.',
         });
+    } if (fields.User.find(existingUser => (existingUser.email === req.body.email))) {
+      return res.status(409).json({
+        status: 409,
+        error: 'Sorry, this email has already been registered!',
+      });
     }
     return next();
   }
@@ -53,7 +59,7 @@ class ValidateUsers {
           error: 'Please, supply all the information required!',
         });
     }
-    const user = fields.find(finduseremail => (finduseremail.email === req.body.email));
+    const user = fields.User.find(finduseremail => finduseremail.email === req.body.email);
     if (!user) {
       return res.status(401).json({
         status: '401',

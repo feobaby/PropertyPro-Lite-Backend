@@ -13,7 +13,8 @@ const properties = [
     city: 'Ibadan',
     address: 'No.5, Are Road',
     created_on: 'November 25 2018',
-    image_url: 'funmi111',
+    // image_url: 'https://res.cloudinary.com/dlifhuus1/image/upload/v1562011203/propertypro-lite/house3_skq8ou.jpg'
+    // 'https://res.cloudinary.com/dlifhuus1/image/upload/v1562011221/propertypro-lite/livingroom1_miqdmc.jpg',
     isAdmin: 'NO',
   },
   {

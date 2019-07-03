@@ -12,13 +12,12 @@ chai.use(chaiHttp);
 describe('POST /api/v1/auth/signup ', () => {
   it('should create a new user account', (done) => {
     const account = {
-      id: 5,
       email: 'funmijohn@hotmail.com',
       firstName: 'Funmilola',
       lastName: 'John',
       password: 'fuDd3457',
       phoneNumber: '08039873675',
-      isAdmin: 'NO',
+      isAdmin: 'false',
     };
     request(app)
       .post('/api/v1/auth/signup')
@@ -28,27 +27,18 @@ describe('POST /api/v1/auth/signup ', () => {
         expect(res).to.have.status('201');
         expect(res.body).to.include.key('status');
         expect(res.body).to.include.key('data');
-        // expect(res.body.data[0]).to.include.key('token');
-        // expect(res.body.data[0].account).to.include.key('id');
-        // expect(res.body.data[0]).to.include.key('email');
-        // expect(res.body.data[0]).to.include.key('firstName');
-        // expect(res.body.data[0]).to.include.key('lastName');
-        // expect(res.body.data[0]).to.include.key('password');
-        // expect(res.body.data[0]).to.include.key('phoneNumber');
-        // expect(res.body.data[0]).to.include.key('isAdmin');
         done();
       });
   });
 
   it('should return an error if a user does not supply all information', (done) => {
     const account1 = {
-      id: 6,
       email: '',
       firstName: '',
       lastName: 'John',
       password: 'fuDd3457',
       phoneNumber: '',
-      isAdmin: 'NO',
+      isAdmin: 'false',
     };
     request(app)
       .post('/api/v1/auth/signup')
@@ -65,13 +55,12 @@ describe('POST /api/v1/auth/signup ', () => {
 
   it('should return an error if the email supplied is incorrect', (done) => {
     const account1 = {
-      id: 5,
       email: 'funmijohnhotmail.com',
       firstName: 'Funmilola',
       lastName: 'John',
       password: 'fuDd3457',
       phoneNumber: '08039873675',
-      isAdmin: 'NO',
+      isAdmin: 'false',
     };
     request(app)
       .post('/api/v1/auth/signup')
@@ -88,13 +77,12 @@ describe('POST /api/v1/auth/signup ', () => {
 
   it('should return an error if the names supplied are invalid', (done) => {
     const account1 = {
-      id: 5,
       email: 'funmijohn@hotmail.com',
       firstName: 'Funmilola1',
       lastName: 'John',
       password: 'fuDd3457',
       phoneNumber: '08039873675',
-      isAdmin: 'NO',
+      isAdmin: 'false',
     };
     request(app)
       .post('/api/v1/auth/signup')
@@ -111,13 +99,12 @@ describe('POST /api/v1/auth/signup ', () => {
 
   it('should return an error if the phone number supplied is invalid', (done) => {
     const account1 = {
-      id: 5,
       email: 'funmijohn@hotmail.com',
       firstName: 'Funmilola',
       lastName: 'John',
       password: 'fuDd3457',
       phoneNumber: '0803987367r',
-      isAdmin: 'NO',
+      isAdmin: 'false',
     };
     request(app)
       .post('/api/v1/auth/signup')
@@ -134,13 +121,12 @@ describe('POST /api/v1/auth/signup ', () => {
 
   it('should return an error if the password supplied is invalid', (done) => {
     const account1 = {
-      id: 5,
       email: 'funmijohn@hotmail.com',
       firstName: 'Funmilola',
       lastName: 'John',
       password: 'fuDd34579.',
       phoneNumber: '08039873675',
-      isAdmin: 'NO',
+      isAdmin: 'false',
     };
     request(app)
       .post('/api/v1/auth/signup')
@@ -151,6 +137,28 @@ describe('POST /api/v1/auth/signup ', () => {
         expect(res.body).to.include.key('status');
         expect(res.body).to.include.key('error');
         expect(res.body.error).to.be.equal('Your password must be only 8 characters and must include at least an upper case letter, lower case letter, and a number.');
+        done();
+      });
+  });
+
+  it('should return an error if the email is has been registered', (done) => {
+    const account1 = {
+      email: 'funmijoseph@hotmail.com',
+      firstName: 'Funmi',
+      lastName: 'Olaiya',
+      password: 'Funmi111',
+      phoneNumber: '08065687887',
+      isAdmin: 'false',
+    };
+    request(app)
+      .post('/api/v1/auth/signup')
+      .send(account1)
+      .end((err, res) => {
+        expect(res.status).to.be.equal(409);
+        expect(res).to.have.status('409');
+        expect(res.body).to.include.key('status');
+        expect(res.body).to.include.key('error');
+        expect(res.body.error).to.be.equal('Sorry, this email has already been registered!');
         done();
       });
   });

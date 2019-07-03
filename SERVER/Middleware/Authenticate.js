@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 class Auth {
   // eslint-disable-next-line consistent-return
   static verifyToken(req, res, next) {
-    const token = req.headers['x-access-token'];
+    const token = req.headers.authorization;
     if (!token) {
       return res.status(400).json({
         status: '400',
@@ -14,11 +14,11 @@ class Auth {
       const decoded = jwt.verify(token, process.env.SECRET_KEY);
       const rows = [decoded.userId];
       if (!rows) {
-        return res.status(500).json({
+        return res.status(400).json({
           data:
           [{
-            status: 400,
-            error: 'The token you provided is invalid',
+            name: 'JsonWebTokenError',
+            message: 'invalid token',
           }],
         });
       }
