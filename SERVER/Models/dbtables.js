@@ -52,6 +52,22 @@ const fields = {
       createdOn: '2019-07-02T05:28:31.223Z',
       imageUrl: 'https://res.cloudinary.com/dlifhuus1/image/upload/v1562011203/propertypro-lite/house3_skq8ou.jpg',
     },
+    {
+      id: 3,
+      owner: 'Tolu Olaiya',
+      status: 'Available',
+      price: 'N10,000,000',
+      purpose: 'Rent',
+      duration: 'Daily',
+      type: 'Sky-scraper',
+      bedroom: '12',
+      bathroom: '13',
+      state: 'Oyo',
+      city: 'Ibadan',
+      address: 'No.5, Ring Road',
+      createdOn: '2019-07-02T05:28:31.223Z',
+      imageUrl: 'https://res.cloudinary.com/dlifhuus1/image/upload/v1562011203/propertypro-lite/house3_skq8ou.jpg',
+    },
   ],
 };
 
