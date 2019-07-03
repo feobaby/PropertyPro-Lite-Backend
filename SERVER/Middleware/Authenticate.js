@@ -17,8 +17,8 @@ class Auth {
         return res.status(400).json({
           data:
           [{
-            name: 'JsonWebTokenError',
-            message: 'invalid token',
+            status: 400,
+            error: 'The token you provided is invalid',
           }],
         });
       }
