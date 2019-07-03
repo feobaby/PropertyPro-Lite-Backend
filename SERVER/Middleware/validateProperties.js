@@ -51,5 +51,17 @@ class ValidateProperties {
     }
     return next();
   }
+
+  static deleteProperty(req, res, next) {
+    const deleteProperty = fields.Property.find(findid => findid.id === Number(req.params.id));
+    if (!deleteProperty) {
+      res.status(404)
+        .json({
+          status: '404',
+          error: 'Please, this property can not be found',
+        });
+    }
+    return next();
+  }
 }
 export default ValidateProperties;

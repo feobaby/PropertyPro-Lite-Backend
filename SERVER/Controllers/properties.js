@@ -77,6 +77,22 @@ class Propertycontroller {
         }],
       });
   }
+
+  static deleteProperty(req, res) {
+    const id = parseInt(req.params.id, 10);
+    fields.Property.find((record, index) => {
+      if (record.id === id) {
+        fields.Property.splice(index, 1);
+        return res.status(200)
+          .json({
+            status: '200',
+            data: [{
+              message: 'Your property advert is deleted successfully',
+            }],
+          });
+      }
+    });
+  }
 }
 
 export default Propertycontroller;
