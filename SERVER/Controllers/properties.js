@@ -103,6 +103,22 @@ class Propertycontroller {
         data: fields.Property,
       });
   }
+
+  static property(req, res) {
+    const id = parseInt(req.params.id, 10);
+    const property = fields.Property.find(item => (item.id === id));
+    if (property) {
+      const token = Helper.generateToken();
+      return res.status(200)
+        .json({
+          status: '200',
+          token,
+          data: [{
+          property,
+          }]
+        });
+    }
+  }
 }
 
 export default Propertycontroller;
