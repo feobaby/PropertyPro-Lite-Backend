@@ -326,32 +326,73 @@ describe('DELETE /api/v1/auth/deleteproperty/:id ', () => {
         done();
       });
   });
+});
 
-  describe('GET /api/v1/auth/allproperties', () => {
-    it('should get all properties', (done) => {
-      request(app)
-        .get('/api/v1/auth/allproperties')
-        .set('Authorization', token)
-        .end((err, res) => {
-          expect(res.status).to.be.equal(200);
-          expect(res).to.have.status('200');
-          expect(res.body).to.include.key('data');
-          expect(res.body).to.include.key('status');
-          done();
-        });
-    });
+describe('GET /api/v1/auth/allproperties', () => {
+  it('should get all properties', (done) => {
+    request(app)
+      .get('/api/v1/auth/allproperties')
+      .set('Authorization', token)
+      .end((err, res) => {
+        expect(res.status).to.be.equal(200);
+        expect(res).to.have.status('200');
+        expect(res.body).to.include.key('data');
+        expect(res.body).to.include.key('status');
+        done();
+      });
+  });
 
-    it('should return an error if token is not provided', (done) => {
-      request(app)
-        .get('/api/v1/auth/allproperties')
-        .end((err, res) => {
-          expect(res.status).to.be.equal(400);
-          expect(res).to.have.status('400');
-          expect(res.body).to.include.key('status');
-          expect(res.body).to.include.key('error');
-          expect(res.body.error).to.be.equal('Token is not provided');
-          done();
-        });
-    });
+  it('should return an error if token is not provided', (done) => {
+    request(app)
+      .get('/api/v1/auth/allproperties')
+      .end((err, res) => {
+        expect(res.status).to.be.equal(400);
+        expect(res).to.have.status('400');
+        expect(res.body).to.include.key('status');
+        expect(res.body).to.include.key('error');
+        expect(res.body.error).to.be.equal('Token is not provided');
+        done();
+      });
+  });
+});
+
+describe('GET /api/v1/auth/property/1', () => {
+  it('should get/view one(a specific) property', (done) => {
+    request(app)
+      .get('/api/v1/auth/property/1')
+      .set('Authorization', token)
+      .end((err, res) => {
+        expect(res.status).to.be.equal(200);
+        expect(res).to.have.status('200');
+        expect(res.body).to.include.key('data');
+        expect(res.body).to.include.key('status');
+        done();
+      });
+  });
+
+  it('should return an error if token is not provided', (done) => {
+    request(app)
+      .get('/api/v1/auth/property/1')
+      .end((err, res) => {
+        expect(res.status).to.be.equal(400);
+        expect(res).to.have.status('400');
+        expect(res.body).to.include.key('status');
+        expect(res.body).to.include.key('error');
+        expect(res.body.error).to.be.equal('Token is not provided');
+        done();
+      });
+  });
+  it('should return an error if property is not found', (done) => {
+    request(app)
+      .get('/api/v1/auth/property/9')
+      .set('Authorization', token)
+      .end((err, res) => {
+        expect(res.status).to.be.equal(404);
+        expect(res).to.have.status('404');
+        expect(res.body).to.include.key('status');
+        expect(res.body).to.include.key('error');
+        expect(res.body.error).to.be.equal('Please, this property can not be found');
+        done();
+      });
   });
 });
