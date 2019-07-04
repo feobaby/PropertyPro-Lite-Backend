@@ -93,6 +93,16 @@ class Propertycontroller {
       }
     });
   }
+
+  static allproperties(req, res) {
+    const token = Helper.generateToken();
+    return res.status(200)
+      .json({
+        status: '200',
+        token,
+        data: fields.Property,
+      });
+  }
 }
 
 export default Propertycontroller;

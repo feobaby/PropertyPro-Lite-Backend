@@ -287,7 +287,7 @@ describe('PATCH /api/v1/auth/markproperty/:id ', () => {
 describe('DELETE /api/v1/auth/deleteproperty/:id ', () => {
   it('should delete a property', (done) => {
     request(app)
-      .delete('/api/v1/auth/deleteproperty/2')
+      .delete('/api/v1/auth/deleteproperty/3')
       .set('Authorization', token)
       .end((err, res) => {
         expect(res.status).to.be.equal(200);
@@ -325,5 +325,33 @@ describe('DELETE /api/v1/auth/deleteproperty/:id ', () => {
         expect(res.body.error).to.be.equal('Please, this property can not be found');
         done();
       });
+  });
+
+  describe('GET /api/v1/auth/allproperties', () => {
+    it('should get all properties', (done) => {
+      request(app)
+        .get('/api/v1/auth/allproperties')
+        .set('Authorization', token)
+        .end((err, res) => {
+          expect(res.status).to.be.equal(200);
+          expect(res).to.have.status('200');
+          expect(res.body).to.include.key('data');
+          expect(res.body).to.include.key('status');
+          done();
+        });
+    });
+
+    it('should return an error if token is not provided', (done) => {
+      request(app)
+        .get('/api/v1/auth/allproperties')
+        .end((err, res) => {
+          expect(res.status).to.be.equal(400);
+          expect(res).to.have.status('400');
+          expect(res.body).to.include.key('status');
+          expect(res.body).to.include.key('error');
+          expect(res.body.error).to.be.equal('Token is not provided');
+          done();
+        });
+    });
   });
 });
