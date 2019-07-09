@@ -114,8 +114,23 @@ class Propertycontroller {
           status: '200',
           token,
           data: [{
-          property,
-          }]
+            property,
+          }],
+        });
+    }
+  }
+
+  static propertytype(req, res) {
+    const property = fields.Property[req.params.id].type;
+    if (property) {
+      const token = Helper.generateToken();
+      return res.status(200)
+        .json({
+          status: '200',
+          token,
+          data: [{
+            property,
+          }],
         });
     }
   }

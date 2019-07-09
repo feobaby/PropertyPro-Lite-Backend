@@ -17,4 +17,5 @@ router.patch('/api/v1/auth/markproperty/:id', Auth.verifyToken, ValidateProperti
 router.delete('/api/v1/auth/deleteproperty/:id', Auth.verifyToken, ValidateProperties.deleteProperty, Propertycontroller.deleteProperty);
 router.get('/api/v1/auth/allproperties', Auth.verifyToken, Propertycontroller.allproperties);
 router.get('/api/v1/auth/property/:id', Auth.verifyToken, ValidateProperties.property, Propertycontroller.property);
+router.get('/api/v1/auth/propertytype/:id', Auth.verifyToken, Propertycontroller.propertytype);
 export default router;
