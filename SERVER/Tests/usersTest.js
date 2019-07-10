@@ -1,27 +1,25 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import request from 'supertest';
+import db from '../DBconfig/index';
 import app from '../app';
+import Seed from './seed';
 
 const { expect } = chai;
-
-
 chai.use(chaiHttp);
+
+before(async () => {
+  const Users = 'DELETE FROM users';
+  await db.query(Users);
+});
 
 // eslint-disable-next-line no-undef
 describe('POST /api/v1/auth/signup ', () => {
   it('should create a new user account', (done) => {
-    const account = {
-      email: 'funmijohn@hotmail.com',
-      firstName: 'Funmilola',
-      lastName: 'John',
-      password: 'fuDd3457',
-      phoneNumber: '08039873675',
-      isAdmin: 'false',
-    };
     request(app)
       .post('/api/v1/auth/signup')
-      .send(account)
+      .set('Accept', 'application/json')
+      .send(Seed.account)
       .end((err, res) => {
         expect(res.status).to.be.equal(201);
         expect(res).to.have.status('201');
@@ -31,40 +29,116 @@ describe('POST /api/v1/auth/signup ', () => {
       });
   });
 
-  it('should return an error if a user does not supply all information', (done) => {
-    const account1 = {
-      email: '',
-      firstName: '',
-      lastName: 'John',
-      password: 'fuDd3457',
-      phoneNumber: '',
-      isAdmin: 'false',
-    };
+  it('should return an error if a user does not supply an email', (done) => {
     request(app)
       .post('/api/v1/auth/signup')
-      .send(account1)
+      .set('Accept', 'application/json')
+      .send(Seed.noEmail)
       .end((err, res) => {
         expect(res.status).to.be.equal(400);
         expect(res).to.have.status('400');
         expect(res.body).to.include.key('status');
         expect(res.body).to.include.key('error');
-        expect(res.body.error).to.be.equal('Please, supply all the information required!');
+        expect(res.body.error).to.be.equal('Please, supply an email!');
         done();
       });
   });
 
-  it('should return an error if the email supplied is incorrect', (done) => {
-    const account1 = {
-      email: 'funmijohnhotmail.com',
-      firstName: 'Funmilola',
-      lastName: 'John',
-      password: 'fuDd3457',
-      phoneNumber: '08039873675',
-      isAdmin: 'false',
-    };
+  it('should return an error if a user does not supply a first name', (done) => {
     request(app)
       .post('/api/v1/auth/signup')
-      .send(account1)
+      .set('Accept', 'application/json')
+      .send(Seed.noFirstName)
+      .end((err, res) => {
+        expect(res.status).to.be.equal(400);
+        expect(res).to.have.status('400');
+        expect(res.body).to.include.key('status');
+        expect(res.body).to.include.key('error');
+        expect(res.body.error).to.be.equal('Please, supply the first name!');
+        done();
+      });
+  });
+
+  it('should return an error if a user does not supply a last name', (done) => {
+    request(app)
+      .post('/api/v1/auth/signup')
+      .set('Accept', 'application/json')
+      .send(Seed.noLastName)
+      .end((err, res) => {
+        expect(res.status).to.be.equal(400);
+        expect(res).to.have.status('400');
+        expect(res.body).to.include.key('status');
+        expect(res.body).to.include.key('error');
+        expect(res.body.error).to.be.equal('Please, supply the last name!');
+        done();
+      });
+  });
+
+  it('should return an error if a user does not supply a password', (done) => {
+    request(app)
+      .post('/api/v1/auth/signup')
+      .set('Accept', 'application/json')
+      .send(Seed.noPassword)
+      .end((err, res) => {
+        expect(res.status).to.be.equal(400);
+        expect(res).to.have.status('400');
+        expect(res.body).to.include.key('status');
+        expect(res.body).to.include.key('error');
+        expect(res.body.error).to.be.equal('Please, supply the password!');
+        done();
+      });
+  });
+
+  it('should return an error if a user does not supply a phone number', (done) => {
+    request(app)
+      .post('/api/v1/auth/signup')
+      .set('Accept', 'application/json')
+      .send(Seed.noPhoneNumber)
+      .end((err, res) => {
+        expect(res.status).to.be.equal(400);
+        expect(res).to.have.status('400');
+        expect(res.body).to.include.key('status');
+        expect(res.body).to.include.key('error');
+        expect(res.body.error).to.be.equal('Please, supply the phone number!');
+        done();
+      });
+  });
+
+  it('should return an error if a user does not supply an address', (done) => {
+    request(app)
+      .post('/api/v1/auth/signup')
+      .set('Accept', 'application/json')
+      .send(Seed.noAddress)
+      .end((err, res) => {
+        expect(res.status).to.be.equal(400);
+        expect(res).to.have.status('400');
+        expect(res.body).to.include.key('status');
+        expect(res.body).to.include.key('error');
+        expect(res.body.error).to.be.equal('Please, supply the address!');
+        done();
+      });
+  });
+
+  it('should return an error if the admin status is not specified', (done) => {
+    request(app)
+      .post('/api/v1/auth/signup')
+      .set('Accept', 'application/json')
+      .send(Seed.noIsAdmin)
+      .end((err, res) => {
+        expect(res.status).to.be.equal(400);
+        expect(res).to.have.status('400');
+        expect(res.body).to.include.key('status');
+        expect(res.body).to.include.key('error');
+        expect(res.body.error).to.be.equal('Please, supply this info!');
+        done();
+      });
+  });
+
+  it('should return an error if the email supplied is invalid', (done) => {
+    request(app)
+      .post('/api/v1/auth/signup')
+      .set('Accept', 'application/json')
+      .send(Seed.invalidEmail)
       .end((err, res) => {
         expect(res.status).to.be.equal(400);
         expect(res).to.have.status('400');
@@ -75,40 +149,26 @@ describe('POST /api/v1/auth/signup ', () => {
       });
   });
 
-  it('should return an error if the names supplied are invalid', (done) => {
-    const account1 = {
-      email: 'funmijohn@hotmail.com',
-      firstName: 'Funmilola1',
-      lastName: 'John',
-      password: 'fuDd3457',
-      phoneNumber: '08039873675',
-      isAdmin: 'false',
-    };
+  it('should return an error if the firstname/ last name format supplied is wrong', (done) => {
     request(app)
       .post('/api/v1/auth/signup')
-      .send(account1)
+      .set('Accept', 'application/json')
+      .send(Seed.noValidNames)
       .end((err, res) => {
         expect(res.status).to.be.equal(400);
         expect(res).to.have.status('400');
         expect(res.body).to.include.key('status');
         expect(res.body).to.include.key('error');
-        expect(res.body.error).to.be.equal('Please, supply valid names!');
+        expect(res.body.error).to.be.equal('Please, supply valid name(s)!');
         done();
       });
   });
 
-  it('should return an error if the phone number supplied is invalid', (done) => {
-    const account1 = {
-      email: 'funmijohn@hotmail.com',
-      firstName: 'Funmilola',
-      lastName: 'John',
-      password: 'fuDd3457',
-      phoneNumber: '0803987367r',
-      isAdmin: 'false',
-    };
+  it('should return an error if the phone number format supplied is wrong', (done) => {
     request(app)
       .post('/api/v1/auth/signup')
-      .send(account1)
+      .set('Accept', 'application/json')
+      .send(Seed.noValidNumber)
       .end((err, res) => {
         expect(res.status).to.be.equal(400);
         expect(res).to.have.status('400');
@@ -119,18 +179,11 @@ describe('POST /api/v1/auth/signup ', () => {
       });
   });
 
-  it('should return an error if the password supplied is invalid', (done) => {
-    const account1 = {
-      email: 'funmijohn@hotmail.com',
-      firstName: 'Funmilola',
-      lastName: 'John',
-      password: 'fuDd34579.',
-      phoneNumber: '08039873675',
-      isAdmin: 'false',
-    };
+  it('should return an error if the password format supplied is wrong', (done) => {
     request(app)
       .post('/api/v1/auth/signup')
-      .send(account1)
+      .set('Accept', 'application/json')
+      .send(Seed.noValidPassword)
       .end((err, res) => {
         expect(res.status).to.be.equal(400);
         expect(res).to.have.status('400');
@@ -141,96 +194,17 @@ describe('POST /api/v1/auth/signup ', () => {
       });
   });
 
-  it('should return an error if the email is has been registered', (done) => {
-    const account1 = {
-      email: 'funmijoseph@hotmail.com',
-      firstName: 'Funmi',
-      lastName: 'Olaiya',
-      password: 'Funmi111',
-      phoneNumber: '08065687887',
-      isAdmin: 'false',
-    };
+  it('should return an error if the email has been registered before', (done) => {
     request(app)
       .post('/api/v1/auth/signup')
-      .send(account1)
+      .set('Accept', 'application/json')
+      .send(Seed.account)
       .end((err, res) => {
         expect(res.status).to.be.equal(409);
         expect(res).to.have.status('409');
         expect(res.body).to.include.key('status');
         expect(res.body).to.include.key('error');
-        expect(res.body.error).to.be.equal('Sorry, this email has already been registered!');
-        done();
-      });
-  });
-});
-
-describe('POST /api/v1/auth/signin ', () => {
-  it('a user should login', (done) => {
-    const account = {
-      email: 'funmijoseph@hotmail.com',
-      password: 'Funmi111',
-    };
-    request(app)
-      .post('/api/v1/auth/signin')
-      .send(account)
-      .end((err, res) => {
-        expect(res.status).to.be.equal(200);
-        expect(res).to.have.status('200');
-        expect(res.body).to.include.key('status');
-        expect(res.body).to.include.key('data');
-        expect(res.body).to.include.key('token');
-        done();
-      });
-  });
-
-  it('should return an error if a user does not supply all information', (done) => {
-    const account1 = {
-      email: '',
-      password: '',
-    };
-    request(app)
-      .post('/api/v1/auth/signin')
-      .send(account1)
-      .end((err, res) => {
-        expect(res.status).to.be.equal(400);
-        expect(res).to.have.status('400');
-        expect(res.body).to.include.key('status');
-        expect(res.body).to.include.key('error');
-        expect(res.body.error).to.be.equal('Please, supply all the information required!');
-        done();
-      });
-  });
-  it('should return an error if a user supplies a wrong email', (done) => {
-    const account1 = {
-      email: 'funmiT@gmail.com',
-      password: 'Funmi111',
-    };
-    request(app)
-      .post('/api/v1/auth/signin')
-      .send(account1)
-      .end((err, res) => {
-        expect(res.status).to.be.equal(401);
-        expect(res).to.have.status('401');
-        expect(res.body).to.include.key('status');
-        expect(res.body).to.include.key('error');
-        expect(res.body.error).to.be.equal('Wrong email!');
-        done();
-      });
-  });
-  it('should return an error if a user supplies a wrong password', (done) => {
-    const account1 = {
-      email: 'funmijoseph@hotmail.com',
-      password: '$2b$08$apEmEFk4ztdEr/CJ/IO6sesuYa.FzTxAfPE/HW7w',
-    };
-    request(app)
-      .post('/api/v1/auth/signin')
-      .send(account1)
-      .end((err, res) => {
-        expect(res.status).to.be.equal(401);
-        expect(res).to.have.status('401');
-        expect(res.body).to.include.key('status');
-        expect(res.body).to.include.key('error');
-        expect(res.body.error).to.be.equal('Wrong password!');
+        expect(res.body.error).to.be.equal('OOPS! This particular email has already been registered!');
         done();
       });
   });

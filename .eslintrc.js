@@ -20,5 +20,6 @@ module.exports = {
       "array-callback-return": 0, 
       "consistent-return": 0,
       "no-console": 0,
+      "camelcase": 0,
   },
 };

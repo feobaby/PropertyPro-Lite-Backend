@@ -1,5 +1,5 @@
 import express from 'express';
-import router from './Routes/index';
+import router from './Routes/prefixRoute';
 
 const dotenv = require('dotenv');
 
