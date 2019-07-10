@@ -1,47 +1,42 @@
+import moment from 'moment';
+import db from '../DBconfig/index';
 import Helper from '../Middleware/Helper';
-import fields from '../Models/dbtables';
 
 class Usercontroller {
-  static signUp(req, res) {
-    const hashPassword = Helper.hashPassword(req.body.password);
-    req.body.password = hashPassword;
+  static async signUp(req, res) {
+    const createQuery = `INSERT INTO
+      users (email, first_name, last_name, password, phone_number, address, is_admin, registered)
+      VALUES($1, $2, $3, $4, $5, $6, $7, $8)
+      returning *`;
     const {
-      email, firstName, lastName, password, phoneNumber,
+      email, first_name, last_name, password, phone_number, address, is_admin,
     } = req.body;
-    const account = {
-      id: fields.User.length + 1,
-      email,
-      firstName,
-      lastName,
-      password,
-      phoneNumber,
-      isAdmin: 'false',
-    };
-    const token = Helper.generateToken(account.id);
-    fields.User.push(account);
-    return res.status(201)
-      .json({
-        status: '201',
-        data:
-        [{
+
+    const hashPassword = Helper.hashPassword(password);
+
+    const values = [email, first_name, last_name, hashPassword, phone_number,
+      address, is_admin, moment(new Date())];
+
+    try {
+      const { rows } = await db.query(createQuery, values);
+      const token = Helper.generateToken(rows[0].id);
+      return res.status(201).json({
+        status: 201,
+        data: [{
           token,
-          account,
+          rows,
         }],
       });
-  }
-
-  static signIn(req, res) {
-    const user = fields.User.find(findemail => findemail.email === req.body.email);
-    const token = Helper.generateToken(user.id);
-    return res.status(200).json({
-      status: '200',
-      token,
-      data: [{
-        user,
-      }],
-    });
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(409)
+          .json({
+            status: 409,
+            error: 'OOPS! This particular email has already been registered!',
+          });
+      }
+    }
   }
 }
-
 
 export default Usercontroller;
