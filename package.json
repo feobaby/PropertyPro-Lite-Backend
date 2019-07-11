@@ -48,7 +48,7 @@
   },
   "scripts": {
     "start": "babel-node ./server/app.js",
-    "test": "nyc --reporter=html mocha --timeout 150000 --require babel-register ./SERVER/Tests   --exit",
+    "test": "nyc --reporter=html mocha --timeout 150000 --require babel-register ./server/Tests   --exit",
     "coverage": "nyc report --reporter=text-lcov --reporter=lcov | coveralls"
   },
   "repository": {
