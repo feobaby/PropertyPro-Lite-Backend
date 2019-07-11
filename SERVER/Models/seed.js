@@ -8,7 +8,6 @@ const Seed = {
     address: 'No. 4, Tade Ayade Close, New Bodija, Ibadan',
     is_admin: 'false',
   },
-
   noEmail: {
     email: '',
     first_name: 'Tade',
@@ -18,7 +17,6 @@ const Seed = {
     address: 'No. 4, Adesope Ileri Close, Lekki, Lagos',
     is_admin: 'false',
   },
-
   noFirstName: {
     email: 'TadeAde@gmail.com',
     first_name: '',
