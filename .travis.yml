@@ -1,18 +1,23 @@
 language: node_js
 node_js:
   - "stable"
+install:
+  - npm install -g codecov
 notifications:
   email: false
 services:
   - postgresql
 env:
-  global: CC_TEST_REPORTER_ID=2a61f24def1e61b131a9e06e7590328a9164cb5a3029fbe738316ab15b671512
+  global: 
+    - CC_TEST_REPORTER_ID=2a61f24def1e61b131a9e06e7590328a9164cb5a3029fbe738316ab15b671512
+    - CODACY_PROJECT_TOKEN=2413d3224a6044dd9e25d655c180c3db
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  - codecov
 cache:
   directories:
     - node_modules
@@ -23,5 +28,3 @@ script:
   - npm run test
 after_success:
   - npm run coverage
-  - npm run report-coverage
-  - npm run coveralls
