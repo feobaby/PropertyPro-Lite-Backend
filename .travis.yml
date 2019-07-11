@@ -1,8 +1,10 @@
 language: node_js
 node_js:
-  - "8.12.0"
+  - "node"
 install:
   - npm install -g codecov
+  - npm install -g mocha
+  - npm install -g nyc
 services:
   - postgres
 env:
