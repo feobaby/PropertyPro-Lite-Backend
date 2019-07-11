@@ -31,11 +31,11 @@
     "retext-spell": "^3.0.0",
     "retext-syntax-urls": "^1.0.2",
     "retext-usage": "^0.5.0",
-    "seed": "^0.4.4",
     "supertest": "^4.0.2",
     "unified": "^8.0.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.5.4",
     "babel-register": "^6.26.0",
     "coveralls": "^3.0.4",
     "eslint": "^5.16.0",
@@ -48,7 +48,7 @@
   },
   "scripts": {
     "start": "babel-node ./server/app.js",
-    "test": "nyc --reporter=html mocha --timeout 150000 --require babel-register ./server/tests  --exit",
+    "test": "nyc --reporter=html mocha --timeout 150000 --require babel-register SERVER/Tests  --exit",
     "coverage": "nyc report --reporter=text-lcov --reporter=lcov | coveralls"
   },
   "repository": {

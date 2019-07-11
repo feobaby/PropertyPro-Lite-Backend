@@ -1,12 +1,10 @@
 language: node_js
 node_js:
-  - "node"
-install:
-  - npm install -g codecov
-  - npm install -g mocha
-  - npm install -g nyc
+  - "stable"
+notifications:
+  email: false
 services:
-  - postgres
+  - postgresql
 env:
   global: CC_TEST_REPORTER_ID=2a61f24def1e61b131a9e06e7590328a9164cb5a3029fbe738316ab15b671512
 before_script:
@@ -15,10 +13,15 @@ before_script:
   - ./cc-test-reporter before-build
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
-  - istanbul cover ./node_modules/mocha/bin/_mocha --reporter lcovonly -- -R spec
-  - codecov
 cache:
   directories:
-    - "node_modules"
+    - node_modules
+before_script:
+  - npm install
+  - psql -c 'create database travis_ci_test;' -U postgres
+script: 
+  - npm run test
 after_success:
   - npm run coverage
+  - npm run report-coverage
+  - npm run coveralls
