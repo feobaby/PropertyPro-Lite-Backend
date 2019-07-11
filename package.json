@@ -47,8 +47,8 @@
     "nyc": "^14.1.1"
   },
   "scripts": {
-    "start": "babel-node ./Server/app.js",
-    "test": "nyc --reporter=html mocha --timeout 150000 --require babel-register ./Server/tests   --exit",
+    "start": "babel-node ./server/app.js",
+    "test": "nyc --reporter=html mocha --timeout 150000 --require babel-register ./server/tests  --exit",
     "coverage": "nyc report --reporter=text-lcov --reporter=lcov | coveralls"
   },
   "repository": {
