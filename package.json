@@ -36,6 +36,7 @@
     "unified": "^8.0.0"
   },
   "devDependencies": {
+    "babel-register": "^6.26.0",
     "coveralls": "^3.0.4",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",

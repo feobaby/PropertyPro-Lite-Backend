@@ -6,7 +6,7 @@ install:
   - npm install -g mocha
   - npm install -g nyc
 services:
-  - postgres
+  - postgresql
 env:
   global: CC_TEST_REPORTER_ID=2a61f24def1e61b131a9e06e7590328a9164cb5a3029fbe738316ab15b671512
 before_script:
