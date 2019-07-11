@@ -1,9 +1,9 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import request from 'supertest';
+import Seed from 'seed';
 import db from '../DBconfig/index';
 import app from '../app';
-import Seed from './seed';
 
 const { expect } = chai;
 chai.use(chaiHttp);
