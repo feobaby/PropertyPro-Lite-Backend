@@ -1,34 +1,25 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import request from 'supertest';
-// import db from '../DBconfig/index';
+import db from '../DBconfig/index';
 import app from '../app';
-// import Seed from './seed';
+import Seed from './seed';
 
 const { expect } = chai;
 chai.use(chaiHttp);
 
-// before(async () => {
-//   const Users = 'DELETE FROM users';
-//   await db.query(Users);
-// });
+before(async () => {
+  const Users = 'DELETE FROM users';
+  await db.query(Users);
+});
 
 // eslint-disable-next-line no-undef
 describe('POST /api/v1/auth/signup ', () => {
   it('should create a new user account', (done) => {
-    const account = {
-      email: 'funmijohn@hotmail.com',
-      first_name: 'Funmilola',
-      last_name: 'John',
-      password: 'fuDd3457',
-      phone_number: '08039873675',
-      address: 'No. 4, Tade Ayade Close, New Bodija, Ibadan',
-      is_admin: 'false',
-    };
     request(app)
       .post('/api/v1/auth/signup')
       .set('Accept', 'application/json')
-      .send(account)
+      .send(Seed.account)
       .end((err, res) => {
         expect(res.status).to.be.equal(201);
         expect(res).to.have.status('201');
