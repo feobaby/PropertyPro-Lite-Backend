@@ -1,8 +1,17 @@
 import chai from 'chai';
+
+
 import chaiHttp from 'chai-http';
+
 import request from 'supertest';
+
+// eslint-disable-next-line import/no-unresolved
 import Seed from './seed';
+
+// eslint-disable-next-line import/no-unresolved
 import db from '../DBconfig/index';
+
+// eslint-disable-next-line import/no-unresolved
 import app from '../app';
 
 const { expect } = chai;
