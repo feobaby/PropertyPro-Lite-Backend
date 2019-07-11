@@ -3,6 +3,7 @@ node_js:
   - "8.12.0"
 install:
   - npm install -g codecov
+  - npm install -g nyc
 services:
   - postgresql
 env:
@@ -22,4 +23,3 @@ cache:
     - "node_modules"
 after_success:
   - npm run coverage
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
