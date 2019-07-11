@@ -36,6 +36,7 @@
     "unified": "^8.0.0"
   },
   "devDependencies": {
+    "babel-register": "^6.26.0",
     "coveralls": "^3.0.4",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
@@ -47,7 +48,7 @@
   },
   "scripts": {
     "start": "babel-node ./server/app.js",
-    "test": "nyc --reporter=html mocha --timeout 150000 --require babel-register ./SERVER/Tests   --exit",
+    "test": "nyc --reporter=html mocha --timeout 150000 --require babel-register ./server/tests  --exit",
     "coverage": "nyc report --reporter=text-lcov --reporter=lcov | coveralls"
   },
   "repository": {
