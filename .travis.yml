@@ -1,8 +1,10 @@
 language: node_js
 node_js:
-  - "8.12.0"
+  - "stable"
 install:
   - npm install -g codecov
+notifications:
+  email: false
 services:
   - postgresql
 env:
@@ -10,6 +12,8 @@ env:
 script: 
   - npm run test
 before_script:
+  - npm install
+  - psql -c 'create database travis_ci_test;' -U postgres
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
