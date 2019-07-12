@@ -5,7 +5,12 @@ import Validateusers from '../Middleware/validateUsers';
 const userRoute = express.Router();
 
 userRoute.post('/signup',
-  Validateusers.signUp,
+  Validateusers.signUpDetails,
+  Validateusers.signUpValidation,
   Usercontroller.signUp);
+
+userRoute.post('/signin',
+  Validateusers.signIn,
+  Usercontroller.signIn);
 
 export default userRoute;

@@ -32,107 +32,17 @@ describe('POST /api/v1/auth/signup ', () => {
       });
   });
 
-  it('should return an error if a user does not supply an email', (done) => {
+  it('should return an error if a user does not supply the required fields', (done) => {
     request(app)
       .post(signup)
       .set('Accept', 'application/json')
-      .send(Seed.noEmail)
+      .send(Seed.incompleteFields)
       .end((err, res) => {
         expect(res.status).to.be.equal(400);
         expect(res).to.have.status('400');
         expect(res.body).to.include.key('status');
         expect(res.body).to.include.key('error');
-        expect(res.body.error).to.be.equal('Please, supply an email!');
-        done();
-      });
-  });
-
-  it('should return an error if a user does not supply a first name', (done) => {
-    request(app)
-      .post(signup)
-      .set('Accept', 'application/json')
-      .send(Seed.noFirstName)
-      .end((err, res) => {
-        expect(res.status).to.be.equal(400);
-        expect(res).to.have.status('400');
-        expect(res.body).to.include.key('status');
-        expect(res.body).to.include.key('error');
-        expect(res.body.error).to.be.equal('Please, supply the first name!');
-        done();
-      });
-  });
-
-  it('should return an error if a user does not supply a last name', (done) => {
-    request(app)
-      .post(signup)
-      .set('Accept', 'application/json')
-      .send(Seed.noLastName)
-      .end((err, res) => {
-        expect(res.status).to.be.equal(400);
-        expect(res).to.have.status('400');
-        expect(res.body).to.include.key('status');
-        expect(res.body).to.include.key('error');
-        expect(res.body.error).to.be.equal('Please, supply the last name!');
-        done();
-      });
-  });
-
-  it('should return an error if a user does not supply a password', (done) => {
-    request(app)
-      .post(signup)
-      .set('Accept', 'application/json')
-      .send(Seed.noPassword)
-      .end((err, res) => {
-        expect(res.status).to.be.equal(400);
-        expect(res).to.have.status('400');
-        expect(res.body).to.include.key('status');
-        expect(res.body).to.include.key('error');
-        expect(res.body.error).to.be.equal('Please, supply the password!');
-        done();
-      });
-  });
-
-  it('should return an error if a user does not supply a phone number', (done) => {
-    request(app)
-      .post(signup)
-      .set('Accept', 'application/json')
-      .send(Seed.noPhoneNumber)
-      .end((err, res) => {
-        expect(res.status).to.be.equal(400);
-        expect(res).to.have.status('400');
-        expect(res.body).to.include.key('status');
-        expect(res.body).to.include.key('error');
-        expect(res.body.error).to.be.equal('Please, supply the phone number!');
-        done();
-      });
-  });
-
-  it('should return an error if a user does not supply an address', (done) => {
-    request(app)
-      .post(signup)
-      .set('Accept', 'application/json')
-      .send(Seed.noAddress)
-      .end((err, res) => {
-        expect(res.status).to.be.equal(400);
-        expect(res).to.have.status('400');
-        expect(res.body).to.include.key('status');
-        expect(res.body).to.include.key('error');
-        expect(res.body.error).to.be.equal('Please, supply the address!');
-        done();
-      });
-  });
-
-  it('should return an error if the admin status is not specified', (done) => {
-    request(app)
-      .post(signup)
-      .set('Accept', 'application/json')
-      .send(Seed.noIsAdmin)
-      .end((err, res) => {
-        expect(res.status).to.be.equal(400);
-        expect(res).to.have.status('400');
-        expect(res.body).to.include.key('status');
-        expect(res.body).to.include.key('error');
-        expect(res.body.error).to.be.equal('Please, supply this info!');
+        expect(res.body.error).to.be.equal('Please, supply the required fields!');
         done();
       });
   });
@@ -208,6 +118,76 @@ describe('POST /api/v1/auth/signup ', () => {
         expect(res.body).to.include.key('status');
         expect(res.body).to.include.key('error');
         expect(res.body.error).to.be.equal('OOPS! This particular email has already been registered!');
+        done();
+      });
+  });
+});
+
+const signin = '/api/v1/auth/signin';
+
+describe('POST /api/v1/auth/signin ', () => {
+  it('should login a user', (done) => {
+    request(app)
+      .post(signin)
+      .set('Accept', 'application/json')
+      .send(Seed.signIn)
+      .end((err, res) => {
+        expect(res.status).to.be.equal(200);
+        expect(res).to.have.status('200');
+        expect(res.body).to.include.key('status');
+        expect(res.body).to.include.key('data');
+        expect(res.body.data).to.include.key('token');
+        expect(res.body.data).to.include.key('user_id');
+        expect(res.body.data).to.include.key('email');
+        expect(res.body.data).to.include.key('first_name');
+        expect(res.body.data).to.include.key('last_name');
+        expect(res.body.data).to.include.key('password');
+        expect(res.body.data).to.include.key('phone_number');
+        expect(res.body.data).to.include.key('address');
+        expect(res.body.data).to.include.key('is_admin');
+        expect(res.body.data).to.include.key('registered');
+        done();
+      });
+  });
+  it("should return an error if email/password isn't supplied", (done) => {
+    request(app)
+      .post(signin)
+      .set('Accept', 'application/json')
+      .send(Seed.incompleteSignInDetails)
+      .end((err, res) => {
+        expect(res.status).to.be.equal(400);
+        expect(res).to.have.status('400');
+        expect(res.body).to.include.key('status');
+        expect(res.body).to.include.key('error');
+        expect(res.body.error).to.be.equal('No username or password!');
+        done();
+      });
+  });
+  it('should return an error if an invalid email is supplied', (done) => {
+    request(app)
+      .post(signin)
+      .set('Accept', 'application/json')
+      .send(Seed.wrongEmail)
+      .end((err, res) => {
+        expect(res.status).to.be.equal(401);
+        expect(res).to.have.status('401');
+        expect(res.body).to.include.key('status');
+        expect(res.body).to.include.key('error');
+        expect(res.body.error).to.be.equal('Wrong email!');
+        done();
+      });
+  });
+  it('should return an error if an invalid password is supplied', (done) => {
+    request(app)
+      .post(signin)
+      .set('Accept', 'application/json')
+      .send(Seed.wrongPassword)
+      .end((err, res) => {
+        expect(res.status).to.be.equal(401);
+        expect(res).to.have.status('401');
+        expect(res.body).to.include.key('status');
+        expect(res.body).to.include.key('error');
+        expect(res.body.error).to.be.equal('Wrong password!');
         done();
       });
   });
