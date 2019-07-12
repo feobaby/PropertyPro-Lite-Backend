@@ -1,5 +1,5 @@
-// import Helper from './Helper';
-// import fields from '../Models/dbtables';
+import Helper from './Helper';
+import db from '../DBconfig/index';
 
 const emailRegExp = /\S+@\S+\.\S+/;
 const nameRegExp = /^[a-zA-Z]*$/;
@@ -8,50 +8,23 @@ const passRegExp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8}$/;
 
 
 class Validateusers {
-  static signUp(req, res, next) {
-    if (!req.body.email) {
+  static signUpDetails(req, res, next) {
+    const {
+      email, first_name, last_name, password, phone_number, address, is_admin,
+    } = req.body;
+    if (!email || !first_name || !last_name || !password || !phone_number
+       || !address || !is_admin) {
       return res.status(400)
         .json({
           status: '400',
-          error: 'Please, supply an email!',
+          error: 'Please, supply the required fields!',
         });
-    } if (!req.body.first_name) {
-      return res.status(400)
-        .json({
-          status: '400',
-          error: 'Please, supply the first name!',
-        });
-    } if (!req.body.last_name) {
-      return res.status(400)
-        .json({
-          status: '400',
-          error: 'Please, supply the last name!',
-        });
-    } if (!req.body.password) {
-      return res.status(400)
-        .json({
-          status: '400',
-          error: 'Please, supply the password!',
-        });
-    } if (!req.body.phone_number) {
-      return res.status(400)
-        .json({
-          status: '400',
-          error: 'Please, supply the phone number!',
-        });
-    } if (!req.body.address) {
-      return res.status(400)
-        .json({
-          status: '400',
-          error: 'Please, supply the address!',
-        });
-    } if (!req.body.is_admin) {
-      return res.status(400)
-        .json({
-          status: '400',
-          error: 'Please, supply this info!',
-        });
-    } if (!req.body.email.match(emailRegExp)) {
+    }
+    next();
+  }
+
+  static signUpValidation(req, res, next) {
+    if (!req.body.email.match(emailRegExp)) {
       return res.status(400)
         .json({
           status: '400',
@@ -79,32 +52,38 @@ class Validateusers {
     }
     next();
   }
-}
 
-// static signIn(req, res, next) {
-//   if (!req.body.email || !req.body.password) {
-//     return res.status(400)
-//       .json({
-//         status: '400',
-//         error: 'Please, supply all the information required!',
-//       });
-//   }
-//   const user = fields.User.find(finduseremail => finduseremail.email === req.body.email);
-//   if (!user) {
-//     return res.status(401).json({
-//       status: '401',
-//       error: 'Wrong email!',
-//     });
-//   }
-//   const { password } = req.body;
-//   if (!Helper.comparePassword(user.password, password)) {
-//     return res.status(401).json({
-//       status: '401',
-//       error: 'Wrong password!',
-//     });
-//   }
-//   return next();
-// }
+
+  static async signIn(req, res, next) {
+    if (!req.body.email || !req.body.password) {
+      return res.status(400).json({
+        status: 'error',
+        error: 'No username or password!',
+      });
+    }
+    try {
+      const validateSignInText = 'SELECT * FROM users WHERE email = $1';
+      const { rows } = await db.query(validateSignInText, [req.body.email]);
+      if (!rows[0]) {
+        return res.status(401)
+          .json({
+            status: 'error',
+            error: 'Wrong email!',
+          });
+      } if (!Helper.comparePassword(rows[0].password, req.body.password)) {
+        return res.status(401)
+          .json({
+            status: 'error',
+            error: 'Wrong password!',
+          });
+      }
+    } catch (error) {
+      // return res.status(400)
+      //   .json(error);
+    }
+    return next();
+  }
+}
 
 
 export default Validateusers;

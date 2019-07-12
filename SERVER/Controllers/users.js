@@ -21,13 +21,12 @@ class Usercontroller {
       const { rows } = await db.query(createQuery, values);
       const token = Helper.generateToken(rows[0].id);
       return res.status(201).json({
-        status: 201,
-        data: [{
-          token,
-          rows,
-        }],
+        status: 'success',
+        token,
+        data: rows[0],
       });
     } catch (error) {
+      /* istanbul ignore else */
       if (error.routine === '_bt_check_unique') {
         return res.status(409)
           .json({
@@ -36,6 +35,30 @@ class Usercontroller {
           });
       }
     }
+  }
+
+  static async signIn(req, res) {
+    const signintext = 'SELECT * FROM users WHERE email = $1';
+    const { rows } = await db.query(signintext, [req.body.email]);
+    const {
+      user_id, email, first_name, last_name, password, phone_number, address, is_admin, registered,
+    } = rows[0];
+    const token = Helper.generateToken(rows[0].id);
+    return res.status(200).json({
+      status: 'success',
+      data: {
+        token,
+        user_id,
+        email,
+        first_name,
+        last_name,
+        password,
+        phone_number,
+        address,
+        is_admin,
+        registered,
+      },
+    });
   }
 }
 
