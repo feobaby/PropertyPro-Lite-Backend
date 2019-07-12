@@ -8,7 +8,7 @@ notifications:
 services:
   - postgresql
 env:
-  global: CC_TEST_REPORTER_ID=62e50e779fe8da137ab7571f48b883494251ce650ad65ae03193798ce31db32a
+  global: CC_TEST_REPORTER_ID=9f1dee3aefbaa0a9fa39c80b338d45c789469a5c7abcd44c4637be7a4d2a9ac5
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
