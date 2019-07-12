@@ -11,28 +11,17 @@ class Usercontroller {
     const {
       email, first_name, last_name, password, phone_number, address, is_admin,
     } = req.body;
-
     const hashPassword = Helper.hashPassword(password);
-
     const values = [email, first_name, last_name, hashPassword, phone_number,
       address, is_admin, moment(new Date())];
-
     try {
       const { rows } = await db.query(createQuery, values);
       const token = Helper.generateToken(rows[0].id);
-      return res.status(201).json({
-        status: 'success',
-        token,
-        data: rows[0],
-      });
+      return res.status(201).json({ status: 'success', token, data: rows[0] });
     } catch (error) {
       /* istanbul ignore else */
       if (error.routine === '_bt_check_unique') {
-        return res.status(409)
-          .json({
-            status: 409,
-            error: 'OOPS! This particular email has already been registered!',
-          });
+        return res.status(409).json({ status: 409, error: 'OOPS! This particular email has already been registered!' });
       }
     }
   }
