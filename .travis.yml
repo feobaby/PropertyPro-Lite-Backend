@@ -8,22 +8,21 @@ notifications:
 services:
   - postgresql
 env:
-  global: CC_TEST_REPORTER_ID=62e50e779fe8da137ab7571f48b883494251ce650ad65ae03193798ce31db32a
+  global: 
+  - CC_TEST_REPORTER_ID=63ce2b3122778ba786df0a305808e71d1e366eda15441c7c2b3a98a38d4e5f88
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
+script:
+  - npm run test
+  - psql -c 'create database propertypro_lite;' -U postgres
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
   - istanbul cover ./node_modules/mocha/bin/_mocha --reporter lcovonly -- -R spec
   - codecov
 cache:
   directories:
-    - node_modules
-before_script:
-  - npm install
-  - psql -c 'create database travis_ci_test;' -U postgres
-script: 
-  - npm run test
+    - "node_modules"
 after_success:
   - npm run coverage
