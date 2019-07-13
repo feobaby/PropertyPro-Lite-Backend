@@ -70,15 +70,14 @@ class Propertycontroller {
   static async deleteProperty(req, res) {
     const deleteQuery = 'DELETE FROM Property WHERE property_id=$1 returning *';
     const { rows } = await db.query(deleteQuery, [req.params.property_id]);
+    /* istanbul ignore else */
     if (!rows[0]) {
-      return res.status(404)
+      res.status(404)
         .json({
           status: 'error',
           error: 'Property not found!',
         });
-    }
-    /* istanbul ignore else */
-    if (rows[0]) {
+    } else if (rows[0]) {
       return res.status(200).json({
         status: 200,
         data:
@@ -87,6 +86,18 @@ class Propertycontroller {
       },
       });
     }
+  }
+
+  static async getAllProperty(req, res) {
+    const getall = 'SELECT * FROM Property';
+    const { rows, rowCount } = await db.query(getall);
+    const token = Helper.generateToken(rows[0].property_id);
+    return res.status(200).json({
+      status: 'success',
+      token,
+      data: rows,
+      rowCount,
+    });
   }
 }
 
