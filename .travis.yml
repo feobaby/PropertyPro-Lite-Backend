@@ -23,14 +23,7 @@ after_script:
   - codecov
 cache:
   directories:
-    - "node_modules"
-checks:
-  identical-code:
-    config:
-      threshold: 25
-  similar-code:
-    config:
-      threshold: 50   
+    - "node_modules" 
 after_success:
   - npm run coverage
 

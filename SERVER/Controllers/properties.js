@@ -21,6 +21,26 @@ class Propertycontroller {
     const token = Helper.generateToken(rows[0].property_id);
     return res.status(201).json({ status: 'success', token, data: rows[0] });
   }
+
+  static async updateProperty(req, res) {
+    const updatePropertyQuery = 'SELECT * FROM Property WHERE property_id=$1';
+    const { rows } = await db.query(updatePropertyQuery, [req.params.property_id]);
+    const token = Helper.generateToken(rows[0].property_id);
+    const values = {
+      status: req.body.status,
+      price: req.body.price,
+      state: req.body.state,
+      city: req.body.city,
+      address: req.body.address,
+      type: req.body.type,
+      image_url: req.body.image_url,
+    };
+    return res.status(200).json({
+      status: 'success',
+      token,
+      data: values,
+    });
+  }
 }
 
 export default Propertycontroller;
