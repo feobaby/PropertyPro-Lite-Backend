@@ -20,7 +20,7 @@ class Validateusers {
           error: 'Please, supply the required fields!',
         });
     }
-    return next();
+    next();
   }
 
   // static signUpValidation(req, res, next) {
@@ -48,7 +48,7 @@ class Validateusers {
   // include at least an upper case letter, lower case letter, and a number.',
   //     });
   //   }
-  //   return next();
+  //   next();
   // }
 
 
