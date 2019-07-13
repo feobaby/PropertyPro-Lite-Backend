@@ -12,17 +12,18 @@ class Usercontroller {
       email, first_name, last_name, password, phone_number, address, is_admin,
     } = req.body;
     const hashPassword = Helper.hashPassword(password);
-    const values = [email, first_name, last_name, hashPassword, phone_number,
-      address, is_admin, moment(new Date())];
     try {
-      const { rows } = await db.query(createQuery, values);
+      const { rows } = await db.query(createQuery, [email, first_name, last_name,
+        hashPassword, phone_number, address, is_admin, moment(new Date())]);
       const token = Helper.generateToken(rows[0].user_id);
+      const data = {
+        token,
+        rows,
+      };
       return res.status(201).json({
-        status: 'success',
-        data: {
-          token,
-          rows,
-        },
+        status: 201,
+        success,
+        data,
       });
     } catch (error) {
       /* istanbul ignore else */
