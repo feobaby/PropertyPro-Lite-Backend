@@ -24,9 +24,14 @@ propertyRoute.delete('/property/:property_id',
   Auth.verifyToken,
   Propertycontroller.deleteProperty);
 
-propertyRoute.get('/property/:property_id',
+propertyRoute.get('/property',
   Auth.verifyToken,
   Propertycontroller.getAllProperty);
+
+propertyRoute.get('/property/:property_id',
+  Auth.verifyToken,
+  ValidateProperties.getAProperty,
+  Propertycontroller.getAProperty);
 
 
 export default propertyRoute;
