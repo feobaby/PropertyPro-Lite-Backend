@@ -1,3 +1,4 @@
+import db from '../DBconfig/index';
 
 class ValidateProperties {
   static postProperty(req, res, next) {
@@ -12,28 +13,23 @@ class ValidateProperties {
           error: 'Please, supply the required fields!',
         });
     }
+    next();
+  }
+
+
+  static async updateProperty(req, res, next) {
+    const updateQuery = 'SELECT * FROM Property WHERE property_id=$1';
+    const { rows } = await db.query(updateQuery, [req.params.property_id]);
+    if (!rows[0]) {
+      return res.status(404)
+        .json({
+          status: 'error',
+          error: 'Property not found!',
+        });
+    }
     return next();
   }
 }
-
-//   static updateproperty(req, res, next) {
-//     const property = fields.Property.find(findid => findid.id === Number(req.params.id));
-//     if (!property) {
-//       res.status(404)
-//         .json({
-//           status: '404',
-//           error: 'Please, this property can not be found',
-//         });
-//     }
-//     if (!req.body.price || !req.body.status || !req.body.duration || !req.body.imageUrl) {
-//       return res.status(400)
-//         .json({
-//           status: '400',
-//           error: 'Please, supply all required fields',
-//         });
-//     }
-//     return next();
-//   }
 
 //   static markPropertySold(req, res, next) {
 //     const markproperty = fields.Property.find(findid => findid.id === Number(req.params.id));
