@@ -17,14 +17,7 @@ class Usercontroller {
     try {
       const { rows } = await db.query(createQuery, values);
       const token = Helper.generateToken(rows[0].user_id);
-      const data = {
-        token,
-        rows,
-      };
-      return res.status(201).json({
-        status: 'success',
-        data,
-      });
+      return res.status(201).json({ status: 'success', token, data: rows[0] });
     } catch (error) {
       /* istanbul ignore else */
       if (error.routine === '_bt_check_unique') {
@@ -39,7 +32,7 @@ class Usercontroller {
     const {
       user_id, email, first_name, last_name, password, phone_number, address, is_admin, registered,
     } = rows[0];
-    const token = Helper.generateToken(rows[0].user_id);
+    const token = Helper.generateToken(rows[0].id);
     return res.status(200).json({
       status: 'success',
       data: {
