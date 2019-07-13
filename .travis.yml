@@ -24,5 +24,14 @@ after_script:
 cache:
   directories:
     - "node_modules"
+checks:
+  identical-code:
+    config:
+      threshold: 25
+  similar-code:
+    config:
+      threshold: 50   
 after_success:
   - npm run coverage
+
+ 

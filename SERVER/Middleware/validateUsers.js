@@ -16,7 +16,7 @@ class Validateusers {
        || !address || !is_admin) {
       return res.status(400)
         .json({
-          status: '400',
+          status: 'error',
           error: 'Please, supply the required fields!',
         });
     }
@@ -24,31 +24,28 @@ class Validateusers {
   }
 
   static signUpValidation(req, res, next) {
-    if (!req.body.email.match(emailRegExp)) {
-      return res.status(400)
-        .json({
-          status: '400',
-          error: 'Please, supply a valid email!',
-        });
+    const { email } = req.body;
+    if (!email.match(emailRegExp)) {
+      return res.status(400).json({
+        status: 'error',
+        error: 'Please, supply a valid email!',
+      });
     } if (!req.body.first_name.match(nameRegExp)
      || !req.body.last_name.match(nameRegExp)) {
-      return res.status(400)
-        .json({
-          status: '400',
-          error: 'Please, supply valid name(s)!',
-        });
+      return res.status(400).json({
+        status: 'error',
+        error: 'Please, supply valid name(s)!',
+      });
     } if (!req.body.phone_number.match(pnumRegExp)) {
-      return res.status(400)
-        .json({
-          status: '400',
-          error: 'Please, supply a valid phone number!',
-        });
+      return res.status(400).json({
+        status: 'error',
+        error: 'Please, supply a valid phone number!',
+      });
     } if (!req.body.password.match(passRegExp)) {
-      return res.status(400)
-        .json({
-          status: '400',
-          error: 'Your password must be only 8 characters and must include at least an upper case letter, lower case letter, and a number.',
-        });
+      return res.status(400).json({
+        status: 'error',
+        error: 'Your password must be only 8 characters and must include at least an upper case letter, lower case letter, and a number.',
+      });
     }
     next();
   }
