@@ -5,26 +5,19 @@ import Helper from '../Middleware/Helper';
 class Usercontroller {
   static async signUp(req, res) {
     const createQuery = `INSERT INTO
-      users (email, first_name, last_name, password, phone_number, address, is_admin, registered)
-      VALUES($1, $2, $3, $4, $5, $6, $7, $8)
+      users (email, first_name, last_name, password, phone_number, address, registered)
+      VALUES($1, $2, $3, $4, $5, $6, $7)
       returning *`;
     const {
-      email, first_name, last_name, password, phone_number, address, is_admin,
+      email, first_name, last_name, password, phone_number, address,
     } = req.body;
     const hashPassword = Helper.hashPassword(password);
+    const values = [email, first_name, last_name, hashPassword, phone_number,
+      address, moment(new Date())];
     try {
-      const { rows } = await db.query(createQuery, [email, first_name, last_name,
-        hashPassword, phone_number, address, is_admin, moment(new Date())]);
-      const token = Helper.generateToken(rows[0].user_id);
-      const data = {
-        token,
-        rows,
-      };
-      return res.status(201).json({
-        status: 201,
-        success,
-        data,
-      });
+      const { rows } = await db.query(createQuery, values);
+      const token = Helper.generateToken(rows[0].id);
+      return res.status(201).json({ status: 'success', token, data: rows[0] });
     } catch (error) {
       /* istanbul ignore else */
       if (error.routine === '_bt_check_unique') {
@@ -39,7 +32,7 @@ class Usercontroller {
     const {
       user_id, email, first_name, last_name, password, phone_number, address, is_admin, registered,
     } = rows[0];
-    const token = Helper.generateToken(rows[0].user_id);
+    const token = Helper.generateToken(rows[0].id);
     return res.status(200).json({
       status: 'success',
       data: {

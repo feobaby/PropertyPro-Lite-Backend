@@ -1,54 +1,55 @@
 import Helper from './Helper';
 import db from '../DBconfig/index';
 
-const emailRegExp = /\S+@\S+\.\S+/;
-const nameRegExp = /^[a-zA-Z]*$/;
-const pnumRegExp = /^[0-9]{11}$/;
-const passRegExp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8}$/;
+// const emailRegExp = /\S+@\S+\.\S+/;
+// const nameRegExp = /^[a-zA-Z]*$/;
+// const pnumRegExp = /^[0-9]{11}$/;
+// const passRegExp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8}$/;
 
 
 class Validateusers {
   static signUpDetails(req, res, next) {
     const {
-      email, first_name, last_name, password, phone_number, address, is_admin,
+      email, first_name, last_name, password, phone_number, address,
     } = req.body;
     if (!email || !first_name || !last_name || !password || !phone_number
-       || !address || !is_admin) {
+       || !address) {
       return res.status(400)
         .json({
           status: 'error',
           error: 'Please, supply the required fields!',
         });
     }
-    return next();
+    next();
   }
 
-  static signUpValidation(req, res, next) {
-    const { email } = req.body;
-    if (!email.match(emailRegExp)) {
-      return res.status(400).json({
-        status: 'error',
-        error: 'Please, supply a valid email!',
-      });
-    } if (!req.body.first_name.match(nameRegExp)
-     || !req.body.last_name.match(nameRegExp)) {
-      return res.status(400).json({
-        status: 'error',
-        error: 'Please, supply valid name(s)!',
-      });
-    } if (!req.body.phone_number.match(pnumRegExp)) {
-      return res.status(400).json({
-        status: 'error',
-        error: 'Please, supply a valid phone number!',
-      });
-    } if (!req.body.password.match(passRegExp)) {
-      return res.status(400).json({
-        status: 'error',
-        error: 'Your password must be only 8 characters and must include at least an upper case letter, lower case letter, and a number.',
-      });
-    }
-    return next();
-  }
+  // static signUpValidation(req, res, next) {
+  //   const { email } = req.body;
+  //   if (!email.match(emailRegExp)) {
+  //     return res.status(400).json({
+  //       status: 'error',
+  //       error: 'Please, supply a valid email!',
+  //     });
+  //   } if (!req.body.first_name.match(nameRegExp)
+  //    || !req.body.last_name.match(nameRegExp)) {
+  //     return res.status(400).json({
+  //       status: 'error',
+  //       error: 'Please, supply valid name(s)!',
+  //     });
+  //   } if (!req.body.phone_number.match(pnumRegExp)) {
+  //     return res.status(400).json({
+  //       status: 'error',
+  //       error: 'Please, supply a valid phone number!',
+  //     });
+  //   } if (!req.body.password.match(passRegExp)) {
+  //     return res.status(400).json({
+  //       status: 'error',
+  //       error: 'Your password must be only 8 characters and must
+  // include at least an upper case letter, lower case letter, and a number.',
+  //     });
+  //   }
+  //   next();
+  // }
 
 
   static async signIn(req, res, next) {
