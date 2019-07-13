@@ -19,7 +19,14 @@ class Propertycontroller {
     ];
     const { rows } = await db.query(createPropertyQuery, values);
     const token = Helper.generateToken(rows[0].property_id);
-    return res.status(201).json({ status: 'success', token, data: rows[0] });
+    return res.status(201).json({
+      status: 'success',
+      data:
+      {
+        token,
+        rows,
+      },
+    });
   }
 
   static async updateProperty(req, res) {
