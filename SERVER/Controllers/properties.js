@@ -41,6 +41,32 @@ class Propertycontroller {
       data: values,
     });
   }
+
+  static async markPropertySold(req, res) {
+    const markPropertyQuery = 'SELECT * FROM Property WHERE property_id=$1';
+    const { rows } = await db.query(markPropertyQuery, [req.params.property_id]);
+    const token = Helper.generateToken(rows[0].property_id);
+    const { property_id } = req.params;
+    const {
+      type, state, city, address, price, created_on, image_url,
+    } = req.body;
+    const values = {
+      property_id,
+      status: req.body.status = 'sold',
+      type,
+      state,
+      city,
+      address,
+      price,
+      created_on,
+      image_url,
+    };
+    return res.status(200).json({
+      status: 'success',
+      token,
+      data: values,
+    });
+  }
 }
 
 export default Propertycontroller;
