@@ -20,7 +20,7 @@ class Validateusers {
           error: 'Please, supply the required fields!',
         });
     }
-    next();
+    return next();
   }
 
   static signUpValidation(req, res, next) {
@@ -47,7 +47,7 @@ class Validateusers {
         error: 'Your password must be only 8 characters and must include at least an upper case letter, lower case letter, and a number.',
       });
     }
-    next();
+    return next();
   }
 
 
