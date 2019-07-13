@@ -7,6 +7,11 @@ import ValidateProperties from '../Middleware/validateProperties';
 
 const router = express.Router();
 
+// for welcome
+router.get('/', (req, res) => {
+  res.status(200).json({ message: 'Welcome to PropertyPro-Lite' });
+});
+
 router.post('/api/v1/auth/signup', Validateusers.signUpDetails, Validateusers.signUpValidation, Usercontroller.signUp);
 router.post('/api/v1/auth/signin', Validateusers.signIn, Usercontroller.signIn);
 
