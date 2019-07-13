@@ -16,7 +16,7 @@ class Usercontroller {
       address, is_admin, moment(new Date())];
     try {
       const { rows } = await db.query(createQuery, values);
-      const token = Helper.generateToken(rows[0].user_id);
+      const token = Helper.generateToken(rows[0].id);
       return res.status(201).json({ status: 'success', token, data: rows[0] });
     } catch (error) {
       /* istanbul ignore else */
