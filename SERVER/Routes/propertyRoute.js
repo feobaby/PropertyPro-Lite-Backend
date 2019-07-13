@@ -17,4 +17,7 @@ propertyRoute.patch('/property/:property_id',
   ValidateProperties.updateProperty,
   Propertycontroller.updateProperty);
 
+propertyRoute.patch('/property/:property_id/sold',
+  Propertycontroller.markPropertySold);
+
 export default propertyRoute;
