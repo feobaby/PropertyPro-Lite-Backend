@@ -38,7 +38,21 @@ class ValidateProperties {
         });
     }
 
-    return next();
+    next();
+  }
+
+  static async getAProperty(req, res, next) {
+    const getone = 'SELECT * FROM Property WHERE property_id = $1';
+    const { rows } = await db.query(getone, [req.params.property_id]);
+    if (!rows[0]) {
+      return res.status(404)
+        .json({
+          status: 'error',
+          error: 'Property not found!',
+        });
+    }
+
+    next();
   }
 }
 export default ValidateProperties;

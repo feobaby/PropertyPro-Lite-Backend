@@ -235,6 +235,37 @@ describe('DELETE /api/v1/property/:property_id', () => {
   });
 });
 
+describe('GET /api/v1/property', () => {
+  it('should get all posted property adverts', (done) => {
+    request(app)
+      .get('/api/v1/property')
+      .set('Accept', 'application/json')
+      .set('Authorization', token)
+      .end((err, res) => {
+        expect(res.status).to.be.equal(200);
+        expect(res).to.have.status('200');
+        expect(res.body).to.include.key('status');
+        expect(res.body).to.include.key('data');
+        expect(res.body).to.include.key('token');
+        done();
+      });
+  });
+  it('should return an error if the token is not supplied or invalid', (done) => {
+    request(app)
+      .get('/api/v1/property')
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        expect(res.status).to.be.equal(400);
+        expect(res).to.have.status('400');
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.include.key('status');
+        expect(res.body).to.include.key('error');
+        expect(res.body.error).to.be.equal('Token is invalid or not provided!');
+        done();
+      });
+  });
+});
+
 describe('GET /api/v1/property/:property_id', () => {
   it('should get all posted property adverts', (done) => {
     request(app)
@@ -247,6 +278,21 @@ describe('GET /api/v1/property/:property_id', () => {
         expect(res.body).to.include.key('status');
         expect(res.body).to.include.key('data');
         expect(res.body).to.include.key('token');
+        done();
+      });
+  });
+  it('should return an error if the property is not found', (done) => {
+    request(app)
+      .get('/api/v1/property/1001')
+      .set('Accept', 'application/json')
+      .set('Authorization', token)
+      .end((err, res) => {
+        expect(res.status).to.be.equal(404);
+        expect(res).to.have.status('404');
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.include.key('status');
+        expect(res.body).to.include.key('error');
+        expect(res.body.error).to.be.equal('Property not found!');
         done();
       });
   });
