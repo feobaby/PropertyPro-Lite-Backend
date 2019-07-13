@@ -8,20 +8,20 @@ import db from '../DBconfig/index';
 
 
 class Validateusers {
-  static signUpDetails(req, res, next) {
-    const {
-      email, first_name, last_name, password, phone_number, address, is_admin,
-    } = req.body;
-    if (!email || !first_name || !last_name || !password || !phone_number
-       || !address || !is_admin) {
-      return res.status(400)
-        .json({
-          status: 'error',
-          error: 'Please, supply the required fields!',
-        });
-    }
-    return next();
-  }
+  // static signUpDetails(req, res, next) {
+  //   const {
+  //     email, first_name, last_name, password, phone_number, address, is_admin,
+  //   } = req.body;
+  //   if (!email || !first_name || !last_name || !password || !phone_number
+  //      || !address || !is_admin) {
+  //     return res.status(400)
+  //       .json({
+  //         status: 'error',
+  //         error: 'Please, supply the required fields!',
+  //       });
+  //   }
+  //   return next();
+  // }
 
   // static signUpValidation(req, res, next) {
   //   const { email } = req.body;
@@ -44,7 +44,8 @@ class Validateusers {
   //   } if (!req.body.password.match(passRegExp)) {
   //     return res.status(400).json({
   //       status: 'error',
-  //       error: 'Your password must be only 8 characters and must include at least an upper case letter, lower case letter, and a number.',
+  //       error: 'Your password must be only 8 characters and must
+  // include at least an upper case letter, lower case letter, and a number.',
   //     });
   //   }
   //   return next();

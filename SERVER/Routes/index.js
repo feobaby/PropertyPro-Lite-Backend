@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
   res.status(200).json({ message: 'Welcome to PropertyPro-Lite' });
 });
 
-router.post('/api/v1/auth/signup', Validateusers.signUpDetails, Usercontroller.signUp);
+router.post('/api/v1/auth/signup', Usercontroller.signUp);
 router.post('/api/v1/auth/signin', Validateusers.signIn, Usercontroller.signIn);
 
 router.post('/api/v1/property', Auth.verifyToken, ValidateProperties.postProperty, Propertycontroller.postProperty);
