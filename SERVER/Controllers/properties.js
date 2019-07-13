@@ -27,7 +27,6 @@ class Propertycontroller {
     const { rows } = await db.query(updatePropertyQuery, [req.params.property_id]);
     const token = Helper.generateToken(rows[0].property_id);
     const values = {
-      status: req.body.status,
       price: req.body.price,
       state: req.body.state,
       city: req.body.city,
@@ -66,6 +65,28 @@ class Propertycontroller {
       token,
       data: values,
     });
+  }
+
+  static async deleteProperty(req, res) {
+    const deleteQuery = 'DELETE FROM Property WHERE property_id=$1 returning *';
+    const { rows } = await db.query(deleteQuery, [req.params.property_id]);
+    if (!rows[0]) {
+      return res.status(404)
+        .json({
+          status: 'error',
+          error: 'Property not found!',
+        });
+    }
+    /* istanbul ignore else */
+    if (rows[0]) {
+      return res.status(200).json({
+        status: 200,
+        data:
+      {
+        message: 'The property has been deleted!',
+      },
+      });
+    }
   }
 }
 

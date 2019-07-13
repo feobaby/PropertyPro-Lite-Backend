@@ -13,11 +13,15 @@ propertyRoute.post('/property',
 
 propertyRoute.patch('/property/:property_id',
   Auth.verifyToken,
-  ValidateProperties.postProperty,
   ValidateProperties.updateProperty,
   Propertycontroller.updateProperty);
 
 propertyRoute.patch('/property/:property_id/sold',
+  Auth.verifyToken,
   Propertycontroller.markPropertySold);
+
+propertyRoute.delete('/property/:property_id',
+  Auth.verifyToken,
+  Propertycontroller.deleteProperty);
 
 export default propertyRoute;
