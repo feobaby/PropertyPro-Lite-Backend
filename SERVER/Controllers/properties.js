@@ -22,23 +22,24 @@ class Propertycontroller {
   }
 
   static async updateProperty(req, res) {
+    const { property_id } = req.params;
     const updatePropertyQuery = 'SELECT * FROM Property WHERE property_id=$1';
     const { rows } = await db.query(updatePropertyQuery, [req.params.property_id]);
     const token = Helper.generateToken(rows[0].property_id);
-    const values = {
-      price: req.body.price,
-      state: req.body.state,
-      city: req.body.city,
-      address: req.body.address,
-      type: req.body.type,
-      image_url: req.body.image_url,
-      property_id: req.params.property_id,
-    };
+    const {
+      price, state, city, address, type, image_url,
+    } = req.body;
     return res.status(200).json({
       status: 'success',
       data: {
         token,
-        values,
+        price,
+        state,
+        city,
+        address,
+        type,
+        image_url,
+        property_id,
       },
     });
   }
