@@ -102,9 +102,9 @@ class Propertycontroller {
   }
 
   static async getAProperty(req, res) {
-    const getone = 'SELECT * FROM Property WHERE property_id = $1';
-    const { rows } = await db.query(getone, [req.params.property_id]);
-    const token = Helper.generateToken(rows[0].property_id);
+    const getone = 'SELECT * FROM Property WHERE id = $1';
+    const { rows } = await db.query(getone, [req.params.id]);
+    const token = Helper.generateToken(rows[0].id);
     return res.status(200).json({
       status: 'success',
       token,
