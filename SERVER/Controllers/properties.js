@@ -1,31 +1,31 @@
+import moment from 'moment';
 import db from '../DBconfig/index';
 import Helper from '../Middleware/Helper';
 
 class Propertycontroller {
   static async postProperty(req, res) {
     const createPropertyQuery = `INSERT INTO
-      Property (price, state, city, address, 
+      Property (created_on, price, state, city, address, 
         type, image_url, owner_email)
-      VALUES($1, $2, $3, $4, $5, $6, $7)
+      VALUES($1, $2, $3, $4, $5, $6, $7, $8)
       returning *`;
-    const rows = await db.query(createPropertyQuery, [req.body.price, req.body.state,
+    const rows = await db.query(createPropertyQuery, [moment(new Date()), req.body.price, req.body.state,
       req.body.city, req.body.address, req.body.type, req.body.image_url, req.body.owner_email]);
     const {
-      property_id, price, state, city, address, type, image_url, owner_email,
+      property_id, created_on, price, state, city, address, type, image_url, owner_email,
     } = rows.rows[0];
     const id = property_id;
     return res.status(201).json({
       status: 'success',
       data: {
-        status: 'success', id, price, state, city, address, type, image_url, owner_email,
+        status: 'success', id, created_on, price, state, city, address, type, image_url, owner_email,
       },
     });
   }
 
   static async updateProperty(req, res) {
     const updatePropertyQuery = 'SELECT * FROM Property WHERE property_id=$1';
-    // eslint-disable-next-line no-unused-vars
-    const rows = await db.query(updatePropertyQuery, [req.params.property_id]);
+    const { rows } = await db.query(updatePropertyQuery, [req.params.property_id]);
     const {
       price, state, city, address, type, image_url,
     } = req.body;
@@ -42,30 +42,25 @@ class Propertycontroller {
     });
   }
 
-
   static async markPropertySold(req, res) {
-    const markPropertyQuery = 'SELECT * FROM Property WHERE property_id=$1';
-    // eslint-disable-next-line no-unused-vars
-    const rows = await db.query(markPropertyQuery, [req.params.property_id]);
-    const { property_id } = req.params;
+    const findOneQuery = 'SELECT * FROM Property WHERE property_id=$1';
+    const updateOneQuery = `UPDATE Property
+      SET status=$1, created_on=$2
+      WHERE id=$3 returning *`;
+    const { rows } = await db.query(findOneQuery, [req.params.property_id]);
+    const response = await db.query(updateOneQuery, [req.body.status = 'sold' || rows[0].status,
+      moment(new Date()), req.params.property_id]);
     const {
-      type, state, city, address, price, created_on, image_url, status = 'sold',
-    } = req.body;
-    return res.status(200).json({
-      status: 'success',
-      data: {
-        property_id,
-        status,
-        type,
-        state,
-        city,
-        address,
-        price,
-        created_on,
-        image_url,
-      },
-    });
+      property_id, status, created_on, price, state, city, address, type, image_url,
+    } = response.rows[0];
+    return res.status(200)
+      .json({
+        data: {
+          property_id, status, created_on, price, state, city, address, type, image_url,
+        },
+      });
   }
+
 
   static async deleteProperty(req, res) {
     const deleteQuery = 'DELETE FROM Property WHERE property_id=$1 returning *';
