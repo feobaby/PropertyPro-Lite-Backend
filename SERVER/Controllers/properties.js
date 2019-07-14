@@ -3,6 +3,7 @@ import Helper from '../Middleware/Helper';
 
 class Propertycontroller {
   static async postProperty(req, res) {
+    const { id } = req.params;
     const createPropertyQuery = `INSERT INTO
       Property (price, state, city, address, 
         type, image_url, owner_email)
@@ -18,7 +19,12 @@ class Propertycontroller {
     ];
     const { rows } = await db.query(createPropertyQuery, values);
     const token = Helper.generateToken(rows[0].id);
-    return res.status(201).json({ status: '201', data: { status: 'success', token, rows } });
+    return res.status(201).json({
+      status: '201',
+      data: {
+        id, status: 'success', token, rows,
+      },
+    });
   }
 
   static async updateProperty(req, res) {
