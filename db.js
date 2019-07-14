@@ -42,7 +42,7 @@ const createUsersTable = () => {
 const createPropertyTable = () => {
   const queryText = `CREATE TABLE IF NOT EXISTS
       Property(
-        propery_id SERIAL NOT NULL,
+        property_id SERIAL PRIMARY KEY,
         owner varchar(128),
         status VARCHAR(50),
         price VARCHAR(128),
