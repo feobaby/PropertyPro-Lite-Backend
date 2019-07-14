@@ -28,8 +28,8 @@ class ValidateProperties {
           error: 'Please, supply the required fields!',
         });
     }
-    const updateQuery = 'SELECT * FROM Property WHERE id=$1';
-    const { rows } = await db.query(updateQuery, [req.params.id]);
+    const updateQuery = 'SELECT * FROM Property WHERE property_id=$1';
+    const { rows } = await db.query(updateQuery, [req.params.property_id]);
     if (!rows[0]) {
       return res.status(404)
         .json({

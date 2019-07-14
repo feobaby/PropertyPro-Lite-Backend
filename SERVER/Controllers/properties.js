@@ -22,8 +22,8 @@ class Propertycontroller {
   }
 
   static async updateProperty(req, res) {
-    const updatePropertyQuery = 'SELECT * FROM Property WHERE id=$1';
-    const { rows } = await db.query(updatePropertyQuery, [req.params.id]);
+    const updatePropertyQuery = 'SELECT * FROM Property WHERE property_id=$1';
+    const { rows } = await db.query(updatePropertyQuery, [req.params.property_id]);
     const token = Helper.generateToken(rows[0].property_id);
     const values = {
       price: req.body.price,
@@ -32,8 +32,15 @@ class Propertycontroller {
       address: req.body.address,
       type: req.body.type,
       image_url: req.body.image_url,
+      property_id: req.params.property_id,
     };
-    return res.status(200).json({ status: 'success', data: { token, values } });
+    return res.status(200).json({
+      status: 'success',
+      data: {
+        token,
+        values,
+      },
+    });
   }
 
   static async markPropertySold(req, res) {
