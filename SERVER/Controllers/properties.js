@@ -22,18 +22,18 @@ class Propertycontroller {
   }
 
   static async updateProperty(req, res) {
-    const findOneQuery = 'SELECT * FROM Property WHERE property_id=$1';
+    const findOneQuery = 'SELECT * FROM Property WHERE id=$1';
     const updateOneQuery = `UPDATE Property
       SET price=$1
-      WHERE property_id=$2 returning *`;
+      WHERE id=$2 returning *`;
     try {
-      const { rows } = await db.query(findOneQuery, [req.params.property_id]);
+      const { rows } = await db.query(findOneQuery, [req.params.id]);
       if (!rows[0]) {
-        return res.status(404).send({ message: 'reflection not found' });
+        return res.status(404).send({ message: 'property not found' });
       }
       const values = [
         req.body.price || rows[0].price,
-        req.params.property_id,
+        req.params.id,
       ];
       const response = await db.query(updateOneQuery, values);
       return res.status(200).json(response.rows[0]);
