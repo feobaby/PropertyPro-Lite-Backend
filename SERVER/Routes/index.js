@@ -16,7 +16,7 @@ router.post('/api/v1/auth/signup', Validateusers.signUpDetails, Usercontroller.s
 router.post('/api/v1/auth/signin', Validateusers.signIn, Usercontroller.signIn);
 
 router.post('/api/v1/property', Auth.verifyToken, Propertycontroller.postProperty);
-router.patch('/api/v1/property/:id', Auth.verifyToken, Propertycontroller.updateProperty);
+router.patch('/api/v1/property/:property_id', Auth.verifyToken, Propertycontroller.updateProperty);
 
 router.patch('/api/v1/property/:property_id/sold', Auth.verifyToken, Propertycontroller.markPropertySold);
 router.delete('/api/v1/property/:property_id', Auth.verifyToken, Propertycontroller.deleteProperty);

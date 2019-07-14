@@ -22,26 +22,24 @@ class Propertycontroller {
   }
 
   static async updateProperty(req, res) {
-    const { id } = req.params;
-    const updatePropertyQuery = 'SELECT * FROM Property WHERE id=$1';
-    const { rows } = await db.query(updatePropertyQuery, [req.params.id]);
-    const token = Helper.generateToken(rows[0].id);
-    const {
-      price, state, city, address, type, image_url,
-    } = req.body;
-    return res.status(200).json({
-      status: 'success',
-      data: {
-        token,
-        price,
-        state,
-        city,
-        address,
-        type,
-        image_url,
-        id,
-      },
-    });
+    const findOneQuery = 'SELECT * FROM Property WHERE property_id=$1';
+    const updateOneQuery = `UPDATE Property
+      SET price=$1
+      WHERE property_id=$2 returning *`;
+    try {
+      const { rows } = await db.query(findOneQuery, [req.params.property_id]);
+      if (!rows[0]) {
+        return res.status(404).send({ message: 'reflection not found' });
+      }
+      const values = [
+        req.body.price || rows[0].price,
+        req.params.property_id,
+      ];
+      const response = await db.query(updateOneQuery, values);
+      return res.status(200).json(response.rows[0]);
+    } catch (err) {
+      return res.status(400).send(err);
+    }
   }
 
   static async markPropertySold(req, res) {
