@@ -12,23 +12,11 @@ class Propertycontroller {
       req.body.price, req.body.state, req.body.city, req.body.address,
       req.body.type, req.body.image_url, req.body.owner_email,
     ];
-    const rows = await db.query(createPropertyQuery, values);
-    const {
-      id, property_id, price, state, city, address,
-      type, image_url, owner_email,
-    } = rows.rows[0];
+    const { rows } = await db.query(createPropertyQuery, values);
     return res.status(201).json({
       status: '201',
       data: {
-        id,
-        property_id,
-        price,
-        state,
-        city,
-        address,
-        type,
-        image_url,
-        owner_email,
+        rows,
       },
     });
   }
