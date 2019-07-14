@@ -18,7 +18,7 @@ class Propertycontroller {
     ];
     const { rows } = await db.query(createPropertyQuery, values);
     const token = Helper.generateToken(rows[0].id);
-    return res.status(201).json({ status: 'success', data: { token, rows } });
+    return res.status(201).json({ data: { status: 'success', token, rows } });
   }
 
   static async updateProperty(req, res) {
@@ -35,8 +35,8 @@ class Propertycontroller {
       property_id: req.params.property_id,
     };
     return res.status(200).json({
+      status: 'success',
       data: {
-        status: 'success',
         token,
         values,
       },
