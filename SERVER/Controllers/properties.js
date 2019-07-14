@@ -22,8 +22,8 @@ class Propertycontroller {
   }
 
   static async updateProperty(req, res) {
-    const updatePropertyQuery = 'SELECT * FROM Property WHERE property_id=$1';
-    const { rows } = await db.query(updatePropertyQuery, [req.params.property_id]);
+    const updatePropertyQuery = 'SELECT * FROM Property WHERE id=$1';
+    const { rows } = await db.query(updatePropertyQuery, [req.params.id]);
     const token = Helper.generateToken(rows[0].property_id);
     const values = {
       price: req.body.price,
