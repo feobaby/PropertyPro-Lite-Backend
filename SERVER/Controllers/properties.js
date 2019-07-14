@@ -24,7 +24,8 @@ class Propertycontroller {
 
   static async updateProperty(req, res) {
     const updatePropertyQuery = 'SELECT * FROM Property WHERE property_id=$1';
-    const { rows } = await db.query(updatePropertyQuery, [req.params.property_id]);
+    // eslint-disable-next-line no-unused-vars
+    const rows = await db.query(updatePropertyQuery, [req.params.property_id]);
     const {
       price, state, city, address, type, image_url,
     } = req.body;
@@ -44,27 +45,25 @@ class Propertycontroller {
 
   static async markPropertySold(req, res) {
     const markPropertyQuery = 'SELECT * FROM Property WHERE property_id=$1';
-    const { rows } = await db.query(markPropertyQuery, [req.params.property_id]);
-    const token = Helper.generateToken(rows[0].property_id);
+    // eslint-disable-next-line no-unused-vars
+    const rows = await db.query(markPropertyQuery, [req.params.property_id]);
     const { property_id } = req.params;
     const {
-      type, state, city, address, price, created_on, image_url,
+      type, state, city, address, price, created_on, image_url, status = 'sold',
     } = req.body;
-    const values = {
-      property_id,
-      status: req.body.status = 'sold',
-      type,
-      state,
-      city,
-      address,
-      price,
-      created_on,
-      image_url,
-    };
     return res.status(200).json({
       status: 'success',
-      token,
-      data: values,
+      data: {
+        property_id,
+        status,
+        type,
+        state,
+        city,
+        address,
+        price,
+        created_on,
+        image_url,
+      },
     });
   }
 
