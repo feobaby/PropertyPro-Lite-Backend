@@ -14,12 +14,13 @@ class Propertycontroller {
     ];
     const rows = await db.query(createPropertyQuery, values);
     const {
-      id, property_id, price, state, city, address, type, image_url, owner_email,
+      property_id, price, state, city, address, type, image_url, owner_email,
     } = rows.rows[0];
+    const id = property_id;
     return res.status(201).json({
       status: '201',
       data: {
-        status: 'success', id, property_id, price, state, city, address, type, image_url, owner_email,
+        status: 'success', id, price, state, city, address, type, image_url, owner_email,
       },
     });
   }
