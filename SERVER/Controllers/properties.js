@@ -35,8 +35,8 @@ class Propertycontroller {
       property_id: req.params.property_id,
     };
     return res.status(200).json({
-      status: 'success',
       data: {
+        status: 'success',
         token,
         values,
       },
