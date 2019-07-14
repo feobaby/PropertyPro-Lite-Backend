@@ -18,14 +18,7 @@ class Propertycontroller {
     ];
     const { rows } = await db.query(createPropertyQuery, values);
     const token = Helper.generateToken(rows[0].id);
-    return res.status(201).json({
-      status: 'success',
-      data:
-      {
-        token,
-        rows,
-      },
-    });
+    return res.status(201).json({ status: 'success', data: { token, rows } });
   }
 
   static async updateProperty(req, res) {
@@ -40,11 +33,7 @@ class Propertycontroller {
       type: req.body.type,
       image_url: req.body.image_url,
     };
-    return res.status(200).json({
-      status: 'success',
-      token,
-      data: values,
-    });
+    return res.status(200).json({ status: 'success', data: { token, values } });
   }
 
   static async markPropertySold(req, res) {

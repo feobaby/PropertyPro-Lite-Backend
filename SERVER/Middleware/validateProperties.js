@@ -13,7 +13,7 @@ class ValidateProperties {
           error: 'Please, supply the required fields!',
         });
     }
-    next();
+    return next();
   }
 
   static async updateProperty(req, res, next) {
