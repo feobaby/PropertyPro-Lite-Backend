@@ -55,6 +55,7 @@ class Propertycontroller {
     } = response.rows[0];
     return res.status(200)
       .json({
+        status: 'success',
         data: {
           property_id, status, created_on, price, state, city, address, type, image_url,
         },
