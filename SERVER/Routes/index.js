@@ -21,6 +21,6 @@ router.patch('/api/v1/property/:id', Auth.verifyToken, Propertycontroller.update
 router.patch('/api/v1/property/:property_id/sold', Auth.verifyToken, Propertycontroller.markPropertySold);
 router.delete('/api/v1/property/:property_id', Auth.verifyToken, Propertycontroller.deleteProperty);
 router.get('/api/v1/property', Auth.verifyToken, Propertycontroller.getAllProperty);
-router.get('/api/v1/property/:id', Auth.verifyToken, Propertycontroller.getAProperty);
+router.get('/api/v1/property/:property_id', Auth.verifyToken, Propertycontroller.getAProperty);
 
 export default router;
