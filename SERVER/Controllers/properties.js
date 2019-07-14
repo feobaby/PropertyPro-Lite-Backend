@@ -12,7 +12,7 @@ class Propertycontroller {
       req.body.city, req.body.address, req.body.type, req.body.image_url, req.body.owner_email]);
     const {
       property_id, price, state, city, address, type, image_url, owner_email,
-    } = rows[0];
+    } = rows.rows[0];
     const id = property_id;
     return res.status(201).json({
       status: 'success',
