@@ -22,6 +22,8 @@ const createUsersTable = () => {
         password VARCHAR(128) NOT NULL,
         phone_number VARCHAR(50),
         address VARCHAR(100) NOT NULL
+        is_admin BOOLEAN DEFAULT FALSE,
+        registered TIMESTAMP
       )`;
 
   pool.query(queryText)
