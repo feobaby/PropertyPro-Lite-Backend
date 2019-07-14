@@ -48,7 +48,8 @@ const createPropertyTable = () => {
         city VARCHAR(50),
         address VARCHAR(50),
         type VARCHAR(50),
-        image_url VARCHAR(50)
+        image_url VARCHAR(50),
+        owner_email VARCHAR(128) REFERENCES Users(email)
       )`;
 
   pool.query(queryText)

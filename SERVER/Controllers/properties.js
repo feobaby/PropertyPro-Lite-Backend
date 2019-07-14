@@ -5,16 +5,16 @@ class Propertycontroller {
   static async postProperty(req, res) {
     const createPropertyQuery = `INSERT INTO
       Property (price, state, city, address, 
-        type, image_url)
-      VALUES($1, $2, $3, $4, $5, $6)
+        type, image_url, owner_email)
+      VALUES($1, $2, $3, $4, $5, $6, $7)
       returning *`;
     const {
       price, state, city, address,
-      type, image_url,
+      type, image_url, owner_email,
     } = req.body;
     const values = [
       price, state, city, address,
-      type, image_url,
+      type, image_url, owner_email,
     ];
     const { rows } = await db.query(createPropertyQuery, values);
     const token = Helper.generateToken(rows[0].id);
