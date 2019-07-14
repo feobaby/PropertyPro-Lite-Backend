@@ -12,22 +12,18 @@ class Propertycontroller {
       req.body.price, req.body.state, req.body.city, req.body.address,
       req.body.type, req.body.image_url, req.body.owner_email,
     ];
-    const rows = await db.query(createPropertyQuery, values);
-    const {
-      property_id, price, state, city, address, type, image_url, owner_email,
-    } = rows.rows[0];
-    const id = property_id;
+    const { rows } = await db.query(createPropertyQuery, values);
     return res.status(201).json({
       status: '201',
       data: {
-        status: 'success', id, price, state, city, address, type, image_url, owner_email,
+        status: 'success', rows,
       },
     });
   }
 
   static async updateProperty(req, res) {
     const updatePropertyQuery = 'SELECT * FROM Property WHERE property_id=$1';
-    const { rows } = await db.query(updatePropertyQuery, [req.params.property_id]);
+    const { rows } = await db.query(updatePropertyQuery, [req.params.id]);
     const {
       price, state, city, address, type, image_url,
     } = req.body;
