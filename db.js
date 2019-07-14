@@ -15,7 +15,7 @@ pool.on('connect', () => {
 const createUsersTable = () => {
   const queryText = `CREATE TABLE IF NOT EXISTS
       Users(
-        user_id SERIAL PRIMARY KEY,
+        user_id SERIAL NOT NULL,
         email VARCHAR(50) UNIQUE NOT NULL,
         first_name VARCHAR(50) NOT NULL,
         last_name VARCHAR(50) NOT NULL,
