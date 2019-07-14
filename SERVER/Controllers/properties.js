@@ -106,7 +106,7 @@ class Propertycontroller {
     const { rows } = await db.query(getone, [req.params.property_id]);
     return res.status(200).json({
       status: 'success',
-      data: rows,
+      data: { status: 'success', rows },
     });
   }
 }
