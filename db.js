@@ -40,8 +40,8 @@ const createUsersTable = () => {
 const createPropertyTable = () => {
   const queryText = `CREATE TABLE IF NOT EXISTS
       Property(
-        id SERIAL PRIMARY KEY,
-        owner INTEGER REFERENCES Users(id) ON DELETE CASCADE,
+        propery_id SERIAL NOT NULL,
+        owner varchar(128),
         status VARCHAR(50),
         price FLOAT(53),
         state VARCHAR(50),
