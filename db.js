@@ -43,7 +43,7 @@ const createPropertyTable = () => {
         propery_id SERIAL NOT NULL,
         owner varchar(128),
         status VARCHAR(50),
-        price FLOAT(53),
+        price VARCHAR(128),
         state VARCHAR(50),
         city VARCHAR(50),
         address VARCHAR(50),
