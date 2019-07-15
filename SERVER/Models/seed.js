@@ -1,6 +1,6 @@
 const Seed = {
   account: {
-    email: 'funmijohn@hotmail.com',
+    email: 'funmithomas@gmail.com',
     first_name: 'Funmilola',
     last_name: 'John',
     password: 'fuDd3457',
