@@ -5,74 +5,65 @@ import Helper from '../Middleware/Helper';
 class Propertycontroller {
   static async postProperty(req, res) {
     const createPropertyQuery = `INSERT INTO
-      Property (owner, status, price, state, city, address, 
-        type, created_on, image_url)
-      VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      Property (created_on, price, state, city, address, 
+        type, image_url, owner_email)
+      VALUES($1, $2, $3, $4, $5, $6, $7, $8)
       returning *`;
+    const rows = await db.query(createPropertyQuery, [moment(new Date()),
+      req.body.price, req.body.state, req.body.city, req.body.address,
+      req.body.type, req.body.image_url, req.body.owner_email]);
     const {
-      owner, status, price, state, city, address,
-      type, image_url,
-    } = req.body;
-    const values = [
-      owner, status, price, state, city, address,
-      type, moment(new Date()), image_url,
-    ];
-    const { rows } = await db.query(createPropertyQuery, values);
-    const token = Helper.generateToken(rows[0].property_id);
+      property_id, created_on, price, state, city, address, type, image_url, owner_email,
+    } = rows.rows[0];
+    const id = property_id;
     return res.status(201).json({
       status: 'success',
-      data:
-      {
-        token,
-        rows,
+      data: {
+        status: 'success', id, created_on, price, state, city, address, type, image_url, owner_email,
       },
     });
   }
 
   static async updateProperty(req, res) {
     const updatePropertyQuery = 'SELECT * FROM Property WHERE property_id=$1';
+    // eslint-disable-next-line no-unused-vars
     const { rows } = await db.query(updatePropertyQuery, [req.params.property_id]);
-    const token = Helper.generateToken(rows[0].property_id);
-    const values = {
-      price: req.body.price,
-      state: req.body.state,
-      city: req.body.city,
-      address: req.body.address,
-      type: req.body.type,
-      image_url: req.body.image_url,
-    };
+    const {
+      price, state, city, address, type, image_url,
+    } = req.body;
     return res.status(200).json({
       status: 'success',
-      token,
-      data: values,
+      data: {
+        price,
+        state,
+        city,
+        address,
+        type,
+        image_url,
+      },
     });
   }
 
   static async markPropertySold(req, res) {
-    const markPropertyQuery = 'SELECT * FROM Property WHERE property_id=$1';
-    const { rows } = await db.query(markPropertyQuery, [req.params.property_id]);
-    const token = Helper.generateToken(rows[0].property_id);
-    const { property_id } = req.params;
+    const selectPropertyQuery = 'SELECT * FROM Property WHERE property_id=$1';
+    const markPropertyQuery = `UPDATE Property
+      SET status=$1, created_on=$2
+      WHERE id=$3 returning *`;
+    const { rows } = await db.query(selectPropertyQuery, [req.params.property_id]);
+    const response = await db.query(markPropertyQuery, [req.body.status = 'sold' || rows[0].status,
+      moment(new Date()), req.params.property_id]);
     const {
-      type, state, city, address, price, created_on, image_url,
-    } = req.body;
-    const values = {
-      property_id,
-      status: req.body.status = 'sold',
-      type,
-      state,
-      city,
-      address,
-      price,
-      created_on,
-      image_url,
-    };
-    return res.status(200).json({
-      status: 'success',
-      token,
-      data: values,
-    });
+      property_id, status, created_on, price, state, city, address, type, image_url,
+    } = response.rows[0];
+    return res.status(200)
+      .json({
+        status: 'success',
+        data: {
+          property_id, status, created_on, price, state, city, address, type, image_url,
+        },
+      });
   }
+
 
   static async deleteProperty(req, res) {
     const deleteQuery = 'DELETE FROM Property WHERE property_id=$1 returning *';
@@ -110,11 +101,9 @@ class Propertycontroller {
   static async getAProperty(req, res) {
     const getone = 'SELECT * FROM Property WHERE property_id = $1';
     const { rows } = await db.query(getone, [req.params.property_id]);
-    const token = Helper.generateToken(rows[0].property_id);
     return res.status(200).json({
       status: 'success',
-      token,
-      data: rows[0],
+      data: { status: 'success', rows },
     });
   }
 }

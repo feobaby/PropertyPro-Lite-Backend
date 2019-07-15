@@ -3,9 +3,9 @@ import db from '../DBconfig/index';
 class ValidateProperties {
   static postProperty(req, res, next) {
     const {
-      status, price, state, city, address, type, image_url,
+      price, state, city, address, type, image_url,
     } = req.body;
-    if (!status || !price || !state || !city || !address || !type || !image_url
+    if (!price || !state || !city || !address || !type || !image_url
     ) {
       return res.status(400)
         .json({
@@ -13,7 +13,7 @@ class ValidateProperties {
           error: 'Please, supply the required fields!',
         });
     }
-    next();
+    return next();
   }
 
   static async updateProperty(req, res, next) {
