@@ -3,7 +3,7 @@ import Validateusers from '../Middleware/validateUsers';
 import Usercontroller from '../Controllers/users';
 import Propertycontroller from '../Controllers/properties';
 import Auth from '../Middleware/Authenticate';
-import ValidateProperties from '../Middleware/validateProperties';
+// import ValidateProperties from '../Middleware/validateProperties';
 
 const router = express.Router();
 
@@ -23,7 +23,7 @@ router.post('/api/v1/property',
   Auth.verifyToken,
   Propertycontroller.postProperty);
 router.patch('/api/v1/property/:property_id',
-  Auth.verifyToken, ValidateProperties.updateProperty,
+  Auth.verifyToken,
   Propertycontroller.updateProperty);
 
 router.patch('/api/v1/property/:property_id/sold', Auth.verifyToken, Propertycontroller.markPropertySold);
