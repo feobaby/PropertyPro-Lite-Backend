@@ -9,8 +9,9 @@ class Propertycontroller {
         type, image_url, owner_email)
       VALUES($1, $2, $3, $4, $5, $6, $7, $8)
       returning *`;
-    const rows = await db.query(createPropertyQuery, [moment(new Date()), req.body.price, req.body.state,
-      req.body.city, req.body.address, req.body.type, req.body.image_url, req.body.owner_email]);
+    const rows = await db.query(createPropertyQuery, [moment(new Date()),
+      req.body.price, req.body.state, req.body.city, req.body.address,
+      req.body.type, req.body.image_url, req.body.owner_email]);
     const {
       property_id, created_on, price, state, city, address, type, image_url, owner_email,
     } = rows.rows[0];
@@ -25,6 +26,7 @@ class Propertycontroller {
 
   static async updateProperty(req, res) {
     const updatePropertyQuery = 'SELECT * FROM Property WHERE property_id=$1';
+    // eslint-disable-next-line no-unused-vars
     const { rows } = await db.query(updatePropertyQuery, [req.params.property_id]);
     const {
       price, state, city, address, type, image_url,
