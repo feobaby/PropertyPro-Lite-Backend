@@ -1,9 +1,11 @@
 import express from 'express';
-import Validateusers from '../Middleware/validateUsers';
+import ValidateUsers from '../Middleware/validateUsers';
 import Usercontroller from '../Controllers/users';
 import Propertycontroller from '../Controllers/properties';
 import Auth from '../Middleware/Authenticate';
+import Flagcontroller from '../Controllers/flags';
 // import ValidateProperties from '../Middleware/validateProperties';
+import ValidateFlags from '../Middleware/validateFlags';
 
 const router = express.Router();
 
@@ -13,11 +15,11 @@ router.get('/', (req, res) => {
 });
 
 router.post('/api/v1/auth/signup',
-  Validateusers.signUpDetails,
+  ValidateUsers.signUpDetails,
   Usercontroller.signUp);
 
 router.post('/api/v1/auth/signin',
-  Validateusers.signIn,
+  ValidateUsers.signIn,
   Usercontroller.signIn);
 
 router.post('/api/v1/property',
@@ -43,5 +45,10 @@ router.get('/api/v1/property',
 router.get('/api/v1/property/:property_id',
   Auth.verifyToken,
   Propertycontroller.getAProperty);
+
+router.post('/api/v1/property/flag',
+  ValidateFlags.flagProperty,
+  Flagcontroller.flagProperty);
+
 
 export default router;

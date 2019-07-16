@@ -6,7 +6,7 @@ import db from '../DBconfig/index';
 // const pnumRegExp = /^[0-9]$/;
 // const passRegExp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8}$/;
 
-class Validateusers {
+class ValidateUsers {
   static signUpDetails(req, res, next) {
     const {
       email, first_name, last_name, password, phone_number, address,
@@ -83,4 +83,4 @@ class Validateusers {
 }
 
 
-export default Validateusers;
+export default ValidateUsers;
