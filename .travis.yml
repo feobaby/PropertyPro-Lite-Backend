@@ -3,6 +3,7 @@ node_js:
   - "stable"
 install:
   - npm install -g codecov
+  - npm install -g faker
 notifications:
   email: false
 services:
