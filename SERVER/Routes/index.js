@@ -50,5 +50,10 @@ router.post('/api/v1/property/flag',
   ValidateFlags.flagProperty,
   Flagcontroller.flagProperty);
 
+router.patch('/api/v1/resetpassword/:user_id',
+  Auth.verifyToken,
+  ValidateUsers.resetPassword,
+  Usercontroller.resetPassword);
+
 
 export default router;

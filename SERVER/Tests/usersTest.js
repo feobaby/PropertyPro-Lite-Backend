@@ -15,6 +15,7 @@ chai.use(chaiHttp);
 //   await db.query(Users);
 // });
 
+const token = process.env.JWT_TOKEN;
 const signup = '/api/v1/auth/signup';
 
 describe('POST /api/v1/auth/signup ', () => {
@@ -181,6 +182,84 @@ describe('POST /api/v1/auth/signin ', () => {
         expect(res.body).to.include.key('status');
         expect(res.body).to.include.key('error');
         expect(res.body.error).to.be.equal('Wrong password!');
+        done();
+      });
+  });
+});
+
+describe('PATCH /api/v1/resetpassword/:user_id ', () => {
+  it('should reset a password', (done) => {
+    request(app)
+      .patch('/api/v1/resetpassword/409')
+      .set('Accept', 'application/json')
+      .set('token', token)
+      .send({
+        email: 'olufunmilayo335@gmail.com',
+        password: 'funmi.OLA5',
+        confirmPassword: 'funmi.OLA5',
+      })
+      .end((err, res) => {
+        expect(res.status).to.be.equal(204);
+        expect(res).to.have.status('204');
+        done();
+      });
+  });
+
+  it('should return an error if email supplied is not found', (done) => {
+    request(app)
+      .patch('/api/v1/resetpassword/409')
+      .set('Accept', 'application/json')
+      .set('token', token)
+      .send({
+        email: 'olufunmilayo@gmail.com',
+        password: 'funmi.OLA5',
+        confirmPassword: 'funmi.OLA5',
+      })
+      .end((err, res) => {
+        expect(res.status).to.be.equal(404);
+        expect(res).to.have.status('404');
+        expect(res.body).to.include.key('status');
+        expect(res.body).to.include.key('error');
+        expect(res.body.error).to.be.equal('Email not found!');
+        done();
+      });
+  });
+
+  it('should return an error if passwords do not match', (done) => {
+    request(app)
+      .patch('/api/v1/resetpassword/409')
+      .set('Accept', 'application/json')
+      .set('token', token)
+      .send({
+        email: 'olufunmilayo335@gmail.com',
+        password: 'funmi.OLA',
+        confirmPassword: 'funmi.OLA5',
+      })
+      .end((err, res) => {
+        expect(res.status).to.be.equal(400);
+        expect(res).to.have.status('400');
+        expect(res.body).to.include.key('status');
+        expect(res.body).to.include.key('error');
+        expect(res.body.error).to.be.equal('Passwords do not match!');
+        done();
+      });
+  });
+  it('should return an error if the token is not supplied or invalid', (done) => {
+    request(app)
+      .patch('/api/v1/resetpassword/409')
+      .set('Accept', 'application/json')
+      .send({
+        email: 'olufunmilayo335@gmail.com',
+        password: 'funmi.OLA5',
+        confirmPassword: 'funmi.OLA5',
+      })
+      .end((err, res) => {
+        expect(res.status).to.be.equal(400);
+        expect(res).to.have.status('400');
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.include.key('status');
+        expect(res.body).to.include.key('error');
+        expect(res.body.error).to.be.equal('Token is invalid or not provided!');
         done();
       });
   });
