@@ -80,6 +80,19 @@ class ValidateUsers {
     }
     return next();
   }
+
+  static async resetPassword(req, res, next) {
+    const findmail = 'SELECT * FROM Users WHERE email= $1';
+    const { rows } = await db.query(findmail, [req.body.email]);
+    if (!rows[0]) {
+      return res.status(404)
+        .json({
+          status: 'error',
+          error: 'Email not found!',
+        });
+    }
+    return next();
+  }
 }
 
 

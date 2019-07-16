@@ -1,6 +1,9 @@
 import db from '../DBconfig/index';
 import Helper from '../Middleware/Helper';
 
+const nodemailer = require('nodemailer');
+
+
 class Usercontroller {
   static async signUp(req, res) {
     const createQuery = `INSERT INTO
@@ -18,8 +21,7 @@ class Usercontroller {
       const token = Helper.generateToken(rows[0].id);
       return res.status(201).json({ status: 'success', data: { token, rows } });
     } catch (error) {
-      /* istanbul ignore else */
-      if (error.routine === '_bt_check_unique') {
+      /* istanbul ignore else */ if (error.routine === '_bt_check_unique') {
         return res.status(409).json({ status: 409, error: 'OOPS! This particular email has already been registered!' });
       }
     }
@@ -48,6 +50,64 @@ class Usercontroller {
       },
     });
   }
-}
 
+  static async resetPassword(req, res) {
+    const output = `
+    <p><h2>Hello!</h2>
+    <h4>Your password has been successfully reset.</h4>
+    <h6>Regards,<br>
+    PropertyPro-Lite Team.<br>
+    <a href = "https://propertypro-lite26.herokuapp.com">Our help center.</a></h6>
+    </p>
+    `;
+    // create reusable transporter object using the default SMTP transport
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 25,
+      secure: false, // true for 465, false for other ports
+      auth: {
+        user: 'funmiolaiya9@gmail.com', // generated ethereal user
+        pass: 'e.5,l.l.', // generated ethereal password
+      },
+    });
+    // setup email data with unicode symbols
+    const mailOptions = {
+      from: '"PropertyPro-Lite Password Reset" <funmiolaiya9@gmail.com>', // sender address
+      to: ` ${req.body.email}`, // list of receivers
+      subject: 'Reset password', // Subject line
+      html: output, // html body
+    };
+    // send mail with defined transport object
+    /* istanbul ignore next */transporter.sendMail(mailOptions, (error, info) => {
+      /* istanbul ignore next */
+      if (error) {
+        return console.log(error);
+      }
+      /* istanbul ignore next */ console.log('Message sent: %s', info.messageId);
+      // Preview only available when sending through an Ethereal account
+      /* istanbul ignore next */console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+    });
+    const findQuery = 'SELECT * FROM users WHERE user_id=$1';
+    const resetQuery = `UPDATE users
+      SET password=$1
+      WHERE user_id=$2 returning *`;
+    // eslint-disable-next-line no-unused-vars
+    const rows = await db.query(findQuery, [req.params.user_id]);
+    const {
+      password, confirmPassword,
+    } = req.body;
+    if (password !== confirmPassword) {
+      return res.status(400).json({
+        status: 'error',
+        error: 'Passwords do not match!',
+      });
+    }
+    const hashPassword = Helper.hashPassword(password);
+    const values = [
+      hashPassword, req.params.user_id,
+    ];
+    const response = await db.query(resetQuery, values);
+    return res.status(204).json(response.rows[0]);
+  }
+}
 export default Usercontroller;
