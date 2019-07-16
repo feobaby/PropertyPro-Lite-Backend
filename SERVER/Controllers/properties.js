@@ -49,8 +49,9 @@ class Propertycontroller {
     const markPropertyQuery = `UPDATE Property
       SET status=$1, created_on=$2
       WHERE id=$3 returning *`;
-    const { rows } = await db.query(selectPropertyQuery, [req.params.property_id]);
-    const response = await db.query(markPropertyQuery, [req.body.status = 'sold' || rows[0].status,
+    // eslint-disable-next-line no-unused-vars
+    const rows = await db.query(selectPropertyQuery, [req.params.property_id]);
+    const response = await db.query(markPropertyQuery, [req.body.status = 'sold',
       moment(new Date()), req.params.property_id]);
     const {
       property_id, status, created_on, price, state, city, address, type, image_url,
