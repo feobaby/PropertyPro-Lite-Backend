@@ -1,5 +1,16 @@
+const faker = require('faker');
+
 const Seed = {
   account: {
+    email: faker.internet.email(),
+    first_name: 'Funmilola',
+    last_name: 'John',
+    password: 'fuDd3457',
+    phone_number: '08039873675',
+    address: 'No. 4, Tade Ayade Close, New Bodija, Ibadan',
+    is_admin: 'false',
+  },
+  registeredAccount: {
     email: 'funmijohn@hotmail.com',
     first_name: 'Funmilola',
     last_name: 'John',
