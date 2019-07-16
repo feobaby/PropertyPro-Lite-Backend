@@ -35,6 +35,7 @@ describe('POST /api/v1/property', () => {
       address: 'No.5, Greate road, Lekki.',
       type: 'Sky-scraper',
       image_url: 'https://res.cloudinary.com/dlifhuus1/image/upload/v1562011203/propertypro-lite/house3_skq8ou.jpg',
+      owner_email: 'adeogodavies@yahoo.com',
     };
     request(app)
       .post('/api/v1/property')
@@ -85,6 +86,7 @@ describe('POST /api/v1/property', () => {
         address: 'No.5, Greate road, Lekki.',
         type: 'Sky-scraper',
         image_url: 'https://res.cloudinary.com/dlifhuus1/image/upload/v1562011203/propertypro-lite/house3_skq8ou.jpg',
+        owner_email: 'adeogodavies@yahoo.com',
       })
       .end((err, res) => {
         expect(res.status).to.be.equal(400);
@@ -110,6 +112,7 @@ describe('PATCH /api/v1/property/:property_id', () => {
         address: 'No.5, Greate road, Aro.',
         type: 'Sky-scraper',
         image_url: 'https://res.cloudinary.com/dlifhuus1/image/upload/v1562011203/propertypro-lite/house3_skq8ou.jpg',
+        owner_email: 'adeogodavies@yahoo.com',
       })
       .end((err, res) => {
         expect(res.status).to.be.equal(200);
@@ -174,6 +177,7 @@ describe('PATCH /api/v1/property/:property_id', () => {
         address: 'No.5, Greate road, Lekki.',
         type: 'Sky-scraper',
         image_url: 'https://res.cloudinary.com/dlifhuus1/image/upload/v1562011203/propertypro-lite/house3_skq8ou.jpg',
+        owner_email: 'adeogodavies@yahoo.com',
       })
       .end((err, res) => {
         expect(res.status).to.be.equal(400);
