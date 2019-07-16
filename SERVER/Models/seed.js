@@ -1,8 +1,8 @@
-import faker from 'faker';
+// import faker from 'faker';
 
 const Seed = {
   account: {
-    email: faker.internet.email(),
+    email: 'funmijohn@hotmail.com',
     first_name: 'Funmilola',
     last_name: 'John',
     password: 'fuDd3457',
