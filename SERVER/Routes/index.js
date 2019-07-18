@@ -4,7 +4,7 @@ import Usercontroller from '../Controllers/users';
 import Propertycontroller from '../Controllers/properties';
 import Auth from '../Middleware/Authenticate';
 import Flagcontroller from '../Controllers/flags';
-// import ValidateProperties from '../Middleware/validateProperties';
+import ValidateProperties from '../Middleware/validateProperties';
 import ValidateFlags from '../Middleware/validateFlags';
 
 const router = express.Router();
@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/api/v1/auth/signup',
-  ValidateUsers.signUpDetails,
+  ValidateUsers.signUpValidation,
   Usercontroller.signUp);
 
 router.post('/api/v1/auth/signin',
@@ -24,18 +24,22 @@ router.post('/api/v1/auth/signin',
 
 router.post('/api/v1/property',
   Auth.verifyToken,
+  ValidateProperties.postProperty,
   Propertycontroller.postProperty);
 
 router.patch('/api/v1/property/:property_id',
   Auth.verifyToken,
+  ValidateProperties.updateProperty,
   Propertycontroller.updateProperty);
 
 router.patch('/api/v1/property/:property_id/sold',
   Auth.verifyToken,
+  ValidateProperties.getAProperty,
   Propertycontroller.markPropertySold);
 
 router.delete('/api/v1/property/:property_id',
   Auth.verifyToken,
+  ValidateProperties.getAProperty,
   Propertycontroller.deleteProperty);
 
 router.get('/api/v1/property',
@@ -44,6 +48,7 @@ router.get('/api/v1/property',
 
 router.get('/api/v1/property/:property_id',
   Auth.verifyToken,
+  ValidateProperties.getAProperty,
   Propertycontroller.getAProperty);
 
 router.post('/api/v1/property/flag',
@@ -55,5 +60,8 @@ router.patch('/api/v1/resetpassword/:user_id',
   ValidateUsers.resetPassword,
   Usercontroller.resetPassword);
 
+router.get('/api/v1/property/type/:property_id',
+  Auth.verifyToken,
+  Propertycontroller.getPropertyTypes);
 
 export default router;

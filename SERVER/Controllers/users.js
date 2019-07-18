@@ -63,16 +63,19 @@ class Usercontroller {
     // create reusable transporter object using the default SMTP transport
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
-      port: 25,
-      secure: false, // true for 465, false for other ports
+      port: 465,
+      secure: true, // true for 465, false for other ports
       auth: {
-        user: 'funmiolaiya9@gmail.com', // generated ethereal user
-        pass: 'e.5,l.l.', // generated ethereal password
+        user: 'dummy1633@gmail.com', // generated ethereal user
+        pass: 'dummy.Email8', // generated ethereal password
+      },
+      tls: {
+        rejectUnauthorized: false,
       },
     });
     // setup email data with unicode symbols
     const mailOptions = {
-      from: '"PropertyPro-Lite Password Reset" <funmiolaiya9@gmail.com>', // sender address
+      from: '"PropertyPro-Lite Password Reset" <dummy1633@gmail.com>', // sender address
       to: ` ${req.body.email}`, // list of receivers
       subject: 'Reset password', // Subject line
       html: output, // html body

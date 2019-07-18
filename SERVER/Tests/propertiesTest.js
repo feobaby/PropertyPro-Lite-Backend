@@ -50,30 +50,30 @@ describe('POST /api/v1/property', () => {
         done();
       });
   });
-  // it('should return an error if all the required fields are not supplied', (done) => {
-  //   const property = {
-  //     status: 'Available',
-  //     price: '10,000,000 naira',
-  //     state: 'Lagos',
-  //     city: 'Lagos',
-  //     address: '',
-  //     type: 'Sky-scraper',
-  //     image_url: 'https://res.cloudinary.com/dlifhuus1/image/upload/v1562011203/propertypro-lite/house3_skq8ou.jpg',
-  //   };
-  //   request(app)
-  //     .post('/api/v1/property')
-  //     .set('Accept', 'application/json')
-  //     .set('Authorization', token)
-  //     .send(property)
-  //     .end((err, res) => {
-  //       expect(res.status).to.be.equal(400);
-  //       expect(res).to.have.status('400');
-  //       expect(res.body).to.include.key('status');
-  //       expect(res.body).to.include.key('error');
-  //       expect(res.body.error).to.be.equal('Please, supply the required fields!');
-  //       done();
-  //     });
-  // });
+  it('should return an error if all the required fields are not supplied', (done) => {
+    const property = {
+      status: 'Available',
+      price: '10,000,000 naira',
+      state: 'Lagos',
+      city: 'Lagos',
+      address: '',
+      type: 'Sky-scraper',
+      image_url: 'https://res.cloudinary.com/dlifhuus1/image/upload/v1562011203/propertypro-lite/house3_skq8ou.jpg',
+    };
+    request(app)
+      .post('/api/v1/property')
+      .set('Accept', 'application/json')
+      .set('token', token)
+      .send(property)
+      .end((err, res) => {
+        expect(res.status).to.be.equal(400);
+        expect(res).to.have.status('400');
+        expect(res.body).to.include.key('status');
+        expect(res.body).to.include.key('error');
+        expect(res.body.error).to.be.equal('Please, supply the required fields!');
+        done();
+      });
+  });
   it('should return an error if the token is not supplied or invalid', (done) => {
     request(app)
       .post('/api/v1/property')
@@ -121,50 +121,52 @@ describe('PATCH /api/v1/property/:property_id', () => {
         done();
       });
   });
-  // it('should return an error if property not found', (done) => {
-  //   request(app)
-  //     .patch('/api/v1/property/1100')
-  //     .set('Accept', 'application/json')
-  //     .set('Authorization', token)
-  //     .send({
-  //       status: 'Sold',
-  //       price: '10,000 naira',
-  //       state: 'Lagos',
-  //       city: 'Lagos',
-  //       address: 'No.5, Greate road, Lekki.',
-  //       type: 'Sky-scraper',
-  //       image_url: 'https://res.cloudinary.com/dlifhuus1/image/upload/v1562011203/propertypro-lite/house3_skq8ou.jpg',
-  //     })
-  //     .end((err, res) => {
-  //       expect(res.status).to.be.equal(404);
-  //       expect(res).to.have.status('404');
-  //       expect(res.body).to.include.key('status');
-  //       expect(res.body).to.include.key('error');
-  //       done();
-  //     });
-  // });
-  // it('should return an error if required fields are not supplied', (done) => {
-  //   request(app)
-  //     .patch('/api/v1/property/1')
-  //     .set('Accept', 'application/json')
-  //     .set('Authorization', token)
-  //     .send({
-  //       status: 'Sold',
-  //       price: '10,000 naira',
-  //       state: '',
-  //       city: '',
-  //       address: 'No.5, Greate road, Lekki.',
-  //       type: 'Sky-scraper',
-  //       image_url: 'https://res.cloudinary.com/dlifhuus1/image/upload/v1562011203/propertypro-lite/house3_skq8ou.jpg',
-  //     })
-  //     .end((err, res) => {
-  //       expect(res.status).to.be.equal(400);
-  //       expect(res).to.have.status('400');
-  //       expect(res.body).to.include.key('status');
-  //       expect(res.body).to.include.key('error');
-  //       done();
-  //     });
-  // });
+  it('should return an error if property not found', (done) => {
+    request(app)
+      .patch('/api/v1/property/1100')
+      .set('Accept', 'application/json')
+      .set('token', token)
+      .send({
+        status: 'Sold',
+        price: '10,000 naira',
+        state: 'Lagos',
+        city: 'Lagos',
+        address: 'No.5, Greate road, Lekki.',
+        type: 'Sky-scraper',
+        image_url: 'https://res.cloudinary.com/dlifhuus1/image/upload/v1562011203/propertypro-lite/house3_skq8ou.jpg',
+        owner_email: 'adeogodavies@yahoo.com',
+      })
+      .end((err, res) => {
+        console.log(res);
+        expect(res.status).to.be.equal(404);
+        expect(res).to.have.status('404');
+        expect(res.body).to.include.key('status');
+        expect(res.body).to.include.key('error');
+        done();
+      });
+  });
+  it('should return an error if required fields are not supplied', (done) => {
+    request(app)
+      .patch('/api/v1/property/1')
+      .set('Accept', 'application/json')
+      .set('Authorization', token)
+      .send({
+        status: 'Sold',
+        price: '10,000 naira',
+        state: '',
+        city: '',
+        address: 'No.5, Greate road, Lekki.',
+        type: 'Sky-scraper',
+        image_url: 'https://res.cloudinary.com/dlifhuus1/image/upload/v1562011203/propertypro-lite/house3_skq8ou.jpg',
+      })
+      .end((err, res) => {
+        expect(res.status).to.be.equal(400);
+        expect(res).to.have.status('400');
+        expect(res.body).to.include.key('status');
+        expect(res.body).to.include.key('error');
+        done();
+      });
+  });
   it('should return an error if the token is not supplied or invalid', (done) => {
     request(app)
       .patch('/api/v1/property/18')
@@ -263,7 +265,6 @@ describe('GET /api/v1/property', () => {
         expect(res).to.have.status('200');
         expect(res.body).to.include.key('status');
         expect(res.body).to.include.key('data');
-        expect(res.body).to.include.key('token');
         done();
       });
   });
@@ -323,6 +324,22 @@ describe('GET /api/v1/property/:property_id', () => {
         expect(res.body).to.include.key('status');
         expect(res.body).to.include.key('error');
         expect(res.body.error).to.be.equal('Token is invalid or not provided!');
+        done();
+      });
+  });
+});
+
+describe('GET /api/v1/property/type/:property_id', () => {
+  it('should get all requested property types', (done) => {
+    request(app)
+      .get('/api/v1/property/type/1?type=duplex')
+      .set('Accept', 'application/json')
+      .set('token', token)
+      .end((err, res) => {
+        expect(res.status).to.be.equal(200);
+        expect(res).to.have.status('200');
+        expect(res.body).to.include.key('status');
+        expect(res.body).to.include.key('data');
         done();
       });
   });
