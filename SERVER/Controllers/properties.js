@@ -1,6 +1,5 @@
 import moment from 'moment';
 import db from '../DBconfig/index';
-import Helper from '../Middleware/Helper';
 
 class Propertycontroller {
   static async postProperty(req, res) {
@@ -11,7 +10,7 @@ class Propertycontroller {
       returning *`;
     const rows = await db.query(createPropertyQuery, [moment(new Date()),
       req.body.price, req.body.state, req.body.city, req.body.address,
-      req.body.type, req.body.image_url, req.body.owner_email]);
+      req.body.type.toLowerCase(), req.body.image_url, req.body.owner_email]);
     const {
       property_id, created_on, price, state, city, address, type, image_url, owner_email,
     } = rows.rows[0];
@@ -89,19 +88,25 @@ class Propertycontroller {
 
   static async getAllProperty(req, res) {
     const getall = 'SELECT * FROM Property';
-    const { rows, rowCount } = await db.query(getall);
-    const token = Helper.generateToken(rows[0].property_id);
+    const { rows } = await db.query(getall);
     return res.status(200).json({
       status: 'success',
-      token,
       data: rows,
-      rowCount,
     });
   }
 
   static async getAProperty(req, res) {
     const getone = 'SELECT * FROM Property WHERE property_id = $1';
     const { rows } = await db.query(getone, [req.params.property_id]);
+    return res.status(200).json({
+      status: 'success',
+      data: { status: 'success', rows },
+    });
+  }
+
+  static async getPropertyTypes(req, res) {
+    const getone = 'SELECT * FROM Property WHERE type = $1';
+    const { rows } = await db.query(getone, [req.query.type]);
     return res.status(200).json({
       status: 'success',
       data: { status: 'success', rows },

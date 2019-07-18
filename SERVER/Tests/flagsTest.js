@@ -12,7 +12,7 @@ const token = process.env.JWT_TOKEN;
 describe('POST /api/v1/property/flag', () => {
   it('should flag a fraudulent property', (done) => {
     const property = {
-      property_id: '20',
+      property_id: '73',
       reason: 'Fake',
       description: 'Fake',
     };
@@ -31,7 +31,7 @@ describe('POST /api/v1/property/flag', () => {
   });
   it('should return an error if a user does not supply the required fields', (done) => {
     const property = {
-      property_id: '20',
+      property_id: '73',
       reason: 'Fake',
       description: '',
     };

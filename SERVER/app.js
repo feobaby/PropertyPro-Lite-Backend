@@ -4,7 +4,7 @@ import router from './Routes/index';
 const dotenv = require('dotenv');
 
 dotenv.config();
-// eslint-disable-next-line linebreak-style
+
 const bodyParser = require('body-parser');
 
 const app = express();
@@ -13,6 +13,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(router);
 
+app.use((req, res) => {
+  res.status(404).json({
+    status: 404,
+    error: 'This route does not exist.',
+  });
+});
 
 const port = process.env.PORT || 5000;
 
