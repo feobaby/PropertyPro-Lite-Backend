@@ -1,80 +1,599 @@
 FORMAT: 1A
-HOST: http://polls.apiblueprint.org/
+HOST: https://propertypro-lite26.herokuapp.com
 
 # PropertyPro-Lite
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+Property Pro Lite is a platform where people can create and/or search properties for sale or rent. 
 
-## Questions Collection [/questions]
+## Project Overview
+##### These are the HTTP request methods used in this project
 
-### List All Questions [GET]
+* GET - To get a resource
+* POST - To create a resource or send data
+* PATCH - To update a resource
+* DELETE - To delete a resource
 
-+ Response 200 (application/json)
+##### These are the HTTP response codes used in this project.
 
-        [
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
-                ]
-            }
-        ]
+* 200 - This OK status code indicates that a request has succeeded
+* 201 - This CREATED status code indicates that a resource has been created
+* 400 - This BAD REQUEST status code indicates that the request sent to the server is incorrect
+* 401 - This UNAUTHORIZED ERROR status code indicates the necessary credentials needed for authorization wasn't supplied
+* 404 - This NOT FOUND status code indicates that a particular resource requested for, does not exist
+* 409 - This CONFLICT status code indicates that the request sent to the server has a resource duplicated
+* 500 - This INTERNAL SERVER ERROR status code indicates that something is wrong with the web server
 
-### Create a New Question [POST]
+##### These are the routes created/used in this project.
 
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
+* POST/api/v1/auth/signup - To create a new account
+* POST/api/v1/auth/signin -To log in to an account
+* POST/api/v1/property - To post a new property advert
+* GET/api/v1/property - To get all posted property adverts
+* GET/api/v1/property/:property_id - To get a single property advert
+* GET/api/v1/property/type/:property_id - To get property type(s)
+* PATCH/api/v1/parcels/:property_id/sold - To mark a property as sold
+* PATCH/api/v1/parcels/:property_id -To update the details of a property advert
+* DELETE/api/v1/property/:property_id - To delete a property advert
+* POST/api/v1/property/flag - To flag/report shady properties 
+* PATCH/api/v1/resetpassword/:user_id - To reset a password
+
+
+           
+## USER CAN SIGN UP [/api/v1/auth/signup]           
+### Sign up [POST]
+
+This API route `/api/v1/auth/signup` allows new users to create an account.
 
 + Request (application/json)
 
         {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
+           "email": "adepegbaa@gmail.com",
+           "first_name": "ade",
+           "last_name": "pegba",
+           "password": "PegbaBa3",
+           "phone_number": "08022077786",
+           "address": "No. 10, Real street, Ikeja, Lagos."
         }
 
 + Response 201 (application/json)
 
-    + Headers
+    + Body
+    
+            {
+               "status": "success",
+                "data": {
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NjM0NTk2MjksImV4cCI6MTU2NDA2NDQyOX0.Y2qaTI7XwcJgI31IQHmFI6-QiA2XRAxDRPlWVlsTArs",
+                 "rows": [
+            {
+                "user_id": 512,
+                "email": "adepegbaa@gmail.com",
+                "first_name": "ade",
+                "last_name": "pegba",
+                "password": "$2b$08$LGAc/MBqf4Nusx1z5QHrP.6yXq60m8GBo.v1wMEfzQL90w8Jg.Gf2",
+                "phone_number": "08022077786",
+                "address": "No. 10, Real street, Ikeja, Lagos."
+            }
+                      ]
+                      }
+            }
+        
+            
++ Response 409 (application/json)
+    
+    + Body
+    
+            {
+                 "status": 409,
+                 "error": "OOPS! This particular email has already been registered!"
+            }
+ 
+ 
++ Response 400 (application/json)
+    
+    + Body
+               
+            {
+              "status": "error",
+              "error": "Please, supply the required fields!"
+            }
 
-            Location: /questions/2
++ Response 400 (application/json)
+    
+    + Body
+    
+            {
+             "status": "error",
+             "error": "Please, supply valid name(s)!"
+            }
+
++ Response 400 (application/json)
+    
+    + Body
+    
+            {
+                "status": "error",
+                "error": "Please, supply a valid phone number!"
+            }
+
++ Response 400 (application/json)
+    
+    + Body
+
+            {
+                "status": "error",
+                "error": "Your password must be only 8 characters and must include at least an upper case letter, lower case letter, and a number."
+            }
+
+
+## USER CAN SIGN IN [/api/v1/auth/signin]           
+### Sign in [POST]
+
+This API route `/api/v1/auth/signin` allows new users to sign in.
+
++ Request (application/json)
+
+        {
+           "email": "adepegbaa@gmail.com",
+           "password": "PegbaBa3"
+        }
+
++ Response 200 (application/json)
 
     + Body
 
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
+              "status": "success",
+              "data": {
+              "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NjM0NjA5NzQsImV4cCI6MTU2NDA2NTc3NH0.1ODDrBcUtDlVW6BOWIK2Iy1gBSSswp94AUAMwHUtEN0",
+              "user_id": 512,
+              "email": "adepegbaa@gmail.com",
+              "first_name": "ade",
+              "last_name": "pegba",
+              "password": "$2b$08$LGAc/MBqf4Nusx1z5QHrP.6yXq60m8GBo.v1wMEfzQL90w8Jg.Gf2",
+              "phone_number": "08022077786",
+              "address": "No. 10, Real street, Ikeja, Lagos."
+                     }
+            }
+
++ Response 401 (application/json)
+
+   + Body
+ 
+            {
+                 "status": "error",
+                 "error": "Wrong email!"
+            }
+            
++ Response 401 (application/json)
+
+   + Body
+ 
+            {
+                 "status": "error",
+                 "error": "Wrong password!"
+            }
+            
+            
+## USER CAN POST/GET ALL PROPERTY(IES) [/api/v1/property]           
+### Post a property [POST]
+
+This API route `/api/v1/property` allows users(agents) to post a new property advert.   
+
+ + Request(application/json)
+
+    + Headers
+    
+            token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExLCJpYXQiOjE1NjI5NzI3ODUsImV4cCI6MTU2MzU3NzU4NX0.wOykJCnbRU22xN-DLKejho3nU8k25kO6m9OmYaejGdk
+    
+    + Body
+    
+            {
+                    "price": "400,000 naira",
+                    "state": "Ogun",
+                    "city": "Abeokuta",
+                    "address": "No 4. Love street.",
+                    "type": "duplex",
+                    "image_url": "picture",
+                    "owner_email": "tadefenwa@gmail.com"
+            }
+
++ Response 201 (application/json)
+
+    + Body
+    
+            {
+                "status": "success",
+                "data": {
+                "status": "success",
+                "id": 94,
+                "created_on": "2019-07-18T15:22:02.036Z",
+                "price": "400,000 naira",
+                "state": "Ogun",
+                "city": "Abeokuta",
+                "address": "No 4. Love street.",
+                "type": "duplex",
+                "image_url": "picture",
+                "owner_email": "tadefenwa@gmail.com"
+                        }
+            }
+ 
++ Response 400 (application/json)
+ 
+    + Body
+ 
+            {
+                "status": "error",
+                "error": "Please, supply the required fields!"
+            }
+    
+
+## USER CAN POST/GET ALL PROPERTY(IES) [/api/v1/property]
+
+### Get all properties [GET]
+This API route `/api/v1/property` also allows users(agents) to get all property adverts. 
+
++ Request(application/json)
+
+    + Headers
+    
+            token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExLCJpYXQiOjE1NjI5NzI3ODUsImV4cCI6MTU2MzU3NzU4NX0.wOykJCnbRU22xN-DLKejho3nU8k25kO6m9OmYaejGdk
+            
++ Response 200 (application/json)
+
+    + Body
+
+            {
+               "status": "success",
+               "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU2MzQ1NjM4MywiZXhwIjoxNTY0MDYxMTgzfQ._WsOP0tAJ_rwIY34p3sb7DN-HgUrgXVq8mMxJAE0lOE",
+               "data": 
+                     {
+                    "id": 1,
+                    "status": "Available",
+                    "property_id": 1,
+                    "price": "900,0000  pounds",
+                    "state": "Oyo",
+                    "city": "Ibadan",
+                    "address": "No.4 Customs Road, New Bodija.",
+                    "type": "Sky-Scraper",
+                    "image_url": "https://res.cloudinary.com/dlifhuus1/image/upload/v1562011203/propertypro-lite/house3_skq8ou.jpg",
+                    "owner_email": "adeogodavies@yahoo.com",
+                    "created_on": "2019-07-16T09:35:58.547Z"
+                     },
+            {
+                    "id": 36,
+                    "status": "Available",
+                    "property_id": 36,
+                    "price": "10,000,000 naira",
+                    "state": "Lagos",
+                    "city": "Lagos",
+                    "address": "No.5, Greate road, Lekki.",
+                    "type": "Sky-scraper",
+                    "image_url": "https://res.cloudinary.com/dlifhuus1/image/upload/v1562011203/propertypro-lite/house3_skq8ou.jpg",
+                    "owner_email": "adeogodavies@yahoo.com",
+                    "created_on": "2019-07-16T13:57:06.670Z"
+                      },
+            }
+            
+## USER CAN GET A SINGLE PROPERTY [/api/v1/property/1]
+This API route `/api/v1/property/:property_id` allows users(agents) to get a specific property advert. 
+
+### Get a single property [GET]
+
+
++ Request(application/json)
+
+    + Headers
+    
+            token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExLCJpYXQiOjE1NjI5NzI3ODUsImV4cCI6MTU2MzU3NzU4NX0.wOykJCnbRU22xN-DLKejho3nU8k25kO6m9OmYaejGdk
+            
++ Response 200 (application/json)
+
+    + Body
+
+            {
+               "status": "success",
+               "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU2MzQ1NjM4MywiZXhwIjoxNTY0MDYxMTgzfQ._WsOP0tAJ_rwIY34p3sb7DN-HgUrgXVq8mMxJAE0lOE",
+               "data": 
+                     {
+                    "id": 1,
+                    "status": "Available",
+                    "property_id": 1,
+                    "price": "900,0000  pounds",
+                    "state": "Oyo",
+                    "city": "Ibadan",
+                    "address": "No.4 Customs Road, New Bodija.",
+                    "type": "Sky-Scraper",
+                    "image_url": "https://res.cloudinary.com/dlifhuus1/image/upload/v1562011203/propertypro-lite/house3_skq8ou.jpg",
+                    "owner_email": "adeogodavies@yahoo.com",
+                    "created_on": "2019-07-16T09:35:58.547Z"
+                     },
+            }            
+            }
+            
++ Response 400 (application/json)
+
+     + Body
+     
+            {
+                "status": "error",
+                "error": "Property not found!"
+            }
+             
+    
+## USER CAN GET PROPERTY TYPE [/api/v1/property/type/1?type=duplex] 
+This API route `/api/v1/property/type/:property_id` allows users(agents) to get property type. 
+
+### Get a property type [GET]
+
+
++ Request(application/json)
+
+    + Headers
+    
+            token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExLCJpYXQiOjE1NjI5NzI3ODUsImV4cCI6MTU2MzU3NzU4NX0.wOykJCnbRU22xN-DLKejho3nU8k25kO6m9OmYaejGdk
+            
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "status": "success",
+                "data": {
+                 "rows": [
+                 {
+                    "id": 75,
+                    "status": null,
+                    "property_id": 75,
+                    "price": "900,0000  pounds",
+                    "state": "Oyo",
+                    "city": "Ibadan",
+                    "address": "{\"ibadan, oyo\",\"No.4 Customs Road, New Bodija.\"}",
+                    "type": "duplex",
+                    "image_url": "https://res.cloudinary.com/dlifhuus1/image/upload/v1562011203/propertypro-lite/house3_skq8ou.jpg",
+                    "owner_email": "tadefenwa@gmail.com",
+                    "created_on": "2019-07-17T20:49:42.592Z"
+                }
+           }
+            
++ Response 400 (application/json)
+
+     + Body
+     
+            {
+                "status": "error",
+                "error": "Property not found!"
+            }
+                 
+    
+    
+            
+## USER CAN MARK A PROPERTY SOLD / UPDATE / DELETE A PROPERTY [/api/v1/property/94]           
+### Mark a property sold [PATCH]
+
+This API route `/api/v1/property/:property_id/sold` allows users(agents) to mark a property as sold.   
+
+ + Request(application/json)
+
+    + Headers
+    
+            token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExLCJpYXQiOjE1NjI5NzI3ODUsImV4cCI6MTU2MzU3NzU4NX0.wOykJCnbRU22xN-DLKejho3nU8k25kO6m9OmYaejGdk  
+            
++ Response 200 (application/json)
+
+    + Body
+ 
+            {
+                "status": "success",
+                "data": {
+                "property_id": 60,
+                "status": "sold",
+                "created_on": "2019-07-18T14:35:02.761Z",
+                "price": "10,000,000 naira",
+                "state": "Lagos",
+                "city": "Lagos",
+                "address": "No.5, Greate road, Lekki.",
+                "type": "Sky-scraper",
+                "image_url": "https://res.cloudinary.com/dlifhuus1/image/upload/v1562011203/propertypro-lite/house3_skq8ou.jpg"
+                         }
+            }
+            
++ Response 400 (application/json)
+
+     + Body
+     
+            {
+                "status": "error",
+                "error": "Property not found!"
+            }
+            
+                        
+## USER CAN MARK A PROPERTY SOLD / UPDATE A PROPERTY[/api/v1/property/36]           
+### Update a property advert [PATCH]
+
+This API route `/api/v1/property/:property_id` allows users(agents) to update a property advert.   
+
+ + Request(application/json)
+
+    + Headers
+    
+            token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExLCJpYXQiOjE1NjI5NzI3ODUsImV4cCI6MTU2MzU3NzU4NX0.wOykJCnbRU22xN-DLKejho3nU8k25kO6m9OmYaejGdk  
+            
+    + Body            
+            
+             {
+                "id": 94,
+                "created_on": "2019-07-18T15:22:02.036Z",
+                "price": "400,000 naira",
+                "state": "Ogun",
+                "city": "Abeokuta",
+                "address": "No 4. Love street.",
+                "type": "duplex",
+                "image_url": "https://res.cloudinary.com/dlifhuus1/image/upload/v1562011203/propertypro-lite/house3_skq8ou.jpg",
+                "owner_email": "tadefenwa@gmail.com"
+                        }
+            }
+            
++ Response 200 (application/json)
+
+    + Body
+ 
+            {
+                "id": 94,
+                "created_on": "2019-07-18T15:22:02.036Z",
+                "price": "400,000 naira",
+                "state": "Ogun",
+                "city": "Abeokuta",
+                "address": "No 4. Love street.",
+                "type": "duplex",
+                "image_url": "https://res.cloudinary.com/dlifhuus1/image/upload/v1562011203/propertypro-lite/house3_skq8ou.jpg",
+                "owner_email": "tadefenwa@gmail.com"
+                        }
+            }
+            
++ Response 400 (application/json)
+
+     + Body
+     
+            {
+                "status": "error",
+                "error": "Property not found!"
+            }
+             
+            
++ Response 400 (application/json)
+
+     + Body
+            
+            
+            {
+                status: 'error',
+                 error: 'Please, supply the required fields!',
+            } 
+            
+
+                        
+## USER CAN DELETE A PROPERTY[/api/v1/property/41]           
+### Delete a property advert [DELETE]
+
+This API route `/api/v1/property/:property_id` allows users(agents) to delete a property advert.   
+
+ + Request(application/json)
+
+    + Headers
+    
+            token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExLCJpYXQiOjE1NjI5NzI3ODUsImV4cCI6MTU2MzU3NzU4NX0.wOykJCnbRU22xN-DLKejho3nU8k25kO6m9OmYaejGdk  
+            
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+                "status": 200,
+                "data": {
+                "message": "The property has been deleted!"
+                        }
+            }
+            
++ Response 400 (application/json)
+
+     + Body
+     
+            {
+                "status": "error",
+                "error": "Property not found!"
+            }
+            
+                      
+## USER CAN FLAG A SUSPECTFUL PROPERTY / RESET PASSWORD [/api/v1/property/flag]           
+### Flag a property advert [POST]
+
+This API route `/api/v1/property/flag` allows users(agents) to flag a property advert.   
+
+ + Request(application/json)
+
+    + Headers
+    
+            token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExLCJpYXQiOjE1NjI5NzI3ODUsImV4cCI6MTU2MzU3NzU4NX0.wOykJCnbRU22xN-DLKejho3nU8k25kO6m9OmYaejGdk 
+            
+    + Body
+    
+            {
+                "property_id": "20",
+                "reason": "fake",
+                "description": "fake"
+            }        
+            
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+                "status": "success",
+                "data": [
+             {
+                "id": 16,
+                "property_id": 20,
+                "created_on": "2019-07-18T15:48:57.292Z",
+                "reason": "fake",
+                "description": "fake"
+            }
+                        ]
+            }
+            
++ Response 400 (application/json)
+
+     + Body
+     
+            {
+                "status": "error",
+                "error": "Property not found!"
+            }
+            
++ Response 400 (application/json)
+
+     + Body
+     
+            {
+                "status": "error",
+                "error": "Please, supply the required fields!"
+            }            
+
+## USER CAN RESET PASSWORD[/api/v1/resetpassword/405]           
+### Reset a password [PATCH]
+
+This API route `/api/v1/resetpassword/:user_id` allows users(agents) to reset a password.   
+
+ + Request(application/json)
+
+    + Headers
+    
+            token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExLCJpYXQiOjE1NjI5NzI3ODUsImV4cCI6MTU2MzU3NzU4NX0.wOykJCnbRU22xN-DLKejho3nU8k25kO6m9OmYaejGdk 
+            
+    + Body
+    
+            {
+                "email": "funmiolaiya335@gmail.com",
+                "password": "ade",
+                "confirmPassword": "ade",
+            }        
+            
++ Response 204 (application/json)
+
+            
++ Response 404 (application/json)
+
+     + Body
+            
+            {
+                "status": "error",
+                "error": "Email not found!"
+            }
+            
++ Response 400 (application/json)
+
+     + Body
+     
+            {
+                "status": "error",
+                "error": "Passwords do not match!"
             }
