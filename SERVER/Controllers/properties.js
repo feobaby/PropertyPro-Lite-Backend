@@ -68,14 +68,7 @@ class Propertycontroller {
   static async deleteProperty(req, res) {
     const deleteQuery = 'DELETE FROM Property WHERE property_id=$1 returning *';
     const { rows } = await db.query(deleteQuery, [req.params.property_id]);
-    /* istanbul ignore if */
-    if (!rows[0]) {
-      res.status(404)
-        .json({
-          status: 'error',
-          error: 'Property not found!',
-        });
-    } else if (rows[0]) {
+    /* istanbul ignore else */ if (rows[0]) {
       return res.status(200).json({
         status: 200,
         data:

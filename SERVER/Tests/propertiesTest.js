@@ -24,6 +24,22 @@ describe('GET /', () => {
   });
 });
 
+describe(' EXAMPLE, GET / POST / PATCH /DELETE', () => {
+  it('should handle invalid routes', (done) => {
+    request(app)
+      .get('/api/v1/properties')
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        expect(res.status).to.be.equal(404);
+        expect(res).to.have.status('404');
+        expect(res.body).to.include.key('status');
+        expect(res.body).to.include.keys('error');
+        expect(res.body.error).to.be.equal('This route does not exist.');
+        done();
+      });
+  });
+});
+
 describe('POST /api/v1/property', () => {
   it('should post a new property', (done) => {
     const property = {
@@ -297,21 +313,21 @@ describe('GET /api/v1/property/:property_id', () => {
         done();
       });
   });
-  // it('should return an error if the property is not found', (done) => {
-  //   request(app)
-  //     .get('/api/v1/property/1001')
-  //     .set('Accept', 'application/json')
-  //     .set('Authorization', token)
-  //     .end((err, res) => {
-  //       expect(res.status).to.be.equal(404);
-  //       expect(res).to.have.status('404');
-  //       expect(res.body).to.be.an('object');
-  //       expect(res.body).to.include.key('status');
-  //       expect(res.body).to.include.key('error');
-  //       expect(res.body.error).to.be.equal('Property not found!');
-  //       done();
-  //     });
-  // });
+  it('should return an error if the property is not found', (done) => {
+    request(app)
+      .get('/api/v1/property/1001')
+      .set('Accept', 'application/json')
+      .set('token', token)
+      .end((err, res) => {
+        expect(res.status).to.be.equal(404);
+        expect(res).to.have.status('404');
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.include.key('status');
+        expect(res.body).to.include.key('error');
+        expect(res.body.error).to.be.equal('Property not found!');
+        done();
+      });
+  });
   it('should return an error if the token is not supplied or invalid', (done) => {
     request(app)
       .get('/api/v1/property/1')
