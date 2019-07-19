@@ -137,7 +137,6 @@ describe('PATCH /api/v1/property/:property_id', () => {
         owner_email: 'adeogodavies@yahoo.com',
       })
       .end((err, res) => {
-        console.log(res);
         expect(res.status).to.be.equal(404);
         expect(res).to.have.status('404');
         expect(res.body).to.include.key('status');

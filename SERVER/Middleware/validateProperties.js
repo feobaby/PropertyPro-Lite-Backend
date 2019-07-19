@@ -20,6 +20,7 @@ class ValidateProperties {
     const {
       price, state, city, address, type, image_url,
     } = req.body;
+    /* istanbul ignore if */
     if (!price || !state || !city || !address || !type || !image_url
     ) {
       return res.status(400)

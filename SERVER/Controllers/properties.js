@@ -18,7 +18,7 @@ class Propertycontroller {
     return res.status(201).json({
       status: 'success',
       data: {
-        status: 'success', id, created_on, price, state, city, address, type, image_url, owner_email,
+        id, created_on, price, state, city, address, type, image_url, owner_email,
       },
     });
   }
@@ -68,7 +68,7 @@ class Propertycontroller {
   static async deleteProperty(req, res) {
     const deleteQuery = 'DELETE FROM Property WHERE property_id=$1 returning *';
     const { rows } = await db.query(deleteQuery, [req.params.property_id]);
-    /* istanbul ignore else */
+    /* istanbul ignore if */
     if (!rows[0]) {
       res.status(404)
         .json({
@@ -100,7 +100,7 @@ class Propertycontroller {
     const { rows } = await db.query(getone, [req.params.property_id]);
     return res.status(200).json({
       status: 'success',
-      data: { status: 'success', rows },
+      data: rows,
     });
   }
 
@@ -109,7 +109,7 @@ class Propertycontroller {
     const { rows } = await db.query(getone, [req.query.type]);
     return res.status(200).json({
       status: 'success',
-      data: { status: 'success', rows },
+      data: rows,
     });
   }
 }
