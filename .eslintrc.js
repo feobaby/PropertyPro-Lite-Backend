@@ -23,5 +23,6 @@ module.exports = {
       "consistent-return": 0,
       "no-console": 0,
       "camelcase": 0,
+      "import/no-extraneous-dependencies": 0,
   },
 };

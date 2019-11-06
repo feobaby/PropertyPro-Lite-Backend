@@ -11,10 +11,10 @@ const Seed = {
     is_admin: 'false',
   },
   registeredAccount: {
-    email: 'funmijohn@hotmail.com',
+    email: 'funmi@gmail.com',
     first_name: 'Funmilola',
     last_name: 'John',
-    password: 'fuDd3457',
+    password: 'funmi.5H',
     phone_number: '08039873675',
     address: 'No. 4, Tade Ayade Close, New Bodija, Ibadan',
     is_admin: 'false',
@@ -65,8 +65,8 @@ const Seed = {
     is_admin: 'false',
   },
   signIn: {
-    email: 'funmijohn@hotmail.com',
-    password: 'fuDd3457',
+    email: 'funmi13@gmail.com',
+    password: 'funmi.5H',
   },
   incompleteSignInDetails: {
     email: '',

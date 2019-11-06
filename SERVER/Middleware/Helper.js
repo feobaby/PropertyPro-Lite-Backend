@@ -11,8 +11,13 @@ class Helper {
   }
 
   static generateToken(id) {
-    const token = jwt.sign({ userId: id }, process.env.SECRET_KEY, { expiresIn: '7d' });
+    const token = jwt.sign({ user_id: id }, process.env.SECRET, { expiresIn: '7d' });
     return token;
+  }
+
+  static async verifyToken(token, secret = process.env.SECRET) {
+    const decoded = await jwt.verify(token, secret);
+    return decoded;
   }
 }
 
