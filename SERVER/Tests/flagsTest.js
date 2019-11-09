@@ -30,7 +30,7 @@ describe('Test for the flag-property Endpoint', () => {
         .end((logError, logResponse) => {
           const token = `Bearer ${logResponse.body.data.token}`;
           chai.request(app)
-            .post('/api/v1/property/flag/2')
+            .post('/api/v1/property/flag/1')
             .set('Authorization', token)
             .send({
               reason: 'Fake',
