@@ -1,109 +1,133 @@
 import moment from 'moment';
+// import Helper from '../Middleware/Helper';
 import db from '../DBconfig/index';
+import {
+  createPropertyQuery, updatePropertyQuery, selectPropertyQuery, markPropertyQuery,
+  deletePropertyQuery, getAllPropertiesQuery, getOnePropertyQuery,
+  getPropertyTypesQuery,
+} from '../Models/propertiesQuery';
+
 
 class Propertycontroller {
   static async postProperty(req, res) {
-    const createPropertyQuery = `INSERT INTO
-      Property (created_on, price, state, city, address, 
-        type, image_url, owner_email)
-      VALUES($1, $2, $3, $4, $5, $6, $7, $8)
-      returning *`;
-    const rows = await db.query(createPropertyQuery, [moment(new Date()),
-      req.body.price, req.body.state, req.body.city, req.body.address,
-      req.body.type.toLowerCase(), req.body.image_url, req.body.owner_email]);
-    const {
-      property_id, created_on, price, state, city, address, type, image_url, owner_email,
-    } = rows.rows[0];
-    const id = property_id;
-    return res.status(201).json({
-      status: 'success',
-      data: {
-        id, created_on, price, state, city, address, type, image_url, owner_email,
-      },
-    });
+    try {
+      const { user_id } = req.user;
+      const values = [moment(new Date()), user_id,
+        req.body.status = 'Available', req.body.price, req.body.duration, req.body.state,
+        req.body.city, req.body.address,
+        req.body.type.toLowerCase(), req.body.image_url, req.body.owner_email];
+      const { rows } = await db.query(createPropertyQuery, values);
+      return res.status(201).json({
+        status: '201',
+        message: 'A new property has been created.',
+        data: rows,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ status: '500', error: 'Oops, there\'s an error!' });
+    }
   }
 
   static async updateProperty(req, res) {
-    const updatePropertyQuery = 'SELECT * FROM Property WHERE property_id=$1';
-    // eslint-disable-next-line no-unused-vars
-    const { rows } = await db.query(updatePropertyQuery, [req.params.property_id]);
-    const {
-      price, state, city, address, type, image_url,
-    } = req.body;
-    return res.status(200).json({
-      status: 'success',
-      data: {
-        price,
-        state,
-        city,
-        address,
-        type,
-        image_url,
-      },
-    });
+    try {
+      await db.query(updatePropertyQuery, [req.params.id]);
+      const {
+        duration, price, state, city, address, type, image_url,
+      } = req.body;
+      return res.status(200).json({
+        status: '200',
+        message: 'The property has been updated.',
+        data: {
+          duration, price, state, city, address, type, image_url,
+        },
+      });
+    } catch (error) {
+      return res.status(500).json({ status: '500', error: 'Oops, there\'s an error!' });
+    }
   }
 
   static async markPropertySold(req, res) {
-    const selectPropertyQuery = 'SELECT * FROM Property WHERE property_id=$1';
-    const markPropertyQuery = `UPDATE Property
-      SET status=$1, created_on=$2
-      WHERE id=$3 returning *`;
-    // eslint-disable-next-line no-unused-vars
-    const rows = await db.query(selectPropertyQuery, [req.params.property_id]);
-    const response = await db.query(markPropertyQuery, [req.body.status = 'sold',
-      moment(new Date()), req.params.property_id]);
-    const {
-      property_id, status, created_on, price, state, city, address, type, image_url,
-    } = response.rows[0];
-    return res.status(200)
-      .json({
-        status: 'success',
-        data: {
-          property_id, status, created_on, price, state, city, address, type, image_url,
-        },
-      });
+    try {
+      const { user_id } = req.user;
+      await db.query(selectPropertyQuery, [req.params.id], user_id);
+      const { rows } = await db.query(markPropertyQuery, [req.body.status = 'sold',
+        moment(new Date()), req.params.id]);
+      const { id, status } = rows[0];
+      if (rows[0].user_id !== user_id) {
+        return res.status(422).json({ status: '422', error: 'Access Denied' });
+      }
+      return res.status(200)
+        .json({
+          status: '200',
+          message: 'This property has been marked sold.',
+          data: { id, status },
+        });
+    } catch (error) {
+      return res.status(500).json({ status: '500', error: 'Oops, there\'s an error!' });
+    }
   }
 
 
   static async deleteProperty(req, res) {
-    const deleteQuery = 'DELETE FROM Property WHERE property_id=$1 returning *';
-    const { rows } = await db.query(deleteQuery, [req.params.property_id]);
-    /* istanbul ignore else */ if (rows[0]) {
-      return res.status(200).json({
-        status: 200,
-        data:
-      {
-        message: 'The property has been deleted!',
-      },
-      });
+    try {
+      const { rows } = await db.query(deletePropertyQuery, [req.params.id]);
+      if (rows[0]) {
+        return res.status(200).json({
+          status: 200,
+          message: 'This property has been deleted.',
+        });
+      }
+    } catch (error) {
+      return res.status(500).json({ status: '500', error: 'Oops, there\'s an error!' });
     }
   }
 
   static async getAllProperty(req, res) {
-    const getall = 'SELECT * FROM Property';
-    const { rows } = await db.query(getall);
-    return res.status(200).json({
-      status: 'success',
-      data: rows,
-    });
+    try {
+      const { user_id } = req.user;
+      const { rows } = await db.query(getAllPropertiesQuery, [user_id]);
+      return res.status(200).json({
+        status: '200',
+        message: 'These are all your properties.',
+        data: rows,
+      });
+    } catch (error) {
+      return res.status(500).json({ status: '500', error: 'Oops, there\'s an error!' });
+    }
   }
 
   static async getAProperty(req, res) {
-    const getone = 'SELECT * FROM Property WHERE property_id = $1';
-    const { rows } = await db.query(getone, [req.params.property_id]);
-    return res.status(200).json({
-      status: 'success',
-      data: rows,
-    });
+    try {
+      const { user_id } = req.user;
+      const value = [req.params.id];
+      const { rows } = await db.query(getOnePropertyQuery, value, user_id);
+      if (rows[0].user_id !== user_id) {
+        return res.status(422).json({ status: '422', error: 'Access Denied' });
+      }
+      return res.status(200).json({
+        status: '200',
+        message: 'Here is the property.',
+        data: rows,
+      });
+    } catch (error) {
+      return res.status(500).json({ status: '500', error: 'Oops, there\'s an error!' });
+    }
   }
 
+
   static async getPropertyTypes(req, res) {
-    const getone = 'SELECT * FROM Property WHERE type = $1';
-    const { rows } = await db.query(getone, [req.query.type]);
-    return res.status(200).json({
-      status: 'success',
-      data: rows,
-    });
+    try {
+      const values = [req.query.type, req.query.state, req.query.city, req.query.price,
+        req.query.duration];
+      const { rows } = await db.query(getPropertyTypesQuery, values);
+      return res.status(200).json({
+        status: '200',
+        message: 'These are all the properties that matches your specification.',
+        data: rows,
+      });
+    } catch (error) {
+      return res.status(500).json({ status: '500', error: 'Oops, there\'s an error!' });
+    }
   }
 }
 

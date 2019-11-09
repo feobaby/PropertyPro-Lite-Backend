@@ -1,4 +1,5 @@
 import express from 'express';
+import morgan from 'morgan';
 import router from './Routes/index';
 
 const dotenv = require('dotenv');
@@ -9,16 +10,18 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
+app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(router);
 
-app.use((req, res) => {
+app.use('*', (req, res) => {
   res.status(404).json({
     status: 404,
     error: 'This route does not exist.',
   });
 });
+
 
 const port = process.env.PORT || 5000;
 

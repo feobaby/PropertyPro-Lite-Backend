@@ -1,23 +1,29 @@
 import moment from 'moment';
 import db from '../DBconfig/index';
+import { flagPropertyQuery } from '../Models/flagsQuery';
+
 
 class Flagcontroller {
   static async flagProperty(req, res) {
-    const flagPropertyQuery = `INSERT INTO
-      Flags (property_id, created_on, reason, description)
-      VALUES($1, $2, $3, $4)
-      returning *`;
-    const {
-      property_id, reason, description,
-    } = req.body;
-    const values = [
-      property_id, moment(new Date()), reason, description,
-    ];
-    const { rows } = await db.query(flagPropertyQuery, values);
-    return res.status(201).json({
-      status: 'success',
-      data: rows,
-    });
+    try {
+      const { id: property_id } = req.params;
+      const { user_id } = req.user;
+      const {
+        reason, description, created_on,
+      } = req.body;
+      await db.query(flagPropertyQuery, [user_id, property_id, moment(new Date()),
+        reason, description]);
+      return res.status(201).json({
+        status: '201',
+        message: 'Here is the flagged property.',
+        data: {
+          user_id, property_id, reason, description, created_on,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ status: '500', error: 'Oops, there\'s an error!' });
+    }
   }
 }
 

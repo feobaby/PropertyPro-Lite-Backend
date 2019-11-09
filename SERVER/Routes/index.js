@@ -9,7 +9,9 @@ import ValidateFlags from '../Middleware/validateFlags';
 
 const router = express.Router();
 
-// for welcome
+const { verifyToken } = Auth;
+
+// the welcome page
 router.get('/', (req, res) => {
   res.status(200).json({ message: 'Welcome to PropertyPro-Lite' });
 });
@@ -22,46 +24,48 @@ router.post('/api/v1/auth/signin',
   ValidateUsers.signIn,
   Usercontroller.signIn);
 
-router.post('/api/v1/property',
-  Auth.verifyToken,
+router.post('/api/v1/post-property',
+  verifyToken,
   ValidateProperties.postProperty,
   Propertycontroller.postProperty);
 
-router.patch('/api/v1/property/:property_id',
-  Auth.verifyToken,
+router.patch('/api/v1/update-property/:id',
+  verifyToken,
   ValidateProperties.updateProperty,
   Propertycontroller.updateProperty);
 
-router.patch('/api/v1/property/:property_id/sold',
-  Auth.verifyToken,
+router.patch('/api/v1/mark-property/:id/sold',
+  verifyToken,
   ValidateProperties.getAProperty,
   Propertycontroller.markPropertySold);
 
-router.delete('/api/v1/property/:property_id',
-  Auth.verifyToken,
-  ValidateProperties.getAProperty,
+router.delete('/api/v1/delete-property/:id',
+  verifyToken,
+  ValidateProperties.getDeletePropertyNotFound,
+  ValidateProperties.getDeleteProperty,
   Propertycontroller.deleteProperty);
 
-router.get('/api/v1/property',
-  Auth.verifyToken,
+router.get('/api/v1/all-properties',
+  verifyToken,
+  ValidateProperties.getAllProperty,
   Propertycontroller.getAllProperty);
 
-router.get('/api/v1/property/:property_id',
-  Auth.verifyToken,
+router.get('/api/v1/one-property/:id',
+  verifyToken,
   ValidateProperties.getAProperty,
   Propertycontroller.getAProperty);
 
-router.post('/api/v1/property/flag',
+
+router.get('/api/v1/property/type/:id',
+  verifyToken,
+  ValidateProperties.getPropertyTypes,
+  Propertycontroller.getPropertyTypes);
+
+
+router.post('/api/v1/property/flag/:id',
+  verifyToken,
   ValidateFlags.flagProperty,
   Flagcontroller.flagProperty);
 
-router.patch('/api/v1/resetpassword/:user_id',
-  Auth.verifyToken,
-  ValidateUsers.resetPassword,
-  Usercontroller.resetPassword);
-
-router.get('/api/v1/property/type/:property_id',
-  Auth.verifyToken,
-  Propertycontroller.getPropertyTypes);
 
 export default router;
