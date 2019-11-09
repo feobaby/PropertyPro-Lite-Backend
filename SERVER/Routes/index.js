@@ -13,7 +13,7 @@ const { verifyToken } = Auth;
 
 // the welcome page
 router.get('/', (req, res) => {
-  res.status(200).json({ message: 'Welcome to PropertyPro-Lite' });
+  res.status(200).json({ message: 'Welcome to PropertyPro-Lite [back-end]' });
 });
 
 router.post('/api/v1/auth/signup',

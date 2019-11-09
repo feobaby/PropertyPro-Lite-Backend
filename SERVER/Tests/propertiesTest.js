@@ -30,7 +30,7 @@ describe('Test for the flag-property Endpoint', () => {
           expect(res.status).to.be.equal(200);
           expect(res).to.have.status('200');
           expect(res.body).to.include.key('message');
-          expect(res.body.message).to.be.equal('Welcome to PropertyPro-Lite');
+          expect(res.body.message).to.be.equal('Welcome to PropertyPro-Lite [back-end]');
           done();
         });
     });
