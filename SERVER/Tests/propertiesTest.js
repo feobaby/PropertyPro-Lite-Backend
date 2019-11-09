@@ -123,7 +123,7 @@ describe('Test for the flag-property Endpoint', () => {
         .end((logError, logResponse) => {
           const token = `Bearer ${logResponse.body.data.token}`;
           chai.request(app)
-            .patch('/api/v1/update-property/2')
+            .patch('/api/v1/update-property/1')
             .set('Authorization', token)
             .send({
               price: '30,000',
@@ -183,7 +183,7 @@ describe('Test for the flag-property Endpoint', () => {
         .end((logError, logResponse) => {
           const token = `Bearer ${logResponse.body.data.token}`;
           chai.request(app)
-            .patch('/api/v1/mark-property/2/sold')
+            .patch('/api/v1/mark-property/1/sold')
             .set('Authorization', token)
             .end((err, res) => {
               expect(res.status).to.be.equal(200);
@@ -227,7 +227,7 @@ describe('Test for the flag-property Endpoint', () => {
         .end((logError, logResponse) => {
           const token = `Bearer ${logResponse.body.data.token}`;
           chai.request(app)
-            .get('/api/v1/one-property/2')
+            .get('/api/v1/one-property/1')
             .set('Authorization', token)
             .end((err, res) => {
               expect(res.status).to.be.equal(200);

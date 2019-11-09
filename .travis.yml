@@ -12,13 +12,10 @@ before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
- 
 script:
   - npm run test
-  - psql -c 'create database propertypro_lite;' -U postgres
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
-  - istanbul cover ./node_modules/mocha/bin/_mocha --reporter lcovonly -- -R spec
 cache:
   directories:
     - "node_modules" 
