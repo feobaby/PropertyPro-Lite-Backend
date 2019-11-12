@@ -1,10 +1,12 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
 import app from '../app';
+import Flagcontroller from '../Controllers/flags';
 
 const { expect } = chai;
-
+chai.use(sinonChai);
 chai.use(chaiHttp);
 
 const login = {
@@ -68,6 +70,22 @@ describe('Test for the flag-property Endpoint', () => {
               done();
             });
         });
+    });
+    it('should return a server error', async () => {
+      const req = {
+        body: {
+          email: 'funmi13@gmail.com',
+          password: 'funmi.5H',
+        },
+      };
+      const res = {
+        status: () => {},
+        json: () => {},
+      };
+      sinon.stub(res, 'status').returnsThis();
+
+      await Flagcontroller.flagProperty(req, res);
+      expect(res.status).to.have.been.calledWith(500);
     });
   });
 });
