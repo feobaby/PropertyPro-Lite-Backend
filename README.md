@@ -77,9 +77,11 @@ This features all the routes created in this project.
 | /api/v1/property/flag/:id            | `POST`   | For a user to flag fraudulent property ADs          |
 
 
+----
+
 ### Sample format to fully test this project
 
-Sign up a user: https://propertypro-lite7.herokuapp.com/api/v1/auth/signup
+1. Sign up a user: https://propertypro-lite7.herokuapp.com/api/v1/auth/signup
 
 ```
 
@@ -95,7 +97,7 @@ Sign up a user: https://propertypro-lite7.herokuapp.com/api/v1/auth/signup
 
 ```
 
-Sign in a user: https://propertypro-lite7.herokuapp.com/api/v1/auth/signin
+2. Sign in a user: https://propertypro-lite7.herokuapp.com/api/v1/auth/signin
 
 ```
 
@@ -108,7 +110,7 @@ Sign in a user: https://propertypro-lite7.herokuapp.com/api/v1/auth/signin
 
 Grab the token gotten from the sign in and place it in the Bearer field of postman/insomina [Bearer: token]
 
-Now create a property: https://propertypro-lite7.herokuapp.com/api/v1/post-property
+3. Now create a property: https://propertypro-lite7.herokuapp.com/api/v1/post-property
 
 ```
 
@@ -125,7 +127,7 @@ Now create a property: https://propertypro-lite7.herokuapp.com/api/v1/post-prope
 
 ```
 
-Update the property you created: https://propertypro-lite7.herokuapp.com/api/v1/update-property/1
+4. Update the property you created: https://propertypro-lite7.herokuapp.com/api/v1/update-property/1
 
 ```
 
@@ -142,13 +144,13 @@ Update the property you created: https://propertypro-lite7.herokuapp.com/api/v1/
 
 ```
 
-Get the single property you created: https://propertypro-lite7.herokuapp.com/api/v1/one-property/1
+5. Get the single property you created: https://propertypro-lite7.herokuapp.com/api/v1/one-property/1
 
-Get all the properties you created: https://propertypro-lite7.herokuapp.com/api/v1/all-properties
+6. Get all the properties you created: https://propertypro-lite7.herokuapp.com/api/v1/all-properties
 
-Mark the property you created as sold: https://propertypro-lite7.herokuapp.com/api/v1/mark-property/1/sold
+7. Mark the property you created as sold: https://propertypro-lite7.herokuapp.com/api/v1/mark-property/1/sold
 
-Flag a property as fradulent: https://propertypro-lite7.herokuapp.com/api/v1/property/flag/1
+8. Flag a property as fradulent: https://propertypro-lite7.herokuapp.com/api/v1/property/flag/1
 
 ```
 
@@ -159,7 +161,7 @@ Flag a property as fradulent: https://propertypro-lite7.herokuapp.com/api/v1/pro
 
 ```
 
-Filter types of properties: https://propertypro-lite7.herokuapp.com/api/v1/property/type/1?type=duplex&state=oyo&&city=lon&&price=30,000&&duration=3 months
+9. Filter types of properties: https://propertypro-lite7.herokuapp.com/api/v1/property/type/1?type=duplex&state=oyo&&city=lon&&price=30,000&&duration=3 months
 
 
 ### Template User Interface(UI)
