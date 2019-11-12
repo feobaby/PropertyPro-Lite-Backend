@@ -8,32 +8,46 @@ This is a platform where people can create and/or search properties for sale or 
 
 ## Features
 
-- Users can sign up and sign in.
-- Users can post a property advert.
-- Users can update the details of a property advert.
-- Users can get(view) a single/all property adverts.  
-- Users can delete a property advert.
-- Users can mark a property advert as sold.
-- Users can get specific types of a property.
-- Users can flag a posted property AD as fraudulent.
+A user/agent:
+- can sign up and sign in.
+- can get(view) a single/all property adverts.
+- can get specific types of a property.
+- can flag a posted property AD as fraudulent.
+
+An agent:
+- can post a property advert.
+- can update the details of a property advert. 
+- can delete a property advert.
+- can mark a property advert as sold.
+- can get specific types of a property.
+
+### All what a user can do, an agent can do too interchangeably. They are both users.
 
 ## Getting started
 
 - Have Git, Node.js installed on your computer.
 - Use this link: ```https://github.com/funmi5/PropertyPro-Lite.git``` to clone the project.
 
-```bash
--  Cd into the project and run **npm install**
+```
+-  Cd into the project and run **npm install** to install necessary modules
+```
+```
 -  Run **npm start** to start the server
--  Add the necessary variables to your .env file, follow the sample.
--  To test - run **npm test**
+```
+```
+-  Create a .env file and add the necessary variables to your file, follow the .env-sample.
+```
+```
+-  Run **npm test** to run unit tests
 ```
 
 ### Authentication
+---
 
-JsonWebToken
+- JsonWebToken
 
 ### HTTP Request Methods
+---
 
 These are the HTTP request methods used in this project.
 
@@ -45,6 +59,7 @@ These are the HTTP request methods used in this project.
 | `DELETE` | This method is used to *delete* a resource                  |
 
 ### HTTP Response Status Codes
+---
 
 These are the HTTP response codes used in this project.
 
@@ -60,6 +75,7 @@ These are the HTTP response codes used in this project.
 |  `422`       | This `Unprocessable Entity` status code indicates that the request--response can not be processed             |
 
 ### The API Routes
+---
 
 This features all the routes created in this project.
 
@@ -164,26 +180,22 @@ Grab the token gotten from the sign in and place it in the Bearer field of postm
 9. Filter types of properties: https://propertypro-lite7.herokuapp.com/api/v1/property/type/1?type=duplex&state=oyo&&city=lon&&price=30,000&&duration=3 months
 
 
-### Template User Interface(UI)
+### Core links for this project:
+----
 
-<https://funmi5.github.io/PropertyPro-Lite/UI/>
+<a href ="https://funmi5.github.io/PropertyPro-Lite/UI/"> - UI templates </a> - The UI templates designed for this project.
 
-### Relevant Pivotal Tracker stories
+<a href = "https://pivotaltracker.com/n/projects/2355287"> - Relevant Pivotal Tracker stories</a> - The project management stories.
 
-<https://pivotaltracker.com/n/projects/2355287>
+<a href = "https://propertypro-lite7.herokuapp.com/"> - Hosted API endpoints</a> - The back-end API endpoints hosted on heroku.
 
-### The API endpoints are hosted on Heroku
+<a href ="https://propertyprolite26.docs.apiary.io/"> - Documentation </a> - Documentation of the API endpoints.
 
-<https://propertypro-lite7.herokuapp.com/>
-
-### The API endpoints are well documented
-
-<https://propertyprolite26.docs.apiary.io/>
-
-### Author
-
+## Author
 Funmilayo E. Olaiya
 
-### Acknowledgement
-
+## Acknowledgement
 Andela.
+
+## License
+This project is licensed under the MIT license.
