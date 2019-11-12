@@ -1,10 +1,10 @@
-// const faker = require('faker');
+const faker = require('faker');
 
 const Seed = {
   account: {
     first_name: 'funmi',
     last_name: 'olaiya',
-    email: 'funmi13@gmail.com',
+    email: faker.internet.email(),
     password: 'funmi.5H',
     confirmPassword: 'funmi.5H',
     phone_number: '08022066672',
