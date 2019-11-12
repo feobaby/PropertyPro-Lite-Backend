@@ -27,49 +27,6 @@
     word-break: break-all;
   }
   
-  .row {
-    margin: 8px -16px;
-  }
-  
-  /* Add padding BETWEEN each column */
-  .row,
-  .row > .column {
-    padding: 8px;
-  }
-  
-  /* Create four equal columns that floats next to each other */
-  .column {
-    float: left;
-    width: 25%;
-  }
-  
-  /* Clear floats after rows */ 
-  .row:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-  
-  /* Content */
-  .content {
-    background-color: white;
-    padding: 10px;
-  }
-  
-  /* Responsive layout - makes a two column-layout instead of four columns */
-  @media screen and (max-width: 900px) {
-    .column {
-      width: 50%;
-    }
-  }
-  
-  /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
-  @media screen and (max-width: 600px) {
-    .column {
-      width: 100%;
-    }
-  }
-
   .topnav {
   overflow: hidden;
   background-color: rgb(136, 36, 66);
@@ -234,8 +191,38 @@
     }
   }
 
-
-
-
-
   
+  /* Float four columns side by side */
+  .column {
+    float: left;
+    width: 16.666%;
+  }
+  
+  /* Remove extra left and right margins, due to padding */
+  .row {margin: 0px;}
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  /* Responsive columns */
+  @media screen and (max-width: 600px) {
+    .column {
+      width: 70%;
+      display: block;
+      margin-bottom: 10px;
+      margin-left: 15%
+    }
+  }
+  
+  /* Style the counter cards */
+  .card {
+    padding: 3px;
+    text-align: center;
+    background-color: #f1f1f1;
+    height: 15vh;
+    border: 1px dotted black
+  }
