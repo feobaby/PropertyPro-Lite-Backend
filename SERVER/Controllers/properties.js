@@ -23,7 +23,6 @@ class Propertycontroller {
         data: rows,
       });
     } catch (error) {
-      console.log(error);
       return res.status(500).json({ status: '500', error: 'Oops, there\'s an error!' });
     }
   }

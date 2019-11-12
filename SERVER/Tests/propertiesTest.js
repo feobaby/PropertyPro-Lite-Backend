@@ -1,16 +1,23 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
 import app from '../app';
+import Propertycontroller from '../Controllers/properties';
 
 const { expect } = chai;
-
+chai.use(sinonChai);
 chai.use(chaiHttp);
 
 const login = {
   email: 'funmi13@gmail.com',
   password: 'funmi.5H',
 };
+const login1 = {
+  email: 'funmi139@gmail.com',
+  password: 'funmi.5H',
+};
+
 let request;
 describe('Test for the flag-property Endpoint', () => {
   before(async () => {
@@ -112,6 +119,22 @@ describe('Test for the flag-property Endpoint', () => {
             });
         });
     });
+    it('should return a server error', async () => {
+      const req = {
+        body: {
+          email: 'funmi13@gmail.com',
+          password: 'funmi.5H',
+        },
+      };
+      const res = {
+        status: () => {},
+        json: () => {},
+      };
+      sinon.stub(res, 'status').returnsThis();
+
+      await Propertycontroller.postProperty(req, res);
+      expect(res.status).to.have.been.calledWith(500);
+    });
   });
 
   describe('PATCH /api/v1/update-property/:id', () => {
@@ -171,6 +194,22 @@ describe('Test for the flag-property Endpoint', () => {
               });
           });
       });
+      it('should return a server error', async () => {
+        const req = {
+          body: {
+            email: 'funmi13@gmail.com',
+            password: 'funmi.5H',
+          },
+        };
+        const res = {
+          status: () => {},
+          json: () => {},
+        };
+        sinon.stub(res, 'status').returnsThis();
+
+        await Propertycontroller.updateProperty(req, res);
+        expect(res.status).to.have.been.calledWith(500);
+      });
     });
   });
 
@@ -194,6 +233,41 @@ describe('Test for the flag-property Endpoint', () => {
             });
         });
     });
+    it('should return access denied if the login is unauthorised', (done) => {
+      chai.request(app)
+        .post('/api/v1/auth/signin')
+        .set('Accept', 'application/json')
+        .send(login1)
+        .end((logError, logResponse) => {
+          const token = `Bearer ${logResponse.body.data.token}`;
+          chai.request(app)
+            .patch('/api/v1/mark-property/1/sold')
+            .set('Authorization', token)
+            .end((err, res) => {
+              expect(res.status).to.be.equal(422);
+              expect(res).to.have.status('422');
+              expect(res.body).to.include.key('status');
+              expect(res.body).to.include.key('error');
+              done();
+            });
+        });
+    });
+    it('should return a server error', async () => {
+      const req = {
+        body: {
+          email: 'funmi13@gmail.com',
+          password: 'funmi.5H',
+        },
+      };
+      const res = {
+        status: () => {},
+        json: () => {},
+      };
+      sinon.stub(res, 'status').returnsThis();
+
+      await Propertycontroller.markPropertySold(req, res);
+      expect(res.status).to.have.been.calledWith(500);
+    });
   });
 
   describe('GET /api/v1/all-properties', () => {
@@ -215,6 +289,22 @@ describe('Test for the flag-property Endpoint', () => {
               done();
             });
         });
+    });
+    it('should return a server error', async () => {
+      const req = {
+        body: {
+          email: 'funmi13@gmail.com',
+          password: 'funmi.5H',
+        },
+      };
+      const res = {
+        status: () => {},
+        json: () => {},
+      };
+      sinon.stub(res, 'status').returnsThis();
+
+      await Propertycontroller.getAllProperty(req, res);
+      expect(res.status).to.have.been.calledWith(500);
     });
   });
 
@@ -238,6 +328,41 @@ describe('Test for the flag-property Endpoint', () => {
             });
         });
     });
+    it('should return access denied if the login is unauthorised', (done) => {
+      chai.request(app)
+        .post('/api/v1/auth/signin')
+        .set('Accept', 'application/json')
+        .send(login1)
+        .end((logError, logResponse) => {
+          const token = `Bearer ${logResponse.body.data.token}`;
+          chai.request(app)
+            .get('/api/v1/one-property/1')
+            .set('Authorization', token)
+            .end((err, res) => {
+              expect(res.status).to.be.equal(422);
+              expect(res).to.have.status('422');
+              expect(res.body).to.include.key('status');
+              expect(res.body).to.include.key('error');
+              done();
+            });
+        });
+    });
+    it('should return a server error', async () => {
+      const req = {
+        body: {
+          email: 'funmi13@gmail.com',
+          password: 'funmi.5H',
+        },
+      };
+      const res = {
+        status: () => {},
+        json: () => {},
+      };
+      sinon.stub(res, 'status').returnsThis();
+
+      await Propertycontroller.getAProperty(req, res);
+      expect(res.status).to.have.been.calledWith(500);
+    });
   });
 
   describe('GET /api/v1/property/type/:id', () => {
@@ -259,6 +384,22 @@ describe('Test for the flag-property Endpoint', () => {
               done();
             });
         });
+    });
+    it('should return a server error', async () => {
+      const req = {
+        body: {
+          email: 'funmi13@gmail.com',
+          password: 'funmi.5H',
+        },
+      };
+      const res = {
+        status: () => {},
+        json: () => {},
+      };
+      sinon.stub(res, 'status').returnsThis();
+
+      await Propertycontroller.getPropertyTypes(req, res);
+      expect(res.status).to.have.been.calledWith(500);
     });
   });
 });

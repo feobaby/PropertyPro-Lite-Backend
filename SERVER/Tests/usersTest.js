@@ -1,13 +1,18 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import request from 'supertest';
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
 import Seed from '../Models/seed';
 import app from '../app';
+import Usercontroller from '../Controllers/users';
 
+chai.use(sinonChai);
 const { expect } = chai;
 
 const {
-  account, signIn, incompleteSignInDetails, wrongEmail, wrongPassword, incompleteFields, invalidEmail,
+  account, signIn, incompleteSignInDetails, wrongEmail, wrongPassword,
+  incompleteFields, invalidEmail,
   noValidNames, noValidNumber, noValidPassword,
 } = Seed;
 
