@@ -1,2 +1,2 @@
-*.js text eol=lf
-.babelrc text eol=lf
+ *.js linguist-detectable=true
+ *.html linguist-detectable=false
