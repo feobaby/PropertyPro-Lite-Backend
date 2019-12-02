@@ -27,13 +27,7 @@ class Usercontroller {
     try {
       const { rows } = await db.query(signinQuery, [req.body.email]);
       const token = Helper.generateToken(rows[0].id);
-      return res.status(200)
-        .json({
-          data: {
-            status: '200',
-            token,
-          },
-        });
+      return res.status(200).json({ data: { status: '200', token } });
     } catch (error) {
       return res.status(500).json({ status: '500', error: 'Oops, there\'s an error!' });
     }
