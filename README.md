@@ -21,8 +21,6 @@ An agent:
 - can mark a property advert as sold.
 - can get specific types of a property.
 
-### All what a user can do, an agent can do too interchangeably. They are both users.
-
 ## Getting started
 
 - Have Git, Node.js installed on your computer.
@@ -194,7 +192,7 @@ Grab the token gotten from the sign in and place it in the Bearer field of postm
 ## Author
 Funmilayo E. Olaiya
 
-## Acknowledgement
+## Acknowledgment
 Andela.
 
 ## License
