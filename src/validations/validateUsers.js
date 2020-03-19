@@ -1,13 +1,12 @@
-import Helper from './Helper';
-import db from '../DBconfig/index';
-import { signinQuery } from '../Models/usersQuery';
+import {
+  Helper,
+  emailRegExp, nameRegExp, pnumRegExp, passRegExp,
+} from '../utils/index';
+import db from '../config/index';
+import { signinQuery } from '../models/usersQuery';
 
-const emailRegExp = /\S+@\S+\.\S+/;
-const nameRegExp = /^[a-zA-Z]*$/;
-const pnumRegExp = /^(\d{11})$/;
-const passRegExp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8}$/;
 
-class ValidateUsers {
+export class ValidateUsers {
   static signUpValidation(req, res, next) {
     const {
       email, first_name, last_name, password, phone_number, address,
@@ -46,7 +45,7 @@ class ValidateUsers {
   }
 
 
-  static async signIn(req, res, next) {
+  static async signInValidation(req, res, next) {
     if (!req.body.email || !req.body.password) {
       return res.status(400).json({
         status: '400',

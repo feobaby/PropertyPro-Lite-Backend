@@ -3,7 +3,10 @@ import chaiHttp from 'chai-http';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import app from '../app';
-import Propertycontroller from '../Controllers/properties';
+import {
+  postProperty, updateProperty, markPropertySold, getAProperty, getPropertyTypes,
+  getAllProperty,
+} from '../controllers/index';
 
 const { expect } = chai;
 chai.use(sinonChai);
@@ -19,7 +22,7 @@ const login1 = {
 };
 
 let request;
-describe('Test for the flag-property Endpoint', () => {
+describe('Test for the Property Endpoints', () => {
   before(async () => {
     request = chai.request(app).keepOpen();
   });
@@ -31,7 +34,7 @@ describe('Test for the flag-property Endpoint', () => {
   describe('GET /', () => {
     it('should get the welcome page', (done) => {
       chai.request(app)
-        .get('/')
+        .get('/api/v1')
         .set('Accept', 'application/json')
         .end((err, res) => {
           expect(res.status).to.be.equal(200);
@@ -46,7 +49,7 @@ describe('Test for the flag-property Endpoint', () => {
   describe(' EXAMPLE, GET / POST / PATCH /DELETE', () => {
     it('should handle invalid routes', (done) => {
       chai.request(app)
-        .get('/api/v1/properties')
+        .get('/api/v1/propertiessssss')
         .set('Accept', 'application/json')
         .end((err, res) => {
           expect(res.status).to.be.equal(404);
@@ -59,16 +62,16 @@ describe('Test for the flag-property Endpoint', () => {
     });
   });
 
-  describe('POST /api/v1/post-property', () => {
+  describe('POST /api/v1/property', () => {
     it('should post a new property', (done) => {
       chai.request(app)
         .post('/api/v1/auth/signin')
         .set('Accept', 'application/json')
         .send(login)
         .end((logError, logResponse) => {
-          const token = `Bearer ${logResponse.body.data.token}`;
+          const token = `Bearer ${logResponse.body.token}`;
           chai.request(app)
-            .post('/api/v1/post-property')
+            .post('/api/v1/property')
             .set('Authorization', token)
             .send({
               price: '30,000',
@@ -95,9 +98,9 @@ describe('Test for the flag-property Endpoint', () => {
         .set('Accept', 'application/json')
         .send(login)
         .end((logError, logResponse) => {
-          const token = `Bearer ${logResponse.body.data.token}`;
+          const token = `Bearer ${logResponse.body.token}`;
           chai.request(app)
-            .post('/api/v1/post-property')
+            .post('/api/v1/property')
             .set('Authorization', token)
             .send({
               price: '30,000',
@@ -132,21 +135,21 @@ describe('Test for the flag-property Endpoint', () => {
       };
       sinon.stub(res, 'status').returnsThis();
 
-      await Propertycontroller.postProperty(req, res);
+      await postProperty(req, res);
       expect(res.status).to.have.been.calledWith(500);
     });
   });
 
-  describe('PATCH /api/v1/update-property/:id', () => {
+  describe('PATCH /api/v1/property/:id', () => {
     it('should update property details', (done) => {
       chai.request(app)
         .post('/api/v1/auth/signin')
         .set('Accept', 'application/json')
         .send(login)
         .end((logError, logResponse) => {
-          const token = `Bearer ${logResponse.body.data.token}`;
+          const token = `Bearer ${logResponse.body.token}`;
           chai.request(app)
-            .patch('/api/v1/update-property/1')
+            .patch('/api/v1/property/1')
             .set('Authorization', token)
             .send({
               price: '30,000',
@@ -171,9 +174,9 @@ describe('Test for the flag-property Endpoint', () => {
           .set('Accept', 'application/json')
           .send(login)
           .end((logError, logResponse) => {
-            const token = `Bearer ${logResponse.body.data.token}`;
+            const token = `Bearer ${logResponse.body.token}`;
             chai.request(app)
-              .patch('/api/v1/update-property/20000')
+              .patch('/api/v1/property/20000')
               .set('Authorization', token)
               .send({
                 status: 'Sold',
@@ -207,7 +210,7 @@ describe('Test for the flag-property Endpoint', () => {
         };
         sinon.stub(res, 'status').returnsThis();
 
-        await Propertycontroller.updateProperty(req, res);
+        await updateProperty(req, res);
         expect(res.status).to.have.been.calledWith(500);
       });
     });
@@ -220,9 +223,9 @@ describe('Test for the flag-property Endpoint', () => {
         .set('Accept', 'application/json')
         .send(login)
         .end((logError, logResponse) => {
-          const token = `Bearer ${logResponse.body.data.token}`;
+          const token = `Bearer ${logResponse.body.token}`;
           chai.request(app)
-            .patch('/api/v1/mark-property/1/sold')
+            .patch('/api/v1/property/1/sold')
             .set('Authorization', token)
             .end((err, res) => {
               expect(res.status).to.be.equal(200);
@@ -239,9 +242,9 @@ describe('Test for the flag-property Endpoint', () => {
         .set('Accept', 'application/json')
         .send(login1)
         .end((logError, logResponse) => {
-          const token = `Bearer ${logResponse.body.data.token}`;
+          const token = `Bearer ${logResponse.body.token}`;
           chai.request(app)
-            .patch('/api/v1/mark-property/1/sold')
+            .patch('/api/v1/property/1/sold')
             .set('Authorization', token)
             .end((err, res) => {
               expect(res.status).to.be.equal(422);
@@ -265,21 +268,21 @@ describe('Test for the flag-property Endpoint', () => {
       };
       sinon.stub(res, 'status').returnsThis();
 
-      await Propertycontroller.markPropertySold(req, res);
+      await markPropertySold(req, res);
       expect(res.status).to.have.been.calledWith(500);
     });
   });
 
-  describe('GET /api/v1/all-properties', () => {
+  describe('GET /api/v1/properties', () => {
     it('should get all posted property adverts', (done) => {
       chai.request(app)
         .post('/api/v1/auth/signin')
         .set('Accept', 'application/json')
         .send(login)
         .end((logError, logResponse) => {
-          const token = `Bearer ${logResponse.body.data.token}`;
+          const token = `Bearer ${logResponse.body.token}`;
           chai.request(app)
-            .get('/api/v1/all-properties')
+            .get('/api/v1/properties')
             .set('Authorization', token)
             .end((err, res) => {
               expect(res.status).to.be.equal(200);
@@ -303,21 +306,21 @@ describe('Test for the flag-property Endpoint', () => {
       };
       sinon.stub(res, 'status').returnsThis();
 
-      await Propertycontroller.getAllProperty(req, res);
+      await getAllProperty(req, res);
       expect(res.status).to.have.been.calledWith(500);
     });
   });
 
-  describe('GET /api/v1/one-property/:id', () => {
+  describe('GET /api/v1/property/:id', () => {
     it('should get a posted property advert', (done) => {
       chai.request(app)
         .post('/api/v1/auth/signin')
         .set('Accept', 'application/json')
         .send(login)
         .end((logError, logResponse) => {
-          const token = `Bearer ${logResponse.body.data.token}`;
+          const token = `Bearer ${logResponse.body.token}`;
           chai.request(app)
-            .get('/api/v1/one-property/1')
+            .get('/api/v1/property/1')
             .set('Authorization', token)
             .end((err, res) => {
               expect(res.status).to.be.equal(200);
@@ -334,9 +337,9 @@ describe('Test for the flag-property Endpoint', () => {
         .set('Accept', 'application/json')
         .send(login1)
         .end((logError, logResponse) => {
-          const token = `Bearer ${logResponse.body.data.token}`;
+          const token = `Bearer ${logResponse.body.token}`;
           chai.request(app)
-            .get('/api/v1/one-property/1')
+            .get('/api/v1/property/1')
             .set('Authorization', token)
             .end((err, res) => {
               expect(res.status).to.be.equal(422);
@@ -360,7 +363,7 @@ describe('Test for the flag-property Endpoint', () => {
       };
       sinon.stub(res, 'status').returnsThis();
 
-      await Propertycontroller.getAProperty(req, res);
+      await getAProperty(req, res);
       expect(res.status).to.have.been.calledWith(500);
     });
   });
@@ -372,7 +375,7 @@ describe('Test for the flag-property Endpoint', () => {
         .set('Accept', 'application/json')
         .send(login)
         .end((logError, logResponse) => {
-          const token = `Bearer ${logResponse.body.data.token}`;
+          const token = `Bearer ${logResponse.body.token}`;
           chai.request(app)
             .get('/api/v1/property/type/1?type=duplex&&state=oyo&&city=london&&price=30,000&&duration=3 months')
             .set('Authorization', token)
@@ -398,7 +401,7 @@ describe('Test for the flag-property Endpoint', () => {
       };
       sinon.stub(res, 'status').returnsThis();
 
-      await Propertycontroller.getPropertyTypes(req, res);
+      await getPropertyTypes(req, res);
       expect(res.status).to.have.been.calledWith(500);
     });
   });

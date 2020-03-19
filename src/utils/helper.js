@@ -1,7 +1,8 @@
-import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
-class Helper {
+// eslint-disable-next-line import/prefer-default-export
+export class Helper {
   static hashPassword(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8));
   }
@@ -20,5 +21,3 @@ class Helper {
     return decoded;
   }
 }
-
-export default Helper;

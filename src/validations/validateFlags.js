@@ -1,5 +1,5 @@
 class ValidateFlags {
-  static async flagProperty(req, res, next) {
+  static async flagPropertyValidation(req, res, next) {
     const { reason, description } = req.body;
     if (!reason || !description) {
       return res.status(400)

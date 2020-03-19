@@ -1,11 +1,10 @@
 import moment from 'moment';
-// import Helper from '../Middleware/Helper';
-import db from '../DBconfig/index';
+import db from '../config/index';
 import {
   createPropertyQuery, updatePropertyQuery, selectPropertyQuery, markPropertyQuery,
   deletePropertyQuery, getAllPropertiesQuery, getOnePropertyQuery,
   getPropertyTypesQuery,
-} from '../Models/propertiesQuery';
+} from '../models/index';
 
 
 class Propertycontroller {
@@ -23,6 +22,7 @@ class Propertycontroller {
         data: rows,
       });
     } catch (error) {
+      console.log(error);
       return res.status(500).json({ status: '500', error: 'Oops, there\'s an error!' });
     }
   }

@@ -1,10 +1,10 @@
-import db from '../DBconfig/index';
+import db from '../config/index';
 import {
   updatePropertyQuery, getOnePropertyQuery, getAllPropertiesQuery, getPropertyTypesQuery,
-} from '../Models/propertiesQuery';
+} from '../models/propertiesQuery';
 
 class ValidateProperties {
-  static postProperty(req, res, next) {
+  static postPropertyValidation(req, res, next) {
     const {
       price, duration, state, city, address, type, image_url, owner_email,
     } = req.body;
@@ -19,7 +19,7 @@ class ValidateProperties {
     next();
   }
 
-  static async updateProperty(req, res, next) {
+  static async updatePropertyValidation(req, res, next) {
     const {
       price, state, city, address, type, image_url,
     } = req.body;
@@ -42,7 +42,7 @@ class ValidateProperties {
     next();
   }
 
-  static async getAProperty(req, res, next) {
+  static async getAPropertyValidation(req, res, next) {
     const { user_id } = req.user;
     const { rows } = await db.query(getOnePropertyQuery, [req.params.id], user_id);
     if (!rows[0]) {
@@ -55,7 +55,7 @@ class ValidateProperties {
     next();
   }
 
-  static async getAllProperty(req, res, next) {
+  static async getAllPropertyValidation(req, res, next) {
     const { user_id } = req.user;
     const { rows } = await db.query(getAllPropertiesQuery, [user_id]);
     if (rows.length <= 0) {
@@ -68,7 +68,7 @@ class ValidateProperties {
     next();
   }
 
-  static async getPropertyTypes(req, res, next) {
+  static async getPropertyTypesValidation(req, res, next) {
     const values = [req.query.type, req.query.state, req.query.city, req.query.price,
       req.query.duration];
     const { rows } = await db.query(getPropertyTypesQuery, values);
@@ -82,7 +82,7 @@ class ValidateProperties {
     next();
   }
 
-  static async getDeleteProperty(req, res, next) {
+  static async getDeletePropertyValidation(req, res, next) {
     const { user_id } = req.user;
     const { rows } = await db.query(getOnePropertyQuery, [req.params.id], user_id);
     if (rows[0].user_id !== user_id) {
@@ -97,7 +97,7 @@ class ValidateProperties {
     next();
   }
 
-  static async getDeletePropertyNotFound(req, res, next) {
+  static async getDeletePropertyNotFoundValidation(req, res, next) {
     const { rows } = await db.query(getOnePropertyQuery, [req.params.id]);
     if (!rows[0]) {
       return res.status(404)
