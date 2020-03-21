@@ -4,7 +4,7 @@
   "description": "Property Pro Lite is a platform where people can create and/or search properties for sale or rent.",
   "main": "app.js",
   "dependencies": {
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^4.0.1",
     "body-parser": "^1.19.0",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
@@ -12,7 +12,6 @@
     "jsonwebtoken": "^8.5.1",
     "make-runnable": "^1.3.6",
     "moment": "^2.24.0",
-    "morgan": "^1.9.1",
     "pg": "^7.11.0",
     "pg-promise": "^8.7.3"
   },
@@ -40,11 +39,11 @@
   },
   "scripts": {
     "clean": "rm -rf build && mkdir build",
-    "build-babel": "babel -d ./build SERVER -s",
+    "build-babel": "babel -d ./build src -s",
     "build": "npm run clean && npm run build-babel",
     "start": "npm run build && node ./build/app.js",
-    "start:dev": "nodemon --exec babel-node SERVER/app.js",
-    "test": "nyc --reporter=html --reporter=text mocha --timeout 150000 --require @babel/register SERVER/Tests  --exit",
+    "start:dev": "nodemon --exec babel-node src/app.js",
+    "test": "nyc --reporter=html --reporter=text mocha src/tests/index --timeout 50000 --require @babel/register --recursive --exit || true",
     "pre-test": "node db dropUsersTable && node db createUsersTable && node db dropPropertyTable && node db createPropertyTable && node db dropFlagsTable && node db createFlagsTable",
     "drop-users": "node db dropUsersTable",
     "create-users": "node db createUsersTable",

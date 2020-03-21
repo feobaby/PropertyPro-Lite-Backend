@@ -1,11 +1,9 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import request from 'supertest';
-import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
-import Seed from '../Models/seed';
+import Seed from '../models/seed';
 import app from '../app';
-import Usercontroller from '../Controllers/users';
 
 chai.use(sinonChai);
 const { expect } = chai;
@@ -17,9 +15,6 @@ const {
 } = Seed;
 
 chai.use(chaiHttp);
-
-
-// const token = process.env.JWT_TOKEN;
 
 describe('POST /api/v1/auth/signup ', () => {
   it('should create a new user account', (done) => {
@@ -137,8 +132,8 @@ describe('POST /api/v1/auth/signin ', () => {
       .end((err, res) => {
         expect(res.status).to.be.equal(200);
         expect(res).to.have.status('200');
-        expect(res.body.data).to.include.key('status');
-        expect(res.body).to.include.key('data');
+        expect(res.body).to.include.key('status');
+        expect(res.body).to.include.key('token');
         done();
       });
   });

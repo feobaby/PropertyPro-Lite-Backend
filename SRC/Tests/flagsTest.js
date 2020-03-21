@@ -3,7 +3,7 @@ import chaiHttp from 'chai-http';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import app from '../app';
-import Flagcontroller from '../Controllers/flags';
+import { flagProperty } from '../controllers/index';
 
 const { expect } = chai;
 chai.use(sinonChai);
@@ -30,7 +30,7 @@ describe('Test for the flag-property Endpoint', () => {
         .set('Accept', 'application/json')
         .send(login)
         .end((logError, logResponse) => {
-          const token = `Bearer ${logResponse.body.data.token}`;
+          const token = `Bearer ${logResponse.body.token}`;
           chai.request(app)
             .post('/api/v1/property/flag/1')
             .set('Authorization', token)
@@ -53,7 +53,7 @@ describe('Test for the flag-property Endpoint', () => {
         .set('Accept', 'application/json')
         .send(login)
         .end((logError, logResponse) => {
-          const token = `Bearer ${logResponse.body.data.token}`;
+          const token = `Bearer ${logResponse.body.token}`;
           chai.request(app)
             .post('/api/v1/property/flag/2')
             .set('Authorization', token)
@@ -84,7 +84,7 @@ describe('Test for the flag-property Endpoint', () => {
       };
       sinon.stub(res, 'status').returnsThis();
 
-      await Flagcontroller.flagProperty(req, res);
+      await flagProperty(req, res);
       expect(res.status).to.have.been.calledWith(500);
     });
   });

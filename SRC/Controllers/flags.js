@@ -1,6 +1,6 @@
 import moment from 'moment';
-import db from '../DBconfig/index';
-import { flagPropertyQuery } from '../Models/flagsQuery';
+import db from '../config/index';
+import { flagPropertyQuery } from '../models/index';
 
 
 class Flagcontroller {

@@ -117,7 +117,7 @@ This features all the routes created in this project.
 
 {
 	"email": "funmi13@gmail.com",
-	"password": "funmi.5H",
+	"password": "funmi.5H"
 }
 
 ```
