@@ -1,13 +1,13 @@
 language: node_js
 node_js:
-  - "node"
+  - "12.13.1"
 notifications:
   email: false
 services:
   - postgresql
 env:
   global: 
-  - CC_TEST_REPORTER_ID=169aefa9adfae9dae9a0a14644b44c3743b2fa57f20eff81ffb9636fa0880cb5
+  - CC_TEST_REPORTER_ID=00d0b7491d93a2080b949d7a19de42340637e9060b738f8ab2f002bfeefe53cf
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter

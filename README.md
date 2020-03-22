@@ -1,8 +1,9 @@
 <h1>PropertyPro-Lite-Backend</h1>
 
 [![Build Status](https://travis-ci.org/funmi5/PropertyPro-Lite-Backend.svg?branch=development)](https://travis-ci.org/funmi5/PropertyPro-Lite-Backend)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/aa1fc0ec7bfc11cde5c6/test_coverage)](https://codeclimate.com/github/funmi5/PropertyPro-Lite/test_coverage)
-[![Maintainability](https://api.codeclimate.com/v1/badges/aa1fc0ec7bfc11cde5c6/maintainability)](https://codeclimate.com/github/funmi5/PropertyPro-Lite/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/f10856c8c46fb234a8cd/test_coverage)](https://codeclimate.com/github/funmi5/PropertyPro-Lite-Backend/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/f10856c8c46fb234a8cd/maintainability)](https://codeclimate.com/github/funmi5/PropertyPro-Lite-Backend/maintainability)
+[![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 
 This is a platform where people can create and/or search properties for sale or rent.
 
@@ -25,22 +26,23 @@ An agent:
 
 - Have Git, Node.js installed on your computer.
 - Use this link: ```https://github.com/funmi5/PropertyPro-Lite.git``` to clone the project.
-
-```
--  Cd into the project and run **npm install** to install necessary modules
-```
-```
--  Run **npm start** to start the server
-```
-```
+-  Cd into the project and run _npm install_ to install necessary modules
+-  Run _npm start_ to start the server
 -  Create a .env file and add the necessary variables to your file, follow the .env-sample.
-```
-```
--  Run **npm test** to run unit tests
-```
+-  Run _npm test_ to run unit tests
 
-### HTTP Response Status Codes
----
+## Technologies used
+
+- Node.js/Express.js
+- Postgres
+- Travis CI/ Hound CI/ Code Climate
+- Pivotal Tracker
+- Git
+- Apiary/API Blueprint
+- Heroku
+- Html/Css3
+
+## HTTP Response Status Codes
 
 These are the HTTP response codes used in this project.
 
@@ -55,8 +57,7 @@ These are the HTTP response codes used in this project.
 |  `409`       | This `conflict` status code indicates that the request--response asked for is conflicted              |
 |  `422`       | This `Unprocessable Entity` status code indicates that the request--response can not be processed             |
 
-### The API Routes
----
+## The API Routes
 
 This features all the routes created in this project.
 
@@ -73,10 +74,7 @@ This features all the routes created in this project.
 | /api/v1/property/:id                 | `DELETE` | For a user to delete a property AD                  |
 | /api/v1/property/flag/:id            | `POST`   | For a user to flag fraudulent property ADs        |
 
-
-----
-
-### Sample format to fully test this project
+## Sample format to fully test this project
 
 1. Sign up a user: https://propertypro-lite7.herokuapp.com/api/v1/auth/signup
 
@@ -160,9 +158,7 @@ Grab the token gotten from the sign in and place it in the Bearer field of postm
 
 9. Filter types of properties: https://propertypro-lite7.herokuapp.com/api/v1/property/type/1?type=duplex&state=oyo&&city=lon&&price=30,000&&duration=3 months
 
-
-### Core links for this project:
-----
+## Core links for this project
 
 <a href ="https://funmi5.github.io/PropertyPro-Lite-Backend/UI/"> - UI templates </a> - The UI templates designed for this project.
 

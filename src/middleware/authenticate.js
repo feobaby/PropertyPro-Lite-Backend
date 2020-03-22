@@ -31,7 +31,6 @@ export default class Auth {
       req.user = decoded;
       return next();
     } catch (error) {
-      console.log(error);
       return res.status(500).json({ status: '401', error: 'Server error' });
     }
   }
