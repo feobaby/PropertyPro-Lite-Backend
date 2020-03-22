@@ -1,5 +1,5 @@
 export const signupQuery = `INSERT INTO
-    users (email, first_name, last_name, password, phone_number, address, registered)
+    users (email, firstname, lastname, password, phonenumber, address, registered)
     VALUES($1, $2, $3, $4, $5, $6, $7)
     returning *`;
 

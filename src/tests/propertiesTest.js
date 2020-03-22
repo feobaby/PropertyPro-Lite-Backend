@@ -13,11 +13,11 @@ chai.use(sinonChai);
 chai.use(chaiHttp);
 
 const login = {
-  email: 'funmi13@gmail.com',
-  password: 'funmi.5H',
+  email: 'funmi10@gmail.com',
+  password: 'funmi12666666',
 };
 const login1 = {
-  email: 'funmi139@gmail.com',
+  email: 'funmi13@gmail.com',
   password: 'funmi.5H',
 };
 
@@ -79,8 +79,8 @@ describe('Test for the Property Endpoints', () => {
               state: 'oyo',
               city: 'ibadan',
               address: 'bodija',
-              owner_email: 'funmi13@gmail.com',
-              image_url: 'https://www.google.com/search?q=images&s',
+              ownerEmail: 'funmi13@gmail.com',
+              imageUrl: 'https://www.google.com/search?q=images&s',
               type: 'duplex',
             })
             .end((err, res) => {
@@ -108,8 +108,8 @@ describe('Test for the Property Endpoints', () => {
               state: 'oyo',
               city: 'ibadan',
               address: '',
-              owner_email: 'funmi@gmail.com',
-              image_url: 'https://www.google.com/search?q=images&s',
+              ownerEmail: 'funmi@gmail.com',
+              imageUrl: 'https://www.google.com/search?q=images&s',
               type: 'duplex',
             })
             .end((err, res) => {
@@ -157,8 +157,8 @@ describe('Test for the Property Endpoints', () => {
               state: 'oyo',
               city: 'ibadan',
               address: 'akobo',
-              owner_email: 'funmi@gmail.com',
-              image_url: 'https://www.google.com/search?q=images&s',
+              ownerEmail: 'funmi@gmail.com',
+              imageUrl: 'https://www.google.com/search?q=images&s',
               type: 'duplex',
             })
             .end((err, res) => {
@@ -185,8 +185,8 @@ describe('Test for the Property Endpoints', () => {
                 city: 'Lagos',
                 address: 'No.5, Greate road, Lekki.',
                 type: 'Sky-scraper',
-                image_url: 'https://res.cloudinary.com/dlifhuus1/image/upload/v1562011203/propertypro-lite/house3_skq8ou.jpg',
-                owner_email: 'adeogodavies@yahoo.com',
+                imageUrl: 'https://res.cloudinary.com/dlifhuus1/image/upload/v1562011203/propertypro-lite/house3_skq8ou.jpg',
+                ownerEmail: 'adeogodavies@yahoo.com',
               })
               .end((err, res) => {
                 expect(res.status).to.be.equal(404);
@@ -377,7 +377,7 @@ describe('Test for the Property Endpoints', () => {
         .end((logError, logResponse) => {
           const token = `Bearer ${logResponse.body.token}`;
           chai.request(app)
-            .get('/api/v1/property/type/1?type=duplex&&state=oyo&&city=london&&price=30,000&&duration=3 months')
+            .get('/api/v1/property/type/1?type=duplex&state=Oyo&&city=Ibadan&&price=30,000&&duration=1 year')
             .set('Authorization', token)
             .end((err, res) => {
               expect(res.status).to.be.equal(200);

@@ -45,16 +45,8 @@
     "start": "npm run build && node ./build/app.js",
     "start:dev": "nodemon --exec babel-node src/app.js",
     "test": "nyc --reporter=html --reporter=text mocha src/tests/index --timeout 50000 --require @babel/register --recursive --exit || true",
-    "pre-test": "node db dropUsersTable && node db createUsersTable && node db dropPropertyTable && node db createPropertyTable && node db dropFlagsTable && node db createFlagsTable",
-    "drop-users": "node db dropUsersTable",
-    "create-users": "node db createUsersTable",
-    "drop-property": "node db dropPropertyTable",
-    "create-property": "node db createPropertyTable",
-    "drop-flags": "node db dropFlagsTable",
-    "create-flags": "node db createFlagsTable",
-    "users-table": "node db dropUsersTable && node db createUsersTable",
-    "property-table": "node db dropPropertyTable && node db createPropertyTable",
-    "flags-table": "node db dropFlagsTable && node db createFlagsTable",
+    "migrate": "babel-node ./src/database/index",
+    "seed": "babel-node ./src/database/seeders/index",
     "coverage": "nyc report --reporter=text-lcov --reporter=lcov | coveralls"
   },
   "repository": {

@@ -7,7 +7,7 @@ services:
   - postgresql
 env:
   global: 
-  - CC_TEST_REPORTER_ID=63ce2b3122778ba786df0a305808e71d1e366eda15441c7c2b3a98a38d4e5f88
+  - CC_TEST_REPORTER_ID=169aefa9adfae9dae9a0a14644b44c3743b2fa57f20eff81ffb9636fa0880cb5
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter

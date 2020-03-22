@@ -1,6 +1,6 @@
-# PropertyPro-Lite
+<h1>PropertyPro-Lite-Backend</h1>
 
-[![Build Status](https://travis-ci.org/funmi5/PropertyPro-Lite.svg?branch=development)](https://travis-ci.org/funmi5/PropertyPro-Lite)
+[![Build Status](https://travis-ci.org/funmi5/PropertyPro-Lite-Backend.svg?branch=development)](https://travis-ci.org/funmi5/PropertyPro-Lite-Backend)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/aa1fc0ec7bfc11cde5c6/test_coverage)](https://codeclimate.com/github/funmi5/PropertyPro-Lite/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/aa1fc0ec7bfc11cde5c6/maintainability)](https://codeclimate.com/github/funmi5/PropertyPro-Lite/maintainability)
 
@@ -21,7 +21,7 @@ An agent:
 - can mark a property advert as sold.
 - can get specific types of a property.
 
-## Getting started
+## :rocket: Getting started
 
 - Have Git, Node.js installed on your computer.
 - Use this link: ```https://github.com/funmi5/PropertyPro-Lite.git``` to clone the project.
@@ -38,23 +38,6 @@ An agent:
 ```
 -  Run **npm test** to run unit tests
 ```
-
-### Authentication
----
-
-- JsonWebToken
-
-### HTTP Request Methods
----
-
-These are the HTTP request methods used in this project.
-
-| Method   | Action                                                      |
-|---       | ---                                                         |
-| `GET`    | This method is used to *get* a resource                     |
-| `POST`   | This method is used to *create* a resource or *send* data   |
-| `PATCH`  | This method is used to *update* a resource                  |
-| `DELETE` | This method is used to *delete* a resource                  |
 
 ### HTTP Response Status Codes
 ---
@@ -81,14 +64,14 @@ This features all the routes created in this project.
 | ---                                  | ---      | ---                                                 |
 | /api/v1/auth/signup                  | `POST`   | For a user to create an account                     |
 | /api/v1/auth/login                   | `POST`   | For a user to log in to an account                  |
-| /api/v1/post-property                | `POST`   | For a user to post a new property AD                |
-| /api/v1/all-properties               | `GET`    | For a user to get all property ADs                  |
-| /api/v1/one-property/:id             | `GET`    | For a user to get a single property AD              |
-| /api/v1/property/type/:id            | `GET`    | For a user to get specific types of a property AD   |
+| /api/v1/property                     | `POST`   | For a user to post a new property AD                |
+| /api/v1/properties                   | `GET`    | For a user to get all property ADs                  |
+| /api/v1/property/:id                 | `GET`    | For a user to get a single property AD              |
+| /api/v1/property/type/:id            | `GET`    | For a user to get specific types of a property AD|
 | /api/v1/property/:id/sold            | `PATCH`  | For a user to mark a property AD as sold            |
-| /api/v1/update-property/:id          | `PATCH`  | For a user to update a property AD                  |
-| /api/v1/delete-property/:id          | `DELETE` | For a user to delete a property AD                  |
-| /api/v1/property/flag/:id            | `POST`   | For a user to flag fraudulent property ADs          |
+| /api/v1/property/:id                 | `PATCH`  | For a user to update a property AD                  |
+| /api/v1/property/:id                 | `DELETE` | For a user to delete a property AD                  |
+| /api/v1/property/flag/:id            | `POST`   | For a user to flag fraudulent property ADs        |
 
 
 ----
@@ -124,7 +107,7 @@ This features all the routes created in this project.
 
 Grab the token gotten from the sign in and place it in the Bearer field of postman/insomina [Bearer: token]
 
-3. Now create a property: https://propertypro-lite7.herokuapp.com/api/v1/post-property
+3. Now create a property: https://propertypro-lite7.herokuapp.com/api/v1/property
 
 ```
 
@@ -141,7 +124,7 @@ Grab the token gotten from the sign in and place it in the Bearer field of postm
 
 ```
 
-4. Update the property you created: https://propertypro-lite7.herokuapp.com/api/v1/update-property/1
+4. Update the property you created: https://propertypro-lite7.herokuapp.com/api/v1/property/1
 
 ```
 
@@ -158,11 +141,11 @@ Grab the token gotten from the sign in and place it in the Bearer field of postm
 
 ```
 
-5. Get the single property you created: https://propertypro-lite7.herokuapp.com/api/v1/one-property/1
+5. Get the single property you created: https://propertypro-lite7.herokuapp.com/api/v1/property/1
 
-6. Get all the properties you created: https://propertypro-lite7.herokuapp.com/api/v1/all-properties
+6. Get all the properties you created: https://propertypro-lite7.herokuapp.com/api/v1/properties
 
-7. Mark the property you created as sold: https://propertypro-lite7.herokuapp.com/api/v1/mark-property/1/sold
+7. Mark the property you created as sold: https://propertypro-lite7.herokuapp.com/api/v1/property/1/sold
 
 8. Flag a property as fradulent: https://propertypro-lite7.herokuapp.com/api/v1/property/flag/1
 
@@ -181,11 +164,11 @@ Grab the token gotten from the sign in and place it in the Bearer field of postm
 ### Core links for this project:
 ----
 
-<a href ="https://funmi5.github.io/PropertyPro-Lite/UI/"> - UI templates </a> - The UI templates designed for this project.
+<a href ="https://funmi5.github.io/PropertyPro-Lite-Backend/UI/"> - UI templates </a> - The UI templates designed for this project.
 
 <a href = "https://pivotaltracker.com/n/projects/2355287"> - Relevant Pivotal Tracker stories</a> - The project management stories.
 
-<a href = "https://propertypro-lite7.herokuapp.com/"> - Hosted API endpoints</a> - The back-end API endpoints hosted on heroku.
+<a href = "https://propertypro-lite7.herokuapp.com/api/v1"> - Hosted API endpoints</a> - The back-end API endpoints hosted on heroku.
 
 <a href ="https://propertyprolite26.docs.apiary.io/"> - Documentation </a> - Documentation of the API endpoints.
 
